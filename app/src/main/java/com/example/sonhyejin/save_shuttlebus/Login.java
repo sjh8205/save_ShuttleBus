@@ -3,11 +3,11 @@ package com.example.sonhyejin.save_shuttlebus;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Main_T extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_t);
+        setContentView(R.layout.activity_login);
     }
 }
