@@ -8,6 +8,6 @@ public class T_QRScan extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_t__qrscan);
+        setContentView(R.layout.activity_t_qrscan);
     }
 }

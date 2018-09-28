@@ -8,6 +8,6 @@ public class H_Register extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_h__register);
+        setContentView(R.layout.activity_h_register);
     }
 }

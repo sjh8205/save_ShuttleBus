@@ -10,16 +10,24 @@
 
     <Button
         android:layout_width="match_parent"
-        android:id="@+id/H_View_btn"
-        android:text="View"
+        android:id="@+id/H_View_Bus_btn"
+        android:text="Bus Route"
         android:textSize="30sp"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
     <Button
         android:layout_width="match_parent"
-        android:id="@+id/H_Reg_btn"
-        android:text="Register"
+        android:id="@+id/H_View_Teach_btn"
+        android:text="Teacher"
+        android:textSize="30sp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:id="@+id/H_View_child_btn"
+        android:text="Child"
         android:textSize="30sp"
         android:layout_height="0dp"
         android:layout_weight="1"/>
