@@ -3,11 +3,11 @@ package com.example.sonhyejin.save_shuttlebus;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class H_Join extends AppCompatActivity {
+public class H_Register_bus extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_h_join);
+        setContentView(R.layout.activity_h_register_bus);
     }
 }
