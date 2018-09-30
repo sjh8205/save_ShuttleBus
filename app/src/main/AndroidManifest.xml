@@ -23,7 +23,7 @@
         <activity android:name=".Login" />
         <activity android:name=".T_QRScan" />
         <activity android:name=".H_Register_bus" />
-        <activity android:name=".H_Join"></activity>
+        <activity android:name=".H_Join"/>
     </application>
 
 </manifest>
