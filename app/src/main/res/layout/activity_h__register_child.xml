@@ -63,6 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:id="@+id/busStatusGroup"
                 >
                 <RadioButton
                     android:id="@+id/busYes"
@@ -77,19 +78,25 @@
                     android:text="No"
                     android:textSize="15pt"/>
             </RadioGroup>
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bus Station"
-                android:textSize="15pt"/>
+                android:layout_marginBottom="20dp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:id="@+id/busStation">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bus Station"
+                    android:textSize="15pt"/>
 
-            <EditText
-                android:layout_width="40mm"
-                android:layout_height="10mm"
-                android:layout_marginLeft="20dp"
-                android:id="@+id/childBusStation"/>
-
-
+                <EditText
+                    android:layout_width="40mm"
+                    android:layout_height="10mm"
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/childBusStation"/>
+            </LinearLayout>
         </LinearLayout>
 
 
