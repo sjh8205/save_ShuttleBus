@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".T_main"/>
+        <activity android:name=".T_main" />
         <activity android:name=".P_main" />
         <activity android:name=".H_main" />
         <activity android:name=".H_View" />
@@ -26,7 +26,9 @@
         <activity android:name=".Login" />
         <activity android:name=".T_QRScan" />
         <activity android:name=".H_Register_bus" />
-        <activity android:name=".H_Join"/>
+        <activity android:name=".H_Join" />
+        <activity android:name=".H_Register_child" />
+        <activity android:name=".H_Make_download_qr"></activity>
     </application>
 
 </manifest>
