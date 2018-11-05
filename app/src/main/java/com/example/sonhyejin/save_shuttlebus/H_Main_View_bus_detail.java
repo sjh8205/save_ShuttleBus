@@ -3,11 +3,11 @@ package com.example.sonhyejin.save_shuttlebus;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class H_Make_download_qr extends AppCompatActivity {
+public class H_Main_View_bus_detail extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_h_make_download_qr);
+        setContentView(R.layout.activity_h_main_view_bus_detail);
     }
 }

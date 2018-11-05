@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".H_Main_View_bus">
+    tools:context=".H_Main_View_bus"
+    android:background="@color/Background">
 
     <LinearLayout
         android:layout_width="match_parent"

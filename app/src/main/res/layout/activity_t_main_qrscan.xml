@@ -5,35 +5,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".H_Main_View_Teacher"
     android:orientation="vertical"
-    android:background="@color/Background">
+    android:background="@color/Background"
+    tools:context=".T_main_QRScan">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@color/CustomActionBar">
+        android:background="@color/CustomActionBar"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAlignment="center"
             android:gravity="center"
-            android:text="VIEW BUS"
+            android:text="ATTENDANCE"
             android:textSize="20sp"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="7">
 
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
         </ListView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@color/SubmitButton"
+            android:layout_marginHorizontal="130dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="5dp"
+            android:text="SCAN"
+            android:textSize="17sp"
+            android:textColor="@color/BackText"/>
 
     </LinearLayout>
 

@@ -5,9 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".H_Main_View_Teacher"
-    android:orientation="vertical"
-    android:background="@color/Background">
+    tools:context=".H_Main_View_bus_detail"
+    android:background="@color/Background"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,19 +19,27 @@
             android:layout_height="match_parent"
             android:textAlignment="center"
             android:gravity="center"
-            android:text="VIEW BUS"
+            android:text="VIEW BUS DETAIL"
             android:textSize="20sp"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingTop="10dp"
+            android:textAlignment="center"
+            android:text="루트 이름"
+            android:textSize="20sp"/>
 
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
 
         </ListView>
 

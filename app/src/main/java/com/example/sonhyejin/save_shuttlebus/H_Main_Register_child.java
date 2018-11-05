@@ -23,8 +23,8 @@ public class H_Main_Register_child extends AppCompatActivity {
         EditText phoneNum = (EditText) findViewById(R.id.parentPhoneNum);
 
         //final RadioGroup busRide=(RadioGroup)findViewById(R.id.busStatusGroup);
-        final LinearLayout layout=(LinearLayout)findViewById(R.id.busStation);
-
+        //final LinearLayout layout=(LinearLayout)findViewById(R.id.busStation);
+/*
         RadioGroup.OnCheckedChangeListener radiogroupChange=new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group,@IdRes int checkedId) {
@@ -38,6 +38,8 @@ public class H_Main_Register_child extends AppCompatActivity {
                 }
             }
         };
+
+        */
 
     }
 }

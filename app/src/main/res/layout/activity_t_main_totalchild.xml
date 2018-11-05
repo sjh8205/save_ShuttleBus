@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".H_Main_View_Teacher"
+    tools:context=".T_main_Totalchild"
     android:orientation="vertical"
     android:background="@color/Background">
 
@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:textAlignment="center"
             android:gravity="center"
-            android:text="VIEW BUS"
+            android:text="TOTAL"
             android:textSize="20sp"/>
 
     </LinearLayout>
@@ -31,8 +31,6 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-
         </ListView>
 
     </LinearLayout>
