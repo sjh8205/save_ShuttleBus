@@ -8,6 +8,6 @@ public class H_Make_download_qr extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_h__make_download_qr);
+        setContentView(R.layout.activity_h_make_download_qr);
     }
 }

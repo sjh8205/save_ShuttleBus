@@ -3,4 +3,12 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="CustomActionBar">#99DAE7E9</color>
+    <color name="TextBackground">#ffffff</color>
+    <color name="BackText">#a4a4a4</color>
+    <color name="Background">#fefdf7</color>
+    <color name="SubmitButton">#66DAE7E9</color>
+    <color name="ClickedSubmitButton">#66DAE7E9</color>
+    <color name="ChooseButton">#f3f1e3</color>
+    <color name="ClickedChooseButton">#f3f1e3</color>
 </resources>

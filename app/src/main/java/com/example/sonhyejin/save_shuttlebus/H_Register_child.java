@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 public class H_Register_child extends AppCompatActivity {
@@ -15,7 +14,7 @@ public class H_Register_child extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_h__register_child);
+        setContentView(R.layout.activity_h_register_child);
 
 
 
