@@ -11,7 +11,6 @@
 
     <Button
         android:layout_width="match_parent"
-        android:id="@+id/H_Reg_Bus_btn"
         android:text="Bus Route"
         android:textSize="24sp"
         android:textColor="@color/BackText"
@@ -24,7 +23,6 @@
         android:layout_marginTop="3dp"
         android:layout_marginBottom="3dp"
         android:layout_width="match_parent"
-        android:id="@+id/H_Reg_Teach_btn"
         android:text="Teacher"
         android:textSize="24sp"
         android:textColor="@color/BackText"
@@ -35,7 +33,6 @@
     <Button
         android:layout_marginTop="3dp"
         android:layout_width="match_parent"
-        android:id="@+id/H_Reg_child_btn"
         android:text="Child"
         android:textSize="24sp"
         android:textColor="@color/BackText"

@@ -22,7 +22,7 @@ public class H_Main_Register_child extends AppCompatActivity {
         EditText childClass = (EditText) findViewById(R.id.childClass);
         EditText phoneNum = (EditText) findViewById(R.id.parentPhoneNum);
 
-        final RadioGroup busRide=(RadioGroup)findViewById(R.id.busStatusGroup);
+        //final RadioGroup busRide=(RadioGroup)findViewById(R.id.busStatusGroup);
         final LinearLayout layout=(LinearLayout)findViewById(R.id.busStation);
 
         RadioGroup.OnCheckedChangeListener radiogroupChange=new RadioGroup.OnCheckedChangeListener() {

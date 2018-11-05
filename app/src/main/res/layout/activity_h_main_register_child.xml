@@ -1,128 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".H_Main_Register_child">
+
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginLeft="20dp">
+        android:layout_height="match_parent"
+        tools:context=".H_Main_Register_child"
+        android:background="@color/Background"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:orientation="vertical">
+            android:layout_height="80dp"
+            android:background="@color/CustomActionBar">
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Name"
-                android:textSize="15pt"/>
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:text="REGISTER CHILD"
+                android:textSize="20sp"/>
 
-            <EditText
-                android:layout_width="40mm"
-                android:layout_height="10mm"
-                android:id="@+id/childName"
-                android:layout_marginLeft="20dp"/>
+        </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Class"
-                android:textSize="15pt"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8"/>
 
-            <EditText
-                android:layout_width="40mm"
-                android:layout_height="10mm"
-                android:layout_marginLeft="20dp"
-                android:id="@+id/childClass"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3.4"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="30dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="parent Phone Num."
-                android:textSize="15pt"/>
-
-            <EditText
-                android:layout_width="40mm"
-                android:layout_height="10mm"
-                android:layout_marginLeft="20dp"
-                android:id="@+id/parentPhoneNum"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Bus ride status"
-                android:textSize="15pt"/>
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:id="@+id/busStatusGroup"
-                >
-                <RadioButton
-                    android:id="@+id/busYes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Yes"
-                    android:textSize="15pt"/>
-                <RadioButton
-                    android:id="@+id/busNo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="No"
-                    android:textSize="15pt"/>
-            </RadioGroup>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:orientation="vertical"
-                android:visibility="gone"
-                android:id="@+id/busStation">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Bus Station"
-                    android:textSize="15pt"/>
+                android:orientation="vertical">
 
                 <EditText
-                    android:layout_width="40mm"
-                    android:layout_height="10mm"
-                    android:layout_marginLeft="20dp"
-                    android:id="@+id/childBusStation"/>
+                    android:id="@+id/childName"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_margin="5dp"
+                    android:background="@color/TextBackground"
+                    android:text="NAME"
+                    android:textSize="17sp"
+                    android:textColor="@color/BackText"
+                    android:textAlignment="center"/>
+
+                <EditText
+                    android:id="@+id/childClass"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_margin="5dp"
+                    android:background="@color/TextBackground"
+                    android:text="CLASS"
+                    android:textSize="17sp"
+                    android:textColor="@color/BackText"
+                    android:textAlignment="center"/>
+
+                <EditText
+                    android:id="@+id/parentPhoneNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_margin="5dp"
+                    android:background="@color/TextBackground"
+                    android:text="PHONE NUM"
+                    android:textSize="17sp"
+                    android:textColor="@color/BackText"
+                    android:textAlignment="center"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/busYes"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/ChooseButton"
+                        android:layout_marginHorizontal="5dp"
+                        android:text="BUS"
+                        android:textSize="17sp"
+                        android:textColor="@color/BackText"/>
+
+                    <Button
+                        android:id="@+id/busNo"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/ChooseButton"
+                        android:layout_marginHorizontal="5dp"
+                        android:text="WALK"
+                        android:textSize="17sp"
+                        android:textColor="@color/BackText"/>
+
+                </LinearLayout>
+
+                 <EditText
+                     android:id="@+id/childBusStation"
+                     android:layout_width="match_parent"
+                     android:layout_height="45dp"
+                     android:layout_margin="5dp"
+                     android:background="@color/TextBackground"
+                     android:text="STATION"
+                     android:textSize="17sp"
+                     android:textColor="@color/BackText"
+                     android:textAlignment="center"/>
+
             </LinearLayout>
+
         </LinearLayout>
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="20dp"
-            android:gravity="center">
+            android:layout_height="0dp"
+            android:layout_weight="1.7">
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginRight="15dp"
-                android:text="Cancel"
-                android:id="@+id/childRegCancel"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="15dp"
-                android:text="Submit"
-                android:id="@+id/childMakeQR"/>
+                android:id="@+id/childMakeQR"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@color/SubmitButton"
+                android:layout_marginHorizontal="130dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="10dp"
+                android:text="SUBMIT"
+                android:textSize="17sp"
+                android:textColor="@color/BackText"/>
 
         </LinearLayout>
 
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
