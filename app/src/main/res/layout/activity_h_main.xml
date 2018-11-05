@@ -6,22 +6,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".H_Main"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/Background">
 
     <Button
         android:layout_width="match_parent"
         android:id="@+id/H_View_btn"
-        android:text="View"
-        android:textSize="30sp"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:layout_marginBottom="3dp"
+        android:background="@color/MainButton"
+        android:text="View"
+        android:textSize="24sp"
+        android:textColor="@color/BackText"
+        android:gravity="center"/>
 
     <Button
         android:layout_width="match_parent"
         android:id="@+id/H_Reg_btn"
-        android:text="Register"
-        android:textSize="30sp"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:layout_marginTop="3dp"
+        android:background="@color/MainButton"
+        android:text="Register"
+        android:textSize="24sp"
+        android:textColor="@color/BackText"
+        android:gravity="center"/>
 
 </LinearLayout>

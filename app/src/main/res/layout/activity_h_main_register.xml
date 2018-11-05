@@ -6,29 +6,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".H_Main"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/Background">
 
     <Button
         android:layout_width="match_parent"
         android:id="@+id/H_Reg_Bus_btn"
         android:text="Bus Route"
-        android:textSize="30sp"
+        android:textSize="24sp"
+        android:textColor="@color/BackText"
+        android:background="@color/MainButton"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:layout_marginBottom="3dp"/>
 
     <Button
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
         android:layout_width="match_parent"
         android:id="@+id/H_Reg_Teach_btn"
         android:text="Teacher"
-        android:textSize="30sp"
+        android:textSize="24sp"
+        android:textColor="@color/BackText"
+        android:background="@color/MainButton"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
     <Button
+        android:layout_marginTop="3dp"
         android:layout_width="match_parent"
         android:id="@+id/H_Reg_child_btn"
         android:text="Child"
-        android:textSize="30sp"
+        android:textSize="24sp"
+        android:textColor="@color/BackText"
+        android:background="@color/MainButton"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 

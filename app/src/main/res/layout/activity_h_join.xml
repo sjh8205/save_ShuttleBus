@@ -6,10 +6,81 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".H_Join"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/Background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/CustomActionBar">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:text="REGISTER"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:orientation="horizontal">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="30dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_margin="5dp"
+                android:background="@color/TextBackground"
+                android:text="REGISTER NUMBER"
+                android:textSize="17sp"
+                android:textColor="@color/BackText"
+                android:textAlignment="center"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_margin="5dp"
+                android:background="@color/TextBackground"
+                android:text="NAME"
+                android:textSize="17sp"
+                android:textColor="@color/BackText"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@color/SubmitButton"
+            android:layout_marginHorizontal="130dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:text="SUBMIT"
+            android:textSize="17sp"
+            android:textColor="@color/BackText"/>
+    </LinearLayout>
 
 </LinearLayout>

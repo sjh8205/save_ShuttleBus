@@ -28,7 +28,8 @@
         <activity android:name=".H_Main_Register_bus" />
         <activity android:name=".H_Join" />
         <activity android:name=".H_Main_Register_child" />
-        <activity android:name=".H_Make_download_qr"></activity>
+        <activity android:name=".H_Make_download_qr" />
+        <activity android:name=".H_Wait"></activity>
     </application>
 
 </manifest>
