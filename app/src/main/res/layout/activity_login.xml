@@ -27,7 +27,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"/>
+        android:layout_weight="3"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,22 +41,21 @@
             android:layout_marginHorizontal="30dp"
             android:orientation="vertical">
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_margin="5dp"
                 android:background="@color/TextBackground"
-                android:text="ID"
                 android:textSize="17sp"
                 android:textColor="@color/BackText"
-                android:textAlignment="center"/>
+                android:gravity="center"/>
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_margin="5dp"
                 android:background="@color/TextBackground"
-                android:text="PASSWORD"
+                android:text="TEL NUM"
                 android:textSize="17sp"
                 android:textColor="@color/BackText"
                 android:textAlignment="center"/>
@@ -73,46 +72,30 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@color/ChooseButton"
-                    android:layout_marginHorizontal="5dp"/>
+                    android:layout_marginHorizontal="5dp"
+                    android:text="원장"
+                    android:textSize="17sp"
+                    android:textColor="@color/BackText"/>
 
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@color/ChooseButton"
-                    android:layout_marginHorizontal="5dp"/>
+                    android:layout_marginHorizontal="5dp"
+                    android:text="교사"
+                    android:textSize="17sp"
+                    android:textColor="@color/BackText"/>
 
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@color/ChooseButton"
-                    android:layout_marginHorizontal="5dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_margin="5dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/SubmitButton"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginRight="5dp"/>
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/SubmitButton"
-                    android:layout_marginRight="40dp"
-                    android:layout_marginLeft="5dp"/>
+                    android:layout_marginHorizontal="5dp"
+                    android:text="학부모"
+                    android:textSize="17sp"
+                    android:textColor="@color/BackText"/>
 
             </LinearLayout>
 
@@ -123,6 +106,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"/>
+        android:layout_weight="4.5">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@color/SubmitButton"
+            android:layout_marginHorizontal="130dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:text="ACCESS"
+            android:textSize="17sp"
+            android:textColor="@color/BackText"/>
+
+    </LinearLayout>
 
 </LinearLayout>
