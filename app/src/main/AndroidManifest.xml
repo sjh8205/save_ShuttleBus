@@ -20,14 +20,14 @@
         </activity>
         <activity android:name=".T_main" />
         <activity android:name=".P_main" />
-        <activity android:name=".H_main" />
-        <activity android:name=".H_View" />
-        <activity android:name=".H_Register" />
+        <activity android:name=".H_Main" />
+        <activity android:name=".H_Main_View" />
+        <activity android:name=".H_Main_Register" />
         <activity android:name=".Login" />
         <activity android:name=".T_QRScan" />
-        <activity android:name=".H_Register_bus" />
+        <activity android:name=".H_Main_Register_bus" />
         <activity android:name=".H_Join" />
-        <activity android:name=".H_Register_child" />
+        <activity android:name=".H_Main_Register_child" />
         <activity android:name=".H_Make_download_qr"></activity>
     </application>
 

@@ -8,13 +8,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 
-public class H_Register_child extends AppCompatActivity {
+public class H_Main_Register_child extends AppCompatActivity {
     boolean busRideStatus;
     EditText station;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_h_register_child);
+        setContentView(R.layout.activity_h_main_register_child);
 
 
 

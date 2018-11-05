@@ -5,12 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".H_main"
+    tools:context=".H_Main"
     android:orientation="vertical">
 
     <Button
         android:layout_width="match_parent"
-        android:id="@+id/H_Reg_Bus_btn"
+        android:id="@+id/H_View_Bus_btn"
         android:text="Bus Route"
         android:textSize="30sp"
         android:layout_height="0dp"
@@ -18,7 +18,7 @@
 
     <Button
         android:layout_width="match_parent"
-        android:id="@+id/H_Reg_Teach_btn"
+        android:id="@+id/H_View_Teach_btn"
         android:text="Teacher"
         android:textSize="30sp"
         android:layout_height="0dp"
@@ -26,7 +26,7 @@
 
     <Button
         android:layout_width="match_parent"
-        android:id="@+id/H_Reg_child_btn"
+        android:id="@+id/H_View_child_btn"
         android:text="Child"
         android:textSize="30sp"
         android:layout_height="0dp"
