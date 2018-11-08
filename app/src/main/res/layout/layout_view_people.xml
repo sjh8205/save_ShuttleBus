@@ -14,6 +14,7 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/viewName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingVertical="10dp"
@@ -32,6 +33,7 @@
             android:paddingLeft="20dp">
 
             <TextView
+                android:id="@+id/viewClass"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -40,6 +42,7 @@
                 android:paddingTop="10dp"/>
 
             <TextView
+                android:id="@+id/viewNum"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"

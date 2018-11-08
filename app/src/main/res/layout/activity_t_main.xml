@@ -42,6 +42,7 @@
             android:paddingLeft="50dp">
 
             <Button
+                android:id="@+id/tViewTotal"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
@@ -70,6 +71,7 @@
             android:layout_height="match_parent">
 
             <ListView
+                android:id="@+id/tBusList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </ListView>

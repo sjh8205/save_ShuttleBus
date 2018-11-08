@@ -43,7 +43,7 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/childName"
+                    android:id="@+id/hRegChildName"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_margin="5dp"
@@ -54,7 +54,7 @@
                     android:textAlignment="center"/>
 
                 <EditText
-                    android:id="@+id/childClass"
+                    android:id="@+id/hRegChildClass"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_margin="5dp"
@@ -65,7 +65,7 @@
                     android:textAlignment="center"/>
 
                 <EditText
-                    android:id="@+id/parentPhoneNum"
+                    android:id="@+id/hRegChildNum"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_margin="5dp"
@@ -106,7 +106,7 @@
                 </LinearLayout>
 
                  <EditText
-                     android:id="@+id/childBusStation"
+                     android:id="@+id/hRegChildStation"
                      android:layout_width="match_parent"
                      android:layout_height="45dp"
                      android:layout_margin="5dp"
@@ -126,7 +126,7 @@
             android:layout_weight="1.7">
 
             <Button
-                android:id="@+id/childMakeQR"
+                android:id="@+id/hRegChildSubmit"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:background="@color/SubmitButton"

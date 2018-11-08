@@ -10,8 +10,8 @@
     android:background="@color/Background">
 
     <Button
+        android:id="@+id/hView"
         android:layout_width="match_parent"
-        android:id="@+id/H_View_btn"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginBottom="3dp"
@@ -22,8 +22,8 @@
         android:gravity="center"/>
 
     <Button
+        android:id="@+id/hReg"
         android:layout_width="match_parent"
-        android:id="@+id/H_Reg_btn"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginTop="3dp"
