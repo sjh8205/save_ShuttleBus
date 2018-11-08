@@ -44,6 +44,7 @@
         android:layout_weight="1">
 
         <Button
+            android:id="@+id/tQrScan"
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:background="@color/SubmitButton"

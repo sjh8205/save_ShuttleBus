@@ -10,6 +10,7 @@
     android:background="@color/Background">
 
     <Button
+        android:id="@+id/hRegBus"
         android:layout_width="match_parent"
         android:text="Bus Route"
         android:textSize="24sp"
@@ -20,6 +21,7 @@
         android:layout_marginBottom="3dp"/>
 
     <Button
+        android:id="@+id/hRegTeach"
         android:layout_marginTop="3dp"
         android:layout_marginBottom="3dp"
         android:layout_width="match_parent"
@@ -31,6 +33,7 @@
         android:layout_weight="1" />
 
     <Button
+        android:id="@+id/hRegChild"
         android:layout_marginTop="3dp"
         android:layout_width="match_parent"
         android:text="Child"

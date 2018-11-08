@@ -42,6 +42,7 @@
             android:paddingLeft="50dp">
 
             <Button
+                android:id="@+id/tViewTotal"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"

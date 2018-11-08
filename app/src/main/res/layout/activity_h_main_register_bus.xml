@@ -42,6 +42,7 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/hRegBusName"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_margin="5dp"
@@ -52,7 +53,7 @@
                 android:textAlignment="center"/>
 
             <EditText
-                android:id="@+id/childBusStation"
+                android:id="@+id/hRegBusRoute"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_margin="5dp"
@@ -72,7 +73,7 @@
         android:layout_weight="3">
 
         <Button
-            android:id="@+id/childMakeQR"
+            android:id="@+id/hRegBusSubmit"
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:background="@color/SubmitButton"
