@@ -1,16 +1,10 @@
 package com.example.sonhyejin.save_shuttlebus;
 
-import android.content.Context;
-import android.content.Intent;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
-
-import java.util.List;
 
 public class H_Main_View_child extends AppCompatActivity {
 
