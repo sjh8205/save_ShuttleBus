@@ -49,6 +49,7 @@
                 android:background="@color/TextBackground"
                 android:textSize="17sp"
                 android:textColor="@color/BackText"
+                android:text=" "
                 android:gravity="center"
                 android:focusableInTouchMode="false"/>
 
