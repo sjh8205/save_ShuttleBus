@@ -42,15 +42,18 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/getAutoNum"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_margin="5dp"
                 android:background="@color/TextBackground"
                 android:textSize="17sp"
                 android:textColor="@color/BackText"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:focusableInTouchMode="false"/>
 
             <EditText
+                android:id="@+id/kinHeadNum"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_margin="5dp"
@@ -58,9 +61,7 @@
                 android:text="TEL NUM"
                 android:textSize="17sp"
                 android:textColor="@color/BackText"
-                android:textAlignment="center"
-                android:id="@+id/tel_num"
-                android:focusableInTouchMode="false"/>
+                android:textAlignment="center"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -70,6 +71,7 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/loginCheckH"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -77,10 +79,10 @@
                     android:layout_marginHorizontal="5dp"
                     android:text="원장"
                     android:textSize="17sp"
-                    android:textColor="@color/BackText"
-                    android:id="@+id/H_login"/>
+                    android:textColor="@color/BackText"/>
 
                 <Button
+                    android:id="@+id/loginCheckT"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -88,10 +90,10 @@
                     android:layout_marginHorizontal="5dp"
                     android:text="교사"
                     android:textSize="17sp"
-                    android:textColor="@color/BackText"
-                    android:id="@+id/T_login"/>
+                    android:textColor="@color/BackText"/>
 
                 <Button
+                    android:id="@+id/loginCheckP"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -99,8 +101,7 @@
                     android:layout_marginHorizontal="5dp"
                     android:text="학부모"
                     android:textSize="17sp"
-                    android:textColor="@color/BackText"
-                    android:id="@+id/P_login"/>
+                    android:textColor="@color/BackText"/>
 
             </LinearLayout>
 
@@ -114,6 +115,7 @@
         android:layout_weight="4.5">
 
         <Button
+            android:id="@+id/loginSubmit"
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:background="@color/SubmitButton"
