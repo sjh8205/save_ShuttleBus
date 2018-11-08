@@ -10,22 +10,35 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="100dp"
+            android:id="@+id/checkChildName"
+            android:layout_width="80dp"
             android:layout_height="match_parent"
             android:paddingVertical="10dp"
             android:layout_gravity="center"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="10dp"
             android:gravity="center"
             android:text="이름"
             android:textSize="18sp"/>
 
+        <TextView
+            android:id="@+id/checkChildClass"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:paddingVertical="10dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="반"
+            android:textSize="18sp"/>
+
         <ImageView
+            android:id="@+id/checkChildState"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="50dp"/>
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"/>
 
         <Button
+            android:id="@+id/checkChildNone"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:text="결석"/>

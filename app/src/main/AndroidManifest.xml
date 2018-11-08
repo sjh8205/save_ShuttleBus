@@ -35,7 +35,6 @@
         <activity android:name=".H_Main_View_bus" />
         <activity android:name=".H_Main_View_child" />
         <activity android:name=".H_Main_View_Teacher" />
-        <activity android:name=".H_Main_View_bus_detail" />
         <activity android:name=".T_main_Totalchild"></activity>
     </application>
 

@@ -18,9 +18,9 @@ public class H_Main_Register_child extends AppCompatActivity {
 
 
 
-        EditText childName = (EditText) findViewById(R.id.childName);
-        EditText childClass = (EditText) findViewById(R.id.childClass);
-        EditText phoneNum = (EditText) findViewById(R.id.parentPhoneNum);
+        EditText childName = (EditText) findViewById(R.id.hRegChildName);
+        EditText childClass = (EditText) findViewById(R.id.hRegChildClass);
+        EditText phoneNum = (EditText) findViewById(R.id.hRegChildNum);
 
         //final RadioGroup busRide=(RadioGroup)findViewById(R.id.busStatusGroup);
         //final LinearLayout layout=(LinearLayout)findViewById(R.id.busStation);
