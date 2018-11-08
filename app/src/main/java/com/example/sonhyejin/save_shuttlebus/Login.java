@@ -76,8 +76,8 @@ public class Login extends AppCompatActivity {
 
                         while(child.hasNext()) {
                             // 찾고자 하는 ID값은 key로 존재
-                            if(child.next().getKey().equals(autonum.toString()))
-                                Toast.makeText(getApplicationContext(), "로그인", Toast.LENGTH_LONG).show();
+                            //if(child.next().getKey().equals(autonum.toString()))
+                              //  Toast.makeText(getApplicationContext(), "로그인", Toast.LENGTH_LONG).show();
 
                             // 메인 창으로 넘어가기
                         }

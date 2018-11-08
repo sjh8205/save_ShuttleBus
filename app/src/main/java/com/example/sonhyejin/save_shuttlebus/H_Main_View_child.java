@@ -1,11 +1,13 @@
 package com.example.sonhyejin.save_shuttlebus;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.List;
@@ -37,5 +39,20 @@ public class H_Main_View_child extends AppCompatActivity {
                 String numStr = item.getpNum();
             }
         });
+
+        /*
+
+        Button but = (Button)findViewById(R.id.next);
+
+        but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(H_Main_View_child.this,H_Main_View_Teacher.class));
+            }
+        });
+
+        */
+        //상단 주석처리된 구문은 리스트뷰가 개별적으로 잘 나오는지 확인하기 위함
+
     }
 }
