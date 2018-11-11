@@ -1,6 +1,7 @@
 package com.example.sonhyejin.save_shuttlebus;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -53,7 +54,7 @@ public class Login extends AppCompatActivity {
         num.setText(autonum);
 
         // tel_num 글자 비우기
-        EditText tel_num = (EditText)findViewById(R.id.kinHeadNum);
+        final EditText tel_num = (EditText)findViewById(R.id.kinHeadNum);
 
         if(tel_num.didTouchFocusSelect() == true) {
             num.setText("");
@@ -62,12 +63,17 @@ public class Login extends AppCompatActivity {
         // submit 클릭 시 정보 넘겨서 데이터베이스 조회하기
 
         Button submit = (Button)findViewById(R.id.loginSubmit);
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { // 섭밋 누르면
+
+                final Intent intent;
+                intent = new Intent(getApplicationContext(),H_Join.class);
+                // intent.putExtra("phone", autonum); // final로 선언하면 어캄???????????
 
                 FirebaseDatabase FD = FirebaseDatabase.getInstance();
-                DatabaseReference DR = FD.getReference("saveshuttlebus");
+                DatabaseReference DR = FD.getReference(tel_num.toString());
                 // saveshuttlebus 라는 키를 가진 값들을 참조
 
                 DR.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -78,12 +84,20 @@ public class Login extends AppCompatActivity {
 
                         while(child.hasNext()) {
                             // 찾고자 하는 ID값은 key로 존재
-                            //if(child.next().getKey().equals(autonum.toString()))
-                              //  Toast.makeText(getApplicationContext(), "로그인", Toast.LENGTH_LONG).show();
-
+                            //if(child.next().getKey().equals(autonum.toString())) {
+                            //  Toast.makeText(getApplicationContext(), "로그인", Toast.LENGTH_LONG).show();
+                            //switch ( mode ){
+                            // intent = new Intent(getApplicationContext(), class명) // 선택 모드에 따라 클래스 바뀜
+                            // }
+                            //break; // 찾자마자 와일문 나가뮤
+                        // }
                             // 메인 창으로 넘어가기
+                            // 휴대폰 번호는 계속 가지고 가기
                         }
+
+                        startActivity(intent);
                         //없으면 회원가입으로 (원장일 경우)
+                        // 휴대폰 번호는 계속 가지고 가기
                     }
 
                     @Override
