@@ -43,7 +43,9 @@ public class Login extends AppCompatActivity {
             autonum = mgr.getLine1Number();
             autonum = autonum.replace("+82", "0");
             Toast.makeText(getApplicationContext(), autonum, Toast.LENGTH_SHORT).show();
-        } catch(Exception e) { } // 디바이스 번호 받아오기
+        } catch(Exception e) {
+            Toast.makeText(getApplicationContext(), "000000", Toast.LENGTH_SHORT).show();
+        } // 디바이스 번호 받아오기
 
         // 빈 textview창 => autonum 띄워주기
         TextView num = (TextView) findViewById(R.id.getAutoNum);
@@ -96,3 +98,5 @@ public class Login extends AppCompatActivity {
 
     }
 }
+//권한분리 명확히 한 이유와 장점을 발표 때 언급
+//여러 기능들이 있으니까, '승하차안전'쪽에만 치우치지 않고 더 포괄적으로 잡기
