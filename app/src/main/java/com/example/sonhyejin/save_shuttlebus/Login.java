@@ -23,10 +23,55 @@ import java.util.Iterator;
 
 public class Login extends AppCompatActivity {
 
+    int status = 0;
+    Button loginH;
+    Button loginT;
+    Button loginP;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        loginH = (Button)findViewById(R.id.loginCheckH);
+        loginT = (Button)findViewById(R.id.loginCheckT);
+        loginP = (Button)findViewById(R.id.loginCheckP);
+
+        loginH.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                status = 1;
+                if(status==1){
+                    loginH.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ClickedChooseButton));
+                    loginT.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
+                    loginP.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
+                }
+            }
+        });
+
+        loginT.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                status = 2;
+                if(status==2){
+                    loginH.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
+                    loginT.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ClickedChooseButton));
+                    loginP.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
+                }
+            }
+        });
+
+        loginP.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                status = 3;
+                if(status==3){
+                    loginH.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
+                    loginT.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
+                    loginP.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ClickedChooseButton));
+                }
+            }
+        });
 
         String autonum = null;
         TelephonyManager mgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
