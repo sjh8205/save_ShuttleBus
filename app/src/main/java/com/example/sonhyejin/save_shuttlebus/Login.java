@@ -47,8 +47,6 @@ public class Login extends AppCompatActivity {
                 loginH.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ClickedChooseButton));
                 loginT.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
                 loginP.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
-                move.putInt("FirstorNot",1);
-                move.commit();
             }
         });
 
@@ -59,8 +57,6 @@ public class Login extends AppCompatActivity {
                 loginH.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
                 loginT.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ClickedChooseButton));
                 loginP.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
-                move.putInt("FirstorNot",3);
-                move.commit();
             }
         });
 
@@ -71,8 +67,6 @@ public class Login extends AppCompatActivity {
                 loginH.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
                 loginT.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
                 loginP.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ClickedChooseButton));
-                move.putInt("FirstorNot",2);
-                move.commit();
             }
         });
 
@@ -115,6 +109,17 @@ public class Login extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { // 섭밋 누르면
+
+                if(status==1){
+                    move.putInt("FirstorNot",1);
+                    move.commit();
+                }else if(status ==2){
+                    move.putInt("FirstorNot",3);
+                    move.commit();
+                }else if(status ==3){
+                    move.putInt("FirstorNot",2);
+                    move.commit();
+                }
 
                 final Intent intent;
                 intent = new Intent(getApplicationContext(),H_Join.class);
