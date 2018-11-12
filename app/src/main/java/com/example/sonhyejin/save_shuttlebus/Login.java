@@ -23,7 +23,7 @@ import java.util.Iterator;
 
 public class Login extends AppCompatActivity {
 
-    int status = 0;
+    int status = 0; //head, teacher, parent를 구분하는 status --> 이 값으로 role 구분해서 값 넘기면 됨
     Button loginH;
     Button loginT;
     Button loginP;
