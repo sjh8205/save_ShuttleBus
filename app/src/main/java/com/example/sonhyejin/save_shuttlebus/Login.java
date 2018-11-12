@@ -122,7 +122,6 @@ public class Login extends AppCompatActivity {
                 }
 
                 final Intent intent;
-                intent = new Intent(getApplicationContext(),H_Join.class);
                 // intent.putExtra("phone", autonum); // final로 선언하면 어캄???????????
 
                 FirebaseDatabase FD = FirebaseDatabase.getInstance();
@@ -143,12 +142,21 @@ public class Login extends AppCompatActivity {
                             // intent = new Intent(getApplicationContext(), class명) // 선택 모드에 따라 클래스 바뀜
                             // }
                             //break; // 찾자마자 와일문 나가뮤
+                            if(status==1){
+                                //                            intent = new Intent(getApplicationContext(), H_Main.class);
+                            }else if(status ==2){
+                                //                              intent = new Intent(getApplicationContext(), T_main.class);
+                            }else if(status ==3){
+//                                intent = new Intent(getApplicationContext(), P_main.class);
+                            }
                         // }
+
+//                            intent = new Intent(getApplicationContext(),H_Join.class); // final이라 변경 불가,,,하다는뎅,,,ㅠ 뭐냐구...
                             // 메인 창으로 넘어가기
                             // 휴대폰 번호는 계속 가지고 가기
                         }
 
-                        startActivity(intent);
+//                        startActivity(intent);
                         //없으면 회원가입으로 (원장일 경우)
                         // 휴대폰 번호는 계속 가지고 가기
                     }
