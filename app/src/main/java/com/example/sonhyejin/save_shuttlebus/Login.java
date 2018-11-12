@@ -2,6 +2,7 @@ package com.example.sonhyejin.save_shuttlebus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,8 @@ public class Login extends AppCompatActivity {
     Button loginH;
     Button loginT;
     Button loginP;
+    SharedPreferences check = getSharedPreferences("login", Context.MODE_PRIVATE);
+    SharedPreferences.Editor move = check.edit();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +44,11 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 status = 1;
-                if(status==1){
-                    loginH.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ClickedChooseButton));
-                    loginT.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
-                    loginP.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
-                }
+                loginH.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ClickedChooseButton));
+                loginT.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
+                loginP.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
+                move.putInt("FirstorNot",1);
+                move.commit();
             }
         });
 
@@ -53,11 +56,11 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 status = 2;
-                if(status==2){
-                    loginH.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
-                    loginT.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ClickedChooseButton));
-                    loginP.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
-                }
+                loginH.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
+                loginT.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ClickedChooseButton));
+                loginP.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
+                move.putInt("FirstorNot",3);
+                move.commit();
             }
         });
 
@@ -65,11 +68,11 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 status = 3;
-                if(status==3){
-                    loginH.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
-                    loginT.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
-                    loginP.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ClickedChooseButton));
-                }
+                loginH.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
+                loginT.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
+                loginP.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ClickedChooseButton));
+                move.putInt("FirstorNot",2);
+                move.commit();
             }
         });
 
