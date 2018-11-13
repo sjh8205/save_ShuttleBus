@@ -10,6 +10,6 @@
     <color name="SubmitButton">#66DAE7E9</color>
     <color name="ClickedSubmitButton">#66DAE7E9</color>
     <color name="ChooseButton">#f3f1e3</color>
-    <color name="ClickedChooseButton">#f3f1e3</color>
+    <color name="ClickedChooseButton">#efeac4</color>
     <color name="MainButton">#33f3f1e3</color>
 </resources>

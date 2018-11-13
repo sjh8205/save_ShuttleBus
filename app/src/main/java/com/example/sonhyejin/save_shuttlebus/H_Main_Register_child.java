@@ -27,6 +27,12 @@ import java.io.ByteArrayOutputStream;
 
 public class H_Main_Register_child extends AppCompatActivity {
 
+    boolean busRideStatus;
+    EditText station;
+
+    Button busyes;
+    Button busno;
+    boolean status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +48,30 @@ public class H_Main_Register_child extends AppCompatActivity {
         databaseReference= FirebaseDatabase.getInstance().getReference();
         FirebaseStorage firebaseStorage=FirebaseStorage.getInstance();
         final StorageReference storageReference=firebaseStorage.getReference();
+        busyes = (Button)findViewById(R.id.busYes);
+        busno = (Button)findViewById(R.id.busNo);
 
+        busyes.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                status = true;
+                if(status==true){
+                    busyes.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ClickedChooseButton));
+                    busno.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
+                }
+            }
+        });
+
+        busno.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                status = false;
+                if(status==false){
+                    busyes.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
+                    busno.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ClickedChooseButton));
+                }
+            }
+        });
 
         EditText childName = (EditText) findViewById(R.id.hRegChildName);
         //원생 등록할 때 원생 이름

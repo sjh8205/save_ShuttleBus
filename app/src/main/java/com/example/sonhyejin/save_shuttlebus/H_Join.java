@@ -1,6 +1,7 @@
 package com.example.sonhyejin.save_shuttlebus;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,10 @@ public class H_Join extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_h_join);
+
+        Intent intent = getIntent();
+        String autonum = intent.getStringExtra("autonum"); // 전에서 얻었던 폰 번호 받아오기
+
 
         // 제출
         // => 입력한 등록 번호, 이름 데이터ㅂㅔ이스에서 조회 후
