@@ -17,7 +17,7 @@ public class T_main extends AppCompatActivity {
 
         ListView route = (ListView)findViewById(R.id.tBusList);
 
-        RouteAdapter Adapter = new RouteAdapter();
+        AdapterRoute Adapter = new AdapterRoute();
 
         Adapter.addItem(ContextCompat.getDrawable(this,R.drawable.busstop),"일산1단지");
         Adapter.addItem(ContextCompat.getDrawable(this,R.drawable.busstop),"일산2단지");
@@ -29,7 +29,7 @@ public class T_main extends AppCompatActivity {
         route.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View view, int position, long id) {
-                RouteListViewItem item = (RouteListViewItem) parent.getItemAtPosition(position);
+                ListViewRoute item = (ListViewRoute) parent.getItemAtPosition(position);
 
                 String stStr = item.getstname();
                 Drawable img = item.getimg();

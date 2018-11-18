@@ -15,7 +15,7 @@ public class H_Main_View_child extends AppCompatActivity {
 
         ListView people = (ListView)findViewById(R.id.hChildList);
 
-        PeopleAdapter adapter = new PeopleAdapter();
+        AdapterChild adapter = new AdapterChild();
 
         adapter.addItem("방승희","꽃잎","0101");
         adapter.addItem("손혜진","매화","0101");
@@ -26,7 +26,7 @@ public class H_Main_View_child extends AppCompatActivity {
         people.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                PeopleListViewItem item = (PeopleListViewItem) parent.getItemAtPosition(position);
+                ListViewChild item = (ListViewChild) parent.getItemAtPosition(position);
 
                 String nameStr = item.getpName();
                 String classStr = item.getpClass();
