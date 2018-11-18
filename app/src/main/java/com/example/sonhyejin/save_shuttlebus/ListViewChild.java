@@ -1,6 +1,6 @@
 package com.example.sonhyejin.save_shuttlebus;
 
-public class PeopleListViewItem {
+public class ListViewChild {
     private String nameStr;
     private String classStr;
     private String numStr;

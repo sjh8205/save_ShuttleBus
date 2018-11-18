@@ -2,7 +2,7 @@ package com.example.sonhyejin.save_shuttlebus;
 
 import android.graphics.drawable.Drawable;
 
-public class RouteListViewItem {
+public class ListViewRoute {
 
     private Drawable img;
     private String stStr;

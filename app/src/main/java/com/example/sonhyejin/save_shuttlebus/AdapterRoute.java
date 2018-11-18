@@ -2,21 +2,19 @@ package com.example.sonhyejin.save_shuttlebus;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class RouteAdapter extends BaseAdapter{
-    private ArrayList<RouteListViewItem> listViewItemList = new ArrayList<RouteListViewItem>();
+public class AdapterRoute extends BaseAdapter{
+    private ArrayList<ListViewRoute> listViewItemList = new ArrayList<ListViewRoute>();
 
-    public RouteAdapter(){
+    public AdapterRoute(){
 
     }
 
@@ -36,7 +34,7 @@ public class RouteAdapter extends BaseAdapter{
         ImageView imgView = (ImageView) convertView.findViewById(R.id.busStationImg);
         TextView nameView = (TextView) convertView.findViewById((R.id.busStationName));
 
-        RouteListViewItem listViewItem = listViewItemList.get(position);
+        ListViewRoute listViewItem = listViewItemList.get(position);
 
         imgView.setImageDrawable((listViewItem.getimg()));
         nameView.setText(listViewItem.getstname());
@@ -53,7 +51,7 @@ public class RouteAdapter extends BaseAdapter{
     }
 
     public void addItem(Drawable image, String name){
-        RouteListViewItem item = new RouteListViewItem();
+        ListViewRoute item = new ListViewRoute();
 
         item.setimg(image);
         item.setstname(name);

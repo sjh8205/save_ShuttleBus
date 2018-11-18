@@ -1,21 +1,18 @@
 package com.example.sonhyejin.save_shuttlebus;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class PeopleAdapter extends BaseAdapter{
-    private ArrayList<PeopleListViewItem> listViewItemList = new ArrayList<PeopleListViewItem>();
+public class AdapterChild extends BaseAdapter{
+    private ArrayList<ListViewChild> listViewItemList = new ArrayList<ListViewChild>();
 
-    public PeopleAdapter(){
+    public AdapterChild(){
 
     }
 
@@ -29,14 +26,14 @@ public class PeopleAdapter extends BaseAdapter{
 
         if(convertView == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.layout_view_people, parent, false);
+            convertView = inflater.inflate(R.layout.layout_view_child, parent, false);
         }
 
         TextView nameView = (TextView) convertView.findViewById((R.id.viewName));
         TextView classView = (TextView) convertView.findViewById((R.id.viewClass));
         TextView numView = (TextView) convertView.findViewById((R.id.viewNum));
 
-        PeopleListViewItem listViewItem = listViewItemList.get(position);
+        ListViewChild listViewItem = listViewItemList.get(position);
 
         nameView.setText(listViewItem.getpName());
         classView.setText(listViewItem.getpClass());
@@ -54,7 +51,7 @@ public class PeopleAdapter extends BaseAdapter{
     }
 
     public void addItem(String name, String pclass, String num){
-        PeopleListViewItem item = new PeopleListViewItem();
+        ListViewChild item = new ListViewChild();
 
         item.setpName(name);
         item.setpClass(pclass);
