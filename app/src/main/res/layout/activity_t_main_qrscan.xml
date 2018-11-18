@@ -42,19 +42,31 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center">
 
         <Button
             android:id="@+id/tQrScan"
-            android:layout_width="match_parent"
-            android:layout_height="46dp"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
             android:background="@color/SubmitButton"
-            android:layout_marginHorizontal="130dp"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="5dp"
             android:text="SCAN"
             android:textSize="17sp"
-            android:textColor="@color/BackText"/>
+            android:textColor="@color/BackText"
+            android:layout_margin="5dp"/>
+
+        <Button
+            android:id="@+id/tCompletScan"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:background="@color/SubmitButton"
+            android:layout_gravity="bottom"
+            android:text="COMPLETE"
+            android:textSize="17sp"
+            android:textColor="@color/BackText"
+            android:layout_margin="5dp"/>
 
     </LinearLayout>
 
