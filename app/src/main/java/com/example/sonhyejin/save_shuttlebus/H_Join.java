@@ -7,6 +7,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class H_Join extends AppCompatActivity {
@@ -19,12 +21,17 @@ public class H_Join extends AppCompatActivity {
         Intent intent = getIntent();
         String autonum = intent.getStringExtra("autonum"); // 전에서 얻었던 폰 번호 받아오기
 
+        Button submit = (Button)findViewById(R.id.joinSubmit);
 
-        // 제출
-        // => 입력한 등록 번호, 이름 데이터ㅂㅔ이스에서 조회 후
-        // 있으면 있다고 안내 -> 뒤로 가기
-        // 없으면 넣기
-        // => 폰 번호도 받아야 함 (로그인 창에서 이미 받아옴) (원장의 경우만 회원가입)
+        submit.setOnClickListener(new View.OnClickListener() { // 제출
+            @Override
+            public void onClick(View v) {
+                // => 입력한 등록 번호, 이름 데이터ㅂㅔ이스에서 조회 후
+                // 있으면 있다고 안내 -> 메인으로 ㄱㅏ기
+                // 없으면 넣기
+                // => 폰 번호도 받아야 함 (로그인 창에서 이미 받아옴)
+            }
+        });
     }
 
 }

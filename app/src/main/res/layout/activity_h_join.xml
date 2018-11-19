@@ -81,7 +81,8 @@
             android:layout_marginBottom="10dp"
             android:text="SUBMIT"
             android:textSize="17sp"
-            android:textColor="@color/BackText"/>
+            android:textColor="@color/BackText"
+            android:id="@+id/joinSubmit"/>
     </LinearLayout>
 
 </LinearLayout>
