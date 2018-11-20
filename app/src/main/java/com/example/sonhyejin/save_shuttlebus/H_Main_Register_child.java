@@ -130,6 +130,7 @@ public class H_Main_Register_child extends AppCompatActivity {
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
+
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         Uri downloadUrl=taskSnapshot.getDownloadUrl();
                         String uri=downloadUrl.toString();
