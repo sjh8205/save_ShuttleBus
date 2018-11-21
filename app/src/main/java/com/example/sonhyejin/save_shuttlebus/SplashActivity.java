@@ -17,6 +17,7 @@ public class SplashActivity extends Activity {
             e.printStackTrace();
         }
 
+        /*
         SharedPreferences check = getSharedPreferences("login", Context.MODE_PRIVATE);
         int checked = check.getInt("FirstorNot",0);
 
@@ -33,6 +34,10 @@ public class SplashActivity extends Activity {
             startActivity(new Intent(this,Login.class));
             finish();
         }
+
+        */
+        startActivity(new Intent(this,H_Main_View_Teacher.class));
+        finish();
 
     }
 }

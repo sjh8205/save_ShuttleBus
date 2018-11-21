@@ -1,5 +1,7 @@
 package com.example.sonhyejin.save_shuttlebus;
 
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,22 +17,23 @@ public class H_Main_View_Teacher extends AppCompatActivity {
 
         ListView people = (ListView)findViewById(R.id.hTeachList);
 
-        AdapterChild adapter = new AdapterChild();
+        AdapterTeach adapter = new AdapterTeach();
 
-        adapter.addItem("김똥개","꽃잎","0101");
-        adapter.addItem("김철수","매화","0101");
-        adapter.addItem("김영희","장미","0101");
+        adapter.addItem(ContextCompat.getDrawable(this,R.drawable.busstop),"꽃","0101","00");
+        adapter.addItem(ContextCompat.getDrawable(this,R.drawable.busstop),"매","0101","00");
+        adapter.addItem(ContextCompat.getDrawable(this,R.drawable.busstop),"장","0101","00");
 
         people.setAdapter(adapter);
 
         people.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ListViewChild item = (ListViewChild) parent.getItemAtPosition(position);
+                ListViewTeach item = (ListViewTeach) parent.getItemAtPosition(position);
 
-                String nameStr = item.getpName();
-                String classStr = item.getpClass();
-                String numStr = item.getpNum();
+                Drawable img = item.getimg();
+                String nameStr = item.gettName();
+                String classStr = item.gettClass();
+                String numStr = item.gettNum();
             }
         });
     }
