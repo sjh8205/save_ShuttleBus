@@ -42,7 +42,7 @@ public class H_Main_Register_child extends AppCompatActivity {
         Intent intent;
         final String kindergarten;
         intent=getIntent();
-        kindergarten=intent.getStringExtra("kindergarten");
+        kindergarten=intent.getStringExtra("phone");
 
         final DatabaseReference databaseReference;
         databaseReference= FirebaseDatabase.getInstance().getReference();

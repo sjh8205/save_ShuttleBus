@@ -13,9 +13,9 @@ public class H_Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_h_main);
         final Intent intent;
-        final String autonum;
+        final String kindNum;
         intent=getIntent();
-        autonum=intent.getStringExtra("phone");
+        kindNum=intent.getStringExtra("kindNum");
 
         Button hView=(Button)findViewById(R.id.hView);
         Button hReg=(Button)findViewById(R.id.hReg);
@@ -24,7 +24,7 @@ public class H_Main extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent1=new Intent(getApplicationContext(),H_Main_View.class);
-                intent1.putExtra("phone",autonum);
+                intent1.putExtra("phone",kindNum);
                 startActivity(intent1);
             }
         });
@@ -33,7 +33,7 @@ public class H_Main extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent1=new Intent(getApplicationContext(),H_Main_Register.class);
-                intent1.putExtra("phone",autonum);
+                intent1.putExtra("phone",kindNum);
                 startActivity(intent1);
             }
         });
