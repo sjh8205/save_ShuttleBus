@@ -129,37 +129,46 @@ public class Login extends AppCompatActivity {
                  intent.putExtra("phone", autonum);
 
                 FirebaseDatabase FD = FirebaseDatabase.getInstance();
-                DatabaseReference DR = FD.getReference(tel_num.toString());
+                DatabaseReference DR = FD.getReference("Kindergarten");
                 // tel_num과 같은 키를 가진 값들을 참조
-
+// 선택한 상태에 따라 child 안으로 들어가서 autonum 참고
                 DR.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
+                        Iterator<DataSnapshot> Kind = dataSnapshot.getChildren().iterator();
+                        Iterator<DataSnapshot> tel; // 맞낭???
                         // 세셔버의 모든 자식들의 key값과 value 값들을 iterator로 참조
 
-                        while(child.hasNext()) {
-                            // 찾고자 하는 ID값은 key로 존재
-                            if(child.next().getKey().equals(autonum.toString())) {
-                              Toast.makeText(getApplicationContext(), "로그인", Toast.LENGTH_LONG).show();
-                            if(status==1){
-                                intent = new Intent(getApplicationContext(), H_Main.class);
-                            }else if(status ==2){
-                                intent = new Intent(getApplicationContext(), T_main.class);
-                            }else if(status ==3){
-                                intent = new Intent(getApplicationContext(), P_main.class);
-                            }
-                                break; // 찾자마자 와일문 나가뮤
-                            } // 메인 창으로 넘어가기
+                        while(Kind.hasNext()) {
+                            if(Kind.next().getKey().equals(tel_num)) {
+                                tel = dataSnapshot.getChildren().iterator();
 
-                            else
-                                if(status == 1) {
-                                    H_intent.putExtra("phone", autonum); // 번호 전달
-                                    startActivity(H_intent);
-                                    //없으면 회원가입으로 (원장일 경우)
+                                while(tel.hasNext()) {
+                                    // 찾고자 하는 ID값은 key로 존재
+                                    if(tel.next().getKey().equals(autonum)) {
+                                        Toast.makeText(getApplicationContext(), "로그인", Toast.LENGTH_LONG).show();
+                                        if(status==1){
+                                            intent = new Intent(getApplicationContext(), H_Main.class);
+                                        }else if(status ==2){
+                                            intent = new Intent(getApplicationContext(), T_main.class);
+                                        }else if(status ==3){
+                                            intent = new Intent(getApplicationContext(), P_main.class);
+                                        }
+                                        break; // 찾자마자 와일문 나가뮤
+                                    } // 메인 창으로 넘어가기
+
+                                    else
+                                    if(status == 1) {
+                                        H_intent.putExtra("phone", autonum); // 번호 전달
+                                        startActivity(H_intent);
+                                        //없으면 회원가입으로 (원장일 경우)
+                                    }
+                                    break;
+                                    // 휴대폰 번호는 계속 가지고 가기
                                 }
-                            // 휴대폰 번호는 계속 가지고 가기
+                            }
                         }
+
 
                         startActivity(intent);
                         // 휴대폰 번호는 계속 가지고 가기
