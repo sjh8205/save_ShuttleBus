@@ -31,7 +31,7 @@ public class H_Main_Register_Teacher extends AppCompatActivity {
         Button hRegTeachSubmit=(Button)findViewById(R.id.hRegTeachSubmit);
 
         final DatabaseReference databaseReference;
-        databaseReference= FirebaseDatabase.getInstance().getReference(autoNum);
+        databaseReference= FirebaseDatabase.getInstance().getReference("Kindergarten");
 
         final registerTeacher registerTeacher=new registerTeacher(teachName,teachClass,teachNum);
 

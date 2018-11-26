@@ -34,7 +34,7 @@ public class H_Join extends AppCompatActivity {
         final EditText joinResNum = (EditText)findViewById(R.id.joinResNum);
         final EditText joinName = (EditText)findViewById(R.id.joinName);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("kindergarten");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Kindergarten");
         submit.setOnClickListener(new View.OnClickListener() { // 제출
             @Override
             public void onClick(View v) {

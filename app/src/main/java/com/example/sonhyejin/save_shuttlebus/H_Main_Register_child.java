@@ -45,7 +45,7 @@ public class H_Main_Register_child extends AppCompatActivity {
         kindergarten=intent.getStringExtra("phone");
 
         final DatabaseReference databaseReference;
-        databaseReference= FirebaseDatabase.getInstance().getReference();
+        databaseReference= FirebaseDatabase.getInstance().getReference("Kindergarten");
         FirebaseStorage firebaseStorage=FirebaseStorage.getInstance();
         final StorageReference storageReference=firebaseStorage.getReference();
         busyes = (Button)findViewById(R.id.busYes);
@@ -55,6 +55,7 @@ public class H_Main_Register_child extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 status = true;
+
                 if(status==true){
                     busyes.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ClickedChooseButton));
                     busno.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.ChooseButton));
