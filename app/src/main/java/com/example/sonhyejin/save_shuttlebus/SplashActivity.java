@@ -36,7 +36,7 @@ public class SplashActivity extends Activity {
         }
 
         */
-        startActivity(new Intent(this,H_Main_View_Teacher.class));
+        startActivity(new Intent(this,T_main_QRScan.class));
         finish();
 
     }

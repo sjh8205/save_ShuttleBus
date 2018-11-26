@@ -39,13 +39,15 @@ public class H_Join extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // => 입력한 등록 번호, 이름 데이터ㅂㅔ이스에서 조회 후
-                // 있으면 있다고 안내 -> 메인으로 ㄱㅏ기
+
                 // 없으면 넣기
                 // => 폰 번호도 받아야 함 (로그인 창에서 이미 받아옴)
                 KindNum = joinResNum.getText().toString();
                 KindName = joinName.getText().toString();
                 headJoin newHead = new headJoin(autonum,KindNum, KindName);
                 databaseReference.child(KindNum).setValue(newHead);
+
+                // 있으면 있다고 안내 -> 메인으로 ㄱㅏ기
                 Intent intent1 = new Intent(H_Join.this,H_Main.class);
                 intent1.putExtra("kindNum",KindNum);
                 startActivity(intent1);
