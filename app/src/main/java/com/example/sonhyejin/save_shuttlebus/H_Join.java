@@ -29,7 +29,6 @@ public class H_Join extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String autonum = intent.getStringExtra("autonum"); // 전에서 얻었던 폰 번호 받아오기
-
         Button submit = (Button)findViewById(R.id.joinSubmit);
         final EditText joinResNum = (EditText)findViewById(R.id.joinResNum);
         final EditText joinName = (EditText)findViewById(R.id.joinName);
