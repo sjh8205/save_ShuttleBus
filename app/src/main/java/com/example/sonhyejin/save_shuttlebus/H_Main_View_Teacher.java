@@ -46,21 +46,18 @@ public class H_Main_View_Teacher extends AppCompatActivity {
                     String num = data.child("phone").getValue(String.class);
 
                     adapter.addItem(ContextCompat.getDrawable(H_Main_View_Teacher.this, R.drawable.busstop),nam,cla,num);
-
-
                 }
                 people.setAdapter(adapter);
 
                 people.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView parent, View view, int position, long id) {
-                        ListViewQR item = (ListViewQR) parent.getItemAtPosition(position);
+                        ListViewTeach item = (ListViewTeach) parent.getItemAtPosition(position);
 
-                        //Adapter.addItem("d", "매화", ContextCompat.getDrawable(T_main_Totalchild.this, R.drawable.imhere));
-
-                        String sName = item.getsName();
-                        String sClass = item.getsClass();
                         Drawable img = item.getimg();
+                        String nameStr = item.gettName();
+                        String classStr = item.gettClass();
+                        String numStr = item.gettNum();
                     }
                 });
 
