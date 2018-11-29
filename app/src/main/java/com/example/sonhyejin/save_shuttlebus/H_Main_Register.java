@@ -7,24 +7,24 @@ import android.view.View;
 import android.widget.Button;
 
 public class H_Main_Register extends AppCompatActivity {
-
+    String telNum=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_h_main_register);
-        String autonum=null;
         Intent intent=getIntent();
-        autonum=intent.getStringExtra("phone");
+        telNum=intent.getStringExtra("telNum");
         Button hRegBus=(Button)findViewById(R.id.hRegBus);
         Button hRegTeach=(Button)findViewById(R.id.hRegTeach);
         Button hRegChild=(Button)findViewById(R.id.hRegChild);
 
-        final String finalAutonum = autonum;
+
         hRegBus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(),H_Main_Register_bus.class);
-                intent.putExtra("phone", finalAutonum);
+                intent.putExtra("telNum", telNum);
                 startActivity(intent);
             }
         });
@@ -33,7 +33,7 @@ public class H_Main_Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(),H_Main_Register_Teacher.class);
-                intent.putExtra("phone", finalAutonum);
+                intent.putExtra("telNum", telNum);
                 startActivity(intent);
             }
         });
@@ -42,7 +42,7 @@ public class H_Main_Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(),H_Main_Register_child.class);
-                intent.putExtra("phone", finalAutonum);
+                intent.putExtra("telNum", telNum);
                 startActivity(intent);
             }
         });
