@@ -39,7 +39,7 @@ public class H_Main_Register_Teacher extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent1=new Intent(getApplicationContext(),H_Main.class);
-                databaseReference.child(teachNum).setValue(registerTeacher);
+                databaseReference.child("Teacher").child(teachNum).setValue(registerTeacher);
                 startActivity(intent1);
             }
         });

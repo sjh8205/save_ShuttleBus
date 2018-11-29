@@ -28,7 +28,7 @@ public class H_Join extends AppCompatActivity {
         setContentView(R.layout.activity_h_join);
 
         Intent intent = getIntent();
-        final String autonum = intent.getStringExtra("autonum"); // 전에서 얻었던 폰 번호 받아오기
+        final String autonum = intent.getStringExtra("phone"); // 전에서 얻었던 폰 번호 받아오기
         Button submit = (Button)findViewById(R.id.joinSubmit);
         final EditText joinResNum = (EditText)findViewById(R.id.joinResNum);
         final EditText joinName = (EditText)findViewById(R.id.joinName);
@@ -46,9 +46,10 @@ public class H_Join extends AppCompatActivity {
                 headJoin newHead = new headJoin(autonum,KindNum, KindName);
                 databaseReference.child(KindNum).setValue(newHead);
 
-                // 있으면 있다고 안내 -> 메인으로 ㄱㅏ기
-                Intent intent1 = new Intent(H_Join.this,H_Main.class);
+                //  메인으로 ㄱㅏ기
+                Intent intent1 = new Intent(getApplicationContext(),H_Main.class);
                 intent1.putExtra("kindNum",KindNum);
+                intent1.putExtra("autoNum",autonum);
                 startActivity(intent1);
             }
         });
