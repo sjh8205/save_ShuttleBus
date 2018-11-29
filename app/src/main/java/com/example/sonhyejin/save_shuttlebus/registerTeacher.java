@@ -4,12 +4,14 @@ public class registerTeacher {
     String name;
     String tClass;
     String phone;
+    String imgPath;
 
     public registerTeacher(){}
-    public registerTeacher(String name,String tClass,String phone){
+    public registerTeacher(String name,String tClass,String phone,String imgPath){
         this.name=name;
         this.tClass=tClass;
         this.phone=phone;
+        this.imgPath=imgPath;
     }
 
     public String getName() {
@@ -23,7 +25,7 @@ public class registerTeacher {
     public String gettClass() {
         return tClass;
     }
-
+    public String getImgPath(){return imgPath;}
     public void setName(String name) {
         this.name = name;
     }
@@ -35,4 +37,6 @@ public class registerTeacher {
     public void settClass(String tClass) {
         this.tClass = tClass;
     }
+
+    public void setImgPath(String imgPath){this.imgPath=imgPath;}
 }
