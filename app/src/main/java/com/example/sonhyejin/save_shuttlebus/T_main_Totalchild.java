@@ -24,10 +24,7 @@ import java.util.ArrayList;
 public class T_main_Totalchild extends AppCompatActivity {
 
     String telNum;
-    ArrayList<String> names;
-    ArrayList<String> classes;
     AdapterQR Adapter;
-    int size = 0;
     ListView total;
 
     @Override
@@ -36,9 +33,6 @@ public class T_main_Totalchild extends AppCompatActivity {
         setContentView(R.layout.activity_t_main_totalchild);
 
         total = (ListView) findViewById(R.id.tTotalList);
-
-        names = new ArrayList<String>();
-        classes = new ArrayList<String>();
 
         Adapter = new AdapterQR();
 
@@ -61,31 +55,18 @@ public class T_main_Totalchild extends AppCompatActivity {
 
                     switch (status){
                         case 0:
-                            names.add(str);
-                            classes.add(cla);
                             Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_Totalchild.this, R.drawable.busstop));
-                            size++;
-                            Log.v("print", Integer.toString(size));
                             break;
 
                         case 1:
-                            names.add(str);
-                            classes.add(cla);
                             Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_Totalchild.this, R.drawable.imhere));
-                            size++;
-                            Log.v("print", Integer.toString(size));
                             break;
 
                         case 2:
-                            names.add(str);
-                            classes.add(cla);
                             Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_Totalchild.this, R.drawable.imnothere));
-                            size++;
-                            Log.v("print", Integer.toString(size));
                             break;
                     }
 
-                    Log.v("print", Integer.toString(size));
                 }
                 total.setAdapter(Adapter);
 

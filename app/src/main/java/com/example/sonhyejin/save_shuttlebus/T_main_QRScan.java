@@ -29,10 +29,7 @@ public class T_main_QRScan extends AppCompatActivity {
     private IntentIntegrator qrScan;
 
     String telNum;
-    ArrayList<String> names;
-    ArrayList<String> classes;
     AdapterQR Adapter;
-    int size = 0;
     ListView qr;
     String sStation="a";
 
@@ -44,9 +41,6 @@ public class T_main_QRScan extends AppCompatActivity {
         qr = (ListView) findViewById(R.id.tChildList);
         Button scanner = (Button) findViewById(R.id.tQrScan);
         Button submit = (Button) findViewById(R.id.tCompletScan);
-
-        names = new ArrayList<String>();
-        classes = new ArrayList<String>();
 
         Adapter = new AdapterQR();
 
@@ -71,27 +65,15 @@ public class T_main_QRScan extends AppCompatActivity {
                     if(com.equals(sStation)){
                         switch (status){
                             case 0:
-                                names.add(str);
-                                classes.add(cla);
                                 Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.busstop));
-                                size++;
-                                Log.v("print", Integer.toString(size));
                                 break;
 
                             case 1:
-                                names.add(str);
-                                classes.add(cla);
                                 Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imhere));
-                                size++;
-                                Log.v("print", Integer.toString(size));
                                 break;
 
                             case 2:
-                                names.add(str);
-                                classes.add(cla);
                                 Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imnothere));
-                                size++;
-                                Log.v("print", Integer.toString(size));
                                 break;
                         }
 
