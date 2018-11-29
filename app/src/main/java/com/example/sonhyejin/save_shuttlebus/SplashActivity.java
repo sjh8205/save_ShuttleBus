@@ -17,10 +17,14 @@ public class SplashActivity extends Activity {
             e.printStackTrace();
         }
 
-        /*
+        SharedPreferences data = getSharedPreferences("mydata", Context.MODE_PRIVATE);
+        String seedata = data.getString("telnum","0");
+
+
         SharedPreferences check = getSharedPreferences("login", Context.MODE_PRIVATE);
         int checked = check.getInt("FirstorNot",0);
 
+        /*
         if(checked==1){ //사용자가 사전에 '원장' 자격으로 로그인 한 경우
             startActivity(new Intent(this,H_Main.class));
             finish();
@@ -36,7 +40,7 @@ public class SplashActivity extends Activity {
         }
 
         */
-        startActivity(new Intent(this,P_main.class));
+        startActivity(new Intent(this,T_main_Totalchild.class));
         finish();
 
     }
