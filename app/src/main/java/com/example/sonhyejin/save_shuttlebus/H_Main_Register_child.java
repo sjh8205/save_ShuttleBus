@@ -55,7 +55,7 @@ public class H_Main_Register_child extends AppCompatActivity {
     String  BusStation;
     Register_child registerChild;
     Boolean bus=Boolean.TRUE;
-    private static final String IMAGE_DIRECTORY = "/demonuts/";
+    private static final String IMAGE_DIRECTORY = "/demonuts";
     String downloadUrl;
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
@@ -130,69 +130,32 @@ public class H_Main_Register_child extends AppCompatActivity {
 
             }
         };
-        final String qrString= ChildName+"/"+PhoneNum;
 
         checkAppPermission(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE});
         checkAppPermission(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE});
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ChildName =childName.getText().toString();
+                ChildClass=childClass.getText().toString();
+                PhoneNum=phoneNum.getText().toString();
+                BusStation=busStation.getText().toString();
+                String qrString= ChildName+"/"+PhoneNum;
 
                 Bitmap qr=generateRQCode(qrString);
                 Log.v("qr","qrsuccess");
                 ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
                 qr.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
                 Log.v("qr","qrTobyte");
+                String str=saveImage(qr);
                 qr.recycle();
-                File dir=new File(Environment.getExternalStorageDirectory().getPath()+IMAGE_DIRECTORY);
-                if(!dir.exists()){
-                    Log.v("make","dir");
-                    dir.mkdirs();
-                }
-                try{
-                    Log.v("make","file");
-                    File f=new File(dir, Calendar.getInstance().getTimeInMillis()+".jpg");
-                    f.createNewFile();
-                    FileOutputStream fo = new FileOutputStream(f);
-                    fo.write(byteArrayOutputStream.toByteArray());
-                    MediaScannerConnection.scanFile(getApplicationContext(),
-                            new String[]{f.getPath()},
-                            new String[]{"image/jpeg"}, null);
-                    fo.close();
-                    downloadUrl=f.getAbsolutePath();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
-                /*UploadTask uploadTask=storageReference.child("Kindergarten/").child(kindergarten).
-                        child
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.v("storage","uploadfail");
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Log.v("storage","upload");
-                        Uri downloadUrl=taskSnapshot.getDownloadUrl();
-                        String uri=downloadUrl.toString();
-                        Log.v("storage",uri);
-                        registerChild.setQrUri(uri);
-                    }
-                });*/
-                File file =new File(downloadUrl);
+                File file =new File(str);
                 Uri uri=Uri.fromFile(file);
+                Log.v("ex",uri.toString());
                 uploadImage(uri);
-                ChildName =childName.getText().toString();
-                ChildClass=childClass.getText().toString();
-                PhoneNum=phoneNum.getText().toString();
-                BusStation=busStation.getText().toString();
+                Log.v("img",imgPath);
                 registerChild=new Register_child(ChildName,ChildClass,PhoneNum,
-                        BusStation,bus,Boolean.FALSE, imgPath);
+                        BusStation,bus,3, imgPath);
 
                 databaseReference.child(kindergarten)
                         .child("child").child(PhoneNum).setValue(registerChild);
@@ -261,6 +224,35 @@ public class H_Main_Register_child extends AppCompatActivity {
         }
         return bmp;
     }
+    public String saveImage(Bitmap myBitmap) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+        File wallpaperDirectory = new File(
+                Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
+        // have the object build the directory structure, if needed.
+        if (!wallpaperDirectory.exists()) {
+            wallpaperDirectory.mkdirs();
+        }
+
+        try {
+            File f = new File(wallpaperDirectory, Calendar.getInstance()
+                    .getTimeInMillis() + ".jpg");
+            f.createNewFile();
+            FileOutputStream fo = new FileOutputStream(f);
+            fo.write(bytes.toByteArray());
+            MediaScannerConnection.scanFile(this,
+                    new String[]{f.getPath()},
+                    new String[]{"image/jpeg"}, null);
+            fo.close();
+
+            Log.d("TAG", "File Saved::??" + f.getAbsolutePath());
+
+            return f.getAbsolutePath();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        return "";
+    }
     private void uploadImage(Uri filePath){
         if(filePath!=null){
             final StorageReference ref= storageReference.child("Kindergarten/").child(kindergarten).
@@ -274,6 +266,7 @@ public class H_Main_Register_child extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             imgPath=uri.toString();
                             Log.v("storage","upOK");
+
                         }
                     });
                 }

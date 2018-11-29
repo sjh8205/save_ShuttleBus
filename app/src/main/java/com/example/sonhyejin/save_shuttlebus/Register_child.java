@@ -6,13 +6,13 @@ public class Register_child {
     public String childPhoneNum;
     public String childBusStation;
     public Boolean childBus;
-    public Boolean childOnBus;
+    public int childOnBus;
     public String qrUri;
 
     public Register_child(){}
 
     public Register_child(String Name, String Class, String Phone, String Station,
-                          Boolean Ride, Boolean status,String qr){
+                          Boolean Ride, int status,String qr){
         this.childName=Name;
         this.childClass=Class;
         this.childPhoneNum=Phone;
@@ -42,7 +42,7 @@ public class Register_child {
         this.childBus = childBus;
     }
 
-    public void setChildOnBus(boolean childOnBus) {
+    public void setChildOnBus(int childOnBus) {
         this.childOnBus = childOnBus;
     }
 
@@ -70,7 +70,7 @@ public class Register_child {
         return childBusStation;
     }
 
-    public Boolean isChildOnBus() {
+    public int isChildOnBus() {
         return childOnBus;
     }
 
