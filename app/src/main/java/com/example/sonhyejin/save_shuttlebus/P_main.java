@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -23,6 +24,9 @@ import com.google.firebase.database.ValueEventListener;
 public class P_main extends AppCompatActivity {
 
     DatabaseReference C_DR;
+    String T_num = "0000";
+    String T_name = "인혜";
+    String T_img;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,22 +36,31 @@ public class P_main extends AppCompatActivity {
         Intent intent = getIntent(); // getIntent()로 받을 준비
 
         final String telNum = intent.getStringExtra("telNum"); // 유치원 번호 받기
+        Log.v("tel_num","왔어용");
         final String phone = intent.getStringExtra("phone"); // 전화번호 받기
+        Log.v("autonum",phone);
 
         Toast.makeText(getApplicationContext(), "intent 받아오기 " + telNum + " " + phone, Toast.LENGTH_SHORT).show();
 
         FirebaseDatabase FD = FirebaseDatabase.getInstance();
 
         C_DR = FD.getReference("Kindergarten").child(telNum).child("child").child(phone);
+        Log.v("C_DR","왔어용");
+
         final String C_name = "유지니";// C_DR.child("Name").getValue().toString();
         // child 상태 불러오기 - > 1 : 승차 중 / 2 : 하차 / 3 : 유치원 / 4 : 결석
+        Log.v("name","왔어용");
 
-        final DatabaseReference T_DR = FD.getReference("Kindergarten").child(telNum).child("Today");
+        final DatabaseReference T_DR = FD.getReference("Kindergarten").child(telNum);
+        Log.v("T_DR","왔어용");
         // kindergarten 밑에 있는 데이터로 접근
-        T_DR.addValueEventListener(new ValueEventListener() { // 오늘의 지도교사 탐색 --> 어떻게 하징,,ㅠ 분별방법 아직 xxxx
+/*        T_DR.addValueEventListener(new ValueEventListener() { // 오늘의 지도교사 탐색 --> 어떻게 하징,,ㅠ 분별방법 아직 xxxx
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                for(DataSnapshot data:dataSnapshot.getChildren()) { // 다음 탐색
+                    if (T_DR.child("phone").child("Today").getValue() == 1) // 만약 오늘의 지도교사이면
+                        T_num = T_DR.child("phone").getKey().toString(); // 선생님 전화번호 받아오기
+                }
             }
 
             @Override
@@ -56,13 +69,9 @@ public class P_main extends AppCompatActivity {
             }
         });
 
-        final String T_name;
-        final String T_img;
-        final String T_num;
-        // teacher 이름 불러오기
-        // teacher img 불러오기
-        // teacher number 불러오기
-
+        T_name = T_DR.child(T_num).child("name").getValue(); // 선생님 번호로 이름 받기
+        T_img = T_DR.child(T_num).child("img").getValue(); // 선생님 번호로 이미지 받기
+*/
         AdapterRoute Adapter = new AdapterRoute();
 
         Adapter.addItem(ContextCompat.getDrawable(this,R.drawable.busstop),"안양1단지");
@@ -160,11 +169,10 @@ public class P_main extends AppCompatActivity {
                 T_alertDialogBuilder.setTitle("오늘의 선생님");
 
                 //AlertDialog 셋팅
-                T_alertDialogBuilder.setMessage("선생님 정보?").setCancelable(false).setPositiveButton("결석",
+                T_alertDialogBuilder.setMessage(T_name +" 선생님\n" + "전화번호 : " +T_num).setCancelable(false).setPositiveButton("결석",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                // 결석처리함
                             }
                         }).setNegativeButton("확인", new DialogInterface.OnClickListener() {
                     @Override
@@ -176,6 +184,10 @@ public class P_main extends AppCompatActivity {
 
                 // 다이얼로그 생성
                 AlertDialog T_alertDialog = T_alertDialogBuilder.create();
+
+                // 다이얼로그에 사진 넣기
+                ImageView iv = (ImageView)T_alertDialog.findViewById(R.id.image); // 다이얼로그 내 이미지뷰 선언
+//                iv.setImageResource(); // 지정 이미지 삽입
 
                 // 다이얼로그 보여주기
                 T_alertDialog.show();
