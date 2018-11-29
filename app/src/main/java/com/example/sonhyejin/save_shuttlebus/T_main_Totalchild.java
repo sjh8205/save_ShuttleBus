@@ -55,19 +55,38 @@ public class T_main_Totalchild extends AppCompatActivity {
                 for(DataSnapshot data: dataSnapshot.child("child").getChildren()){
                     String str = data.child("name").getValue(String.class);
                     String cla = data.child("class").getValue(String.class);
+                    int status = data.child("status").getValue(Integer.class);
                     Log.v("name is", str);
                     Log.v("class is", cla);
-                    names.add(str);
-                    classes.add(cla);
-                    //Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_Totalchild.this, R.drawable.imhere));
-                    size++;
+
+                    switch (status){
+                        case 0:
+                            names.add(str);
+                            classes.add(cla);
+                            Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_Totalchild.this, R.drawable.busstop));
+                            size++;
+                            Log.v("print", Integer.toString(size));
+                            break;
+
+                        case 1:
+                            names.add(str);
+                            classes.add(cla);
+                            Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_Totalchild.this, R.drawable.imhere));
+                            size++;
+                            Log.v("print", Integer.toString(size));
+                            break;
+
+                        case 2:
+                            names.add(str);
+                            classes.add(cla);
+                            Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_Totalchild.this, R.drawable.imnothere));
+                            size++;
+                            Log.v("print", Integer.toString(size));
+                            break;
+                    }
+
                     Log.v("print", Integer.toString(size));
                 }
-                for(int i=0;i<size;i++){
-                    Adapter.addItem(names.get(i), classes.get(i), ContextCompat.getDrawable(T_main_Totalchild.this, R.drawable.imhere));
-                    Log.v("print", names.get(i));
-                }
-
                 total.setAdapter(Adapter);
 
                 total.setOnItemClickListener(new AdapterView.OnItemClickListener() {
