@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:textAlignment="center"
             android:gravity="center"
-            android:text="VIEW BUS"
+            android:text="VIEW CHILD"
             android:textSize="20sp"/>
 
     </LinearLayout>

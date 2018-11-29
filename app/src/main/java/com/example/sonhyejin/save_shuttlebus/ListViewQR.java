@@ -1,11 +1,15 @@
 package com.example.sonhyejin.save_shuttlebus;
 
 import android.graphics.drawable.Drawable;
+import android.widget.ArrayAdapter;
+
+import java.util.ArrayList;
 
 public class ListViewQR {
     private Drawable status;
     private String nameStr;
     private String classStr;
+    private ArrayList<String> names;
 
     public void setimg(Drawable stimg){
         status = stimg;
@@ -30,5 +34,7 @@ public class ListViewQR {
     public String getsClass(){
         return this.classStr;
     }
+
+    public int getCount() { return names.size(); }
 
 }

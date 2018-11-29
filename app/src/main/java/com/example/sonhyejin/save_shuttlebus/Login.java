@@ -41,6 +41,9 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        SharedPreferences data = getSharedPreferences("mydata", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editdata = data.edit();
+
         check = getSharedPreferences("login", Context.MODE_PRIVATE);
         move = check.edit();
         
@@ -123,6 +126,9 @@ public class Login extends AppCompatActivity {
         telNum=(String)tel_num.getText().toString();
         Log.v("tel_Num",tel_num.getText().toString());
 
+        editdata.putString("telnum",telNum);
+        editdata.commit();
+
         // submit 클릭 시 정보 넘겨서 데이터베이스 조회하기
 
         Button submit = (Button)findViewById(R.id.loginSubmit);
@@ -134,6 +140,7 @@ public class Login extends AppCompatActivity {
                 Log.v("tel_Num",tel_num.getText().toString());
 
                 Log.v("qjxms","qjxms");
+
                 if(status==1){
                     move.putInt("FirstorNot",1);
                     move.commit();
