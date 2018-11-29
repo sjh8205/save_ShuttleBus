@@ -31,9 +31,9 @@ public class T_main_QRScan extends AppCompatActivity {
 
         AdapterQR Adapter = new AdapterQR();
 
-        Adapter.addItem("지우", "매화", ContextCompat.getDrawable(this, R.drawable.busstop));
-        Adapter.addItem("혜진", "튤립", ContextCompat.getDrawable(this, R.drawable.busstop));
-        Adapter.addItem("승희", "장미", ContextCompat.getDrawable(this, R.drawable.busstop));
+        Adapter.addItem("지우", "매화", ContextCompat.getDrawable(this, R.drawable.imhere));
+        Adapter.addItem("혜진", "튤립", ContextCompat.getDrawable(this, R.drawable.imnothere));
+        Adapter.addItem("승희", "장미", ContextCompat.getDrawable(this, R.drawable.imhere));
 
         qr.setAdapter(Adapter);
 
@@ -67,6 +67,7 @@ public class T_main_QRScan extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),T_main.class);
+                startActivity(intent);
             }
         });
 
