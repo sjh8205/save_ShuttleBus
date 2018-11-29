@@ -16,7 +16,7 @@ public class T_main_Totalchild extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_t_main_totalchild);
 
-        final ListView total = (ListView) findViewById(R.id.tChildList);
+        final ListView total = (ListView) findViewById(R.id.tTotalList);
 
         AdapterQR Adapter = new AdapterQR();
 
