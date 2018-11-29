@@ -40,11 +40,11 @@ public class P_main extends AppCompatActivity {
 
         C_DR = FD.getReference("Kindergarten").child(telNum).child("child").child(phone);
         final String C_name = "유지니";// C_DR.child("Name").getValue().toString();
-        // child 상태 불러오기 - > 1 : 승차 중 / 2: 하차 / 3 :유치원
+        // child 상태 불러오기 - > 1 : 승차 중 / 2 : 하차 / 3 : 유치원 / 4 : 결석
 
-        final DatabaseReference T_DR = FD.getReference("Kindergarten").child(telNum);
+        final DatabaseReference T_DR = FD.getReference("Kindergarten").child(telNum).child("Today");
         // kindergarten 밑에 있는 데이터로 접근
-        T_DR.addValueEventListener(new ValueEventListener() { // 오늘의 지도교사 탐색
+        T_DR.addValueEventListener(new ValueEventListener() { // 오늘의 지도교사 탐색 --> 어떻게 하징,,ㅠ 분별방법 아직 xxxx
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -104,6 +104,9 @@ public class P_main extends AppCompatActivity {
                     case 3 :
                         message = "유치원에 있어요.";
                         break;
+                    case 4 :
+                        message = "결석했어요.";
+                        break;
                     default:
                         message = "에러;";
                         break;
@@ -120,6 +123,18 @@ public class P_main extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 // 결석처리함 (아이 데이터베이스에 접근, 데이터베이스 저장)
+
+                                C_DR.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        C_DR.child("status").setValue(4); // 결석값으로 세팅
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
 
 
                             }
