@@ -39,7 +39,7 @@ public class P_main extends AppCompatActivity {
         FirebaseDatabase FD = FirebaseDatabase.getInstance();
 
         C_DR = FD.getReference("Kindergarten").child(telNum).child("child").child(phone);
-        final String C_name = C_DR.child("Name").getKey().toString();
+        final String C_name = "유지니";// C_DR.child("Name").getValue().toString();
         // child 상태 불러오기 - > 1 : 승차 중 / 2: 하차 / 3 :유치원
 
         final DatabaseReference T_DR = FD.getReference("Kindergarten").child(telNum);
@@ -92,7 +92,7 @@ public class P_main extends AppCompatActivity {
       public void onClick(View v) {
         switch (v.getId()) {
             case R.id.pViewChild:
-                int C_status = C_DR.child("status").getValue(); // 승차 정보 업데이트
+                int C_status = 1; // C_DR.child("status").getValue(); // 승차 정보 업데이트
                 String message = " ";
                 switch (C_status) {
                     case 1 :
