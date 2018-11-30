@@ -256,7 +256,7 @@ public class H_Main_Register_child extends AppCompatActivity {
     private void uploadImage(Uri filePath){
         if(filePath!=null){
             final StorageReference ref= storageReference.child("Kindergarten/").child(kindergarten).
-                    child(PhoneNum).child(filePath.getLastPathSegment());
+                    child("child").child(filePath.getLastPathSegment());
             UploadTask uploadTask=ref.putFile(filePath);
             ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override

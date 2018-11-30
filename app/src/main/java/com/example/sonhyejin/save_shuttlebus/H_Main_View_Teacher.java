@@ -3,6 +3,7 @@ package com.example.sonhyejin.save_shuttlebus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,8 +45,9 @@ public class H_Main_View_Teacher extends AppCompatActivity {
                     String nam = data.child("name").getValue(String.class);
                     String cla = data.child("tClass").getValue(String.class);
                     String num = data.child("phone").getValue(String.class);
+                    String pic=data.child("imgPath").getValue().toString();
 
-                    adapter.addItem(ContextCompat.getDrawable(H_Main_View_Teacher.this, R.drawable.busstop),nam,cla,num);
+                    adapter.addItem(Uri.parse(pic),nam,cla,num);
                 }
                 people.setAdapter(adapter);
 

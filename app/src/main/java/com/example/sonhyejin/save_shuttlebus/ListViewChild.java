@@ -7,6 +7,7 @@ public class ListViewChild {
     private String classStr;
     private String numStr;
 
+
     public void setpName(String  name){
         nameStr = name;
     }

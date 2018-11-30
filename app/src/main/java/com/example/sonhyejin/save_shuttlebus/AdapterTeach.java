@@ -2,6 +2,7 @@ package com.example.sonhyejin.save_shuttlebus;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,7 @@ public class AdapterTeach extends BaseAdapter {
         return listViewItemList.get(position);
     }
 
-    public void addItem(Drawable image, String name, String tclass, String num){
+    public void addItem(Uri image, String name, String tclass, String num){
         ListViewTeach item = new ListViewTeach();
 
         item.setimg(image);

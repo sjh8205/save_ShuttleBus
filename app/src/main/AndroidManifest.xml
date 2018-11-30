@@ -18,25 +18,29 @@
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".T_main" />
         <activity android:name=".P_main" />
         <activity android:name=".H_Main" />
         <activity android:name=".H_Main_View" />
         <activity android:name=".H_Main_Register" />
-        <activity android:name=".Login" />
+        <activity android:name=".Login">
+
+    </activity>
         <activity android:name=".T_main_QRScan" />
         <activity android:name=".H_Main_Register_bus" />
         <activity android:name=".H_Join" />
         <activity android:name=".H_Main_Register_child" />
         <activity android:name=".H_Wait" />
         <activity android:name=".H_Main_Register_Teacher" />
-        <activity android:name=".H_Main_View_bus" />
+        <activity android:name=".H_Main_View_bus">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity android:name=".H_Main_View_child" />
         <activity android:name=".H_Main_View_Teacher" />
         <activity android:name=".T_main_Totalchild"></activity>
