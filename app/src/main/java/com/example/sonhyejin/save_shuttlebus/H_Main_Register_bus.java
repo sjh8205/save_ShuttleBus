@@ -15,7 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class H_Main_Register_bus extends AppCompatActivity {
-    String Routine;
+    //String Routine;
     String Station;
     String Time;
     String telNum;
@@ -28,17 +28,17 @@ public class H_Main_Register_bus extends AppCompatActivity {
         telNum=intent.getStringExtra("telNum");
 
         setContentView(R.layout.activity_h_main_register_bus);
-        final EditText tRoutine=(EditText)findViewById(R.id.hRegBusName);
+        //final EditText tRoutine=(EditText)findViewById(R.id.hRegBusName);
         final EditText tStation=(EditText)findViewById(R.id.hRegBusRoute);
         final EditText tTime=(EditText)findViewById(R.id.hRegBusTime);
-        tRoutine.setOnClickListener(new View.OnClickListener() {
+        /*tRoutine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(view==tRoutine){
                     tRoutine.setText("");
                 }
             }
-        });
+        });*/
         tStation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,13 +62,13 @@ public class H_Main_Register_bus extends AppCompatActivity {
                 databaseReference=FirebaseDatabase.getInstance().getReference()
                         .child("Kindergarten").child(telNum).child("bus");
 
-                Routine=tRoutine.getText().toString();
+                //Routine=tRoutine.getText().toString();
                 Station=tStation.getText().toString();
                 Time=tTime.getText().toString();
 
-                registerBus regB=new registerBus(Routine,Station,Time);
+                registerBus regB=new registerBus(Station,Time,false);
                 String str=Time+" "+Station;
-                databaseReference.child(Routine).child(str).setValue(regB);
+                databaseReference.child(str).setValue(regB);
 
                 Intent intent1=new Intent(getApplicationContext(),H_Main_Register.class);
                 startActivity(intent1);

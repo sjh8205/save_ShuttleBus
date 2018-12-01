@@ -37,14 +37,19 @@ public class H_Main_View_bus extends AppCompatActivity {
         FirebaseDatabase FD = FirebaseDatabase.getInstance();
         DatabaseReference DR = FD.getReference("Kindergarten");
 
-        DR.child("025556666").addValueEventListener(new ValueEventListener() {
+        DR.child(telNum).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot data: dataSnapshot.child("child").getChildren()){
-                    String nam = data.child("name").getValue(String.class);
-                    String num = data.child("Phone").getValue(String.class);
+                for(DataSnapshot data: dataSnapshot.child("bus").getChildren()){
+                    String temp=data.getKey();
+                    Log.v("telNumb",temp);
+                    int idx=temp.indexOf(" ");
+                    String num = temp.substring(0,idx);
+                    Log.v("bus"," "+num);
+                    String nam = temp.substring(idx+1);
+                    Log.v("bus"," "+nam);
 
-                    Adapter.addItem(ContextCompat.getDrawable(H_Main_View_bus.this,R.drawable.busstop),num);
+                    Adapter.addItem(ContextCompat.getDrawable(H_Main_View_bus.this,R.drawable.busstop),nam);
                 }
                 route.setAdapter(Adapter);
 
