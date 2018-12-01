@@ -133,7 +133,6 @@ public class H_Main_Register_Teacher extends AppCompatActivity {
                     finish();
                 }
                 break;
-
         }
     }
 
@@ -152,9 +151,15 @@ public class H_Main_Register_Teacher extends AppCompatActivity {
     }
 
     private void takePhotoFromCamera() {
-        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, CAMERA);
-
+        int permissionCheck = ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA);
+        if(permissionCheck==PackageManager.PERMISSION_DENIED){
+            //권한 없음
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},CAMERA);
+            Log.v("p","권함없음");
+        }else{
+            Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, CAMERA);
+        }
     }
 
     @Override
