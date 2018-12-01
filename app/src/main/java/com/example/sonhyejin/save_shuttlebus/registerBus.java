@@ -1,17 +1,19 @@
 package com.example.sonhyejin.save_shuttlebus;
 
 public class registerBus {
-    String Routine;
-    String Station;
-    int time;
+    private  String Routine;
+    private String Station;
+    private String time;
+
     public registerBus(){}
-    public registerBus(String routine,String station,int time){
-        this.Routine=routine;
-        this.Station=station;
+
+    public registerBus(String Routine,String Station, String time){
+        this.Routine=Routine;
+        this.Station=Station;
         this.time=time;
     }
 
-    public int getTime() {
+    public String getTime() {
         return time;
     }
 
@@ -31,7 +33,7 @@ public class registerBus {
         Station = station;
     }
 
-    public void setTime(int time) {
+    public void setTime(String time) {
         this.time = time;
     }
 }

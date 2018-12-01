@@ -32,6 +32,22 @@ public class H_Join extends AppCompatActivity {
         Button submit = (Button)findViewById(R.id.joinSubmit);
         final EditText joinResNum = (EditText)findViewById(R.id.joinResNum);
         final EditText joinName = (EditText)findViewById(R.id.joinName);
+        joinResNum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(view==joinResNum){
+                    joinResNum.setText("");
+                }
+            }
+        });
+        joinName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(view==joinName) {
+                    joinName.setText("");
+                }
+            }
+        });
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Kindergarten");
         submit.setOnClickListener(new View.OnClickListener() { // 제출

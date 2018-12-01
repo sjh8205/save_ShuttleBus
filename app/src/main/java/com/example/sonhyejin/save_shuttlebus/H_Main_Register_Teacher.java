@@ -86,7 +86,30 @@ public class H_Main_Register_Teacher extends AppCompatActivity {
 
 
         table= FirebaseDatabase.getInstance().getReference("Kindergarten");
-
+        hRegTeachName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(view==hRegTeachName){
+                    hRegTeachName.setText("");
+                }
+            }
+        });
+        hRegTeachNum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(view==hRegTeachNum){
+                    hRegTeachNum.setText("");
+                }
+            }
+        });
+        hRegTeachClass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(view==hRegTeachClass){
+                    hRegTeachClass.setText("");
+                }
+            }
+        });
         hRegTeachSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

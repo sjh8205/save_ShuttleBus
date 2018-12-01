@@ -123,8 +123,14 @@ public class Login extends AppCompatActivity {
         final EditText tel_num = (EditText)findViewById(R.id.kinHeadNum);
 
 
-        telNum=(String)tel_num.getText().toString();
-        Log.v("tel_Num",tel_num.getText().toString());
+        tel_num.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(view==tel_num){
+                    tel_num.setText("");
+                }
+            }
+        });
 
         editdata.putString("telnum",telNum);
         editdata.commit();

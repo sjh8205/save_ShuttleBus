@@ -72,8 +72,6 @@ public class H_Main_Register_child extends AppCompatActivity {
         intent=getIntent();
         kindergarten=intent.getStringExtra("telNum");
 
-        final DatabaseReference databaseReference;
-        databaseReference= FirebaseDatabase.getInstance().getReference("Kindergarten");
         firebaseStorage=FirebaseStorage.getInstance();
         storageReference=firebaseStorage.getReference();
         busyes = (Button)findViewById(R.id.busYes);
@@ -110,7 +108,38 @@ public class H_Main_Register_child extends AppCompatActivity {
         //원생 등록시 원생 보호자 중 한명의 전화번호
         busStation=(EditText)findViewById(R.id.hRegChildStation);
         //원생 등록시 원생이 버스를 탈 경우 버스 정류장
-
+        childName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(view==childName){
+                    childName.setText("");
+                }
+            }
+        });
+        childClass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(view==childClass){
+                    childClass.setText("");
+                }
+            }
+        });
+        phoneNum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(view==phoneNum){
+                    phoneNum.setText("");
+                }
+            }
+        });
+        busStation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(view==busStation){
+                    busStation.setText("");
+                }
+            }
+        });
         Button btn=(Button)findViewById(R.id.hRegChildSubmit);
 
         Button.OnClickListener onClickListener=new Button.OnClickListener(){
@@ -152,13 +181,11 @@ public class H_Main_Register_child extends AppCompatActivity {
                 File file =new File(str);
                 Uri uri=Uri.fromFile(file);
                 Log.v("ex",uri.toString());
-                uploadImage(uri);
-                Log.v("img",imgPath);
+                Log.v("img",""+imgPath);
                 registerChild=new Register_child(ChildName,ChildClass,PhoneNum,
-                        BusStation,bus,3, imgPath);
+                        BusStation,bus,3, null);
+                uploadImage(uri,registerChild);
 
-                databaseReference.child(kindergarten)
-                        .child("child").child(PhoneNum).setValue(registerChild);
             }
         });
 
@@ -180,23 +207,6 @@ public class H_Main_Register_child extends AppCompatActivity {
         ActivityCompat.requestPermissions(this,requestPermission,
                 REQ_PERMISSION);
     }
-    /*public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode){
-            case GALLERY:
-                if(checkAppPermission(permissions)){
-                    Intent intent=new Intent(Intent.ACTION_PICK);
-                    intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
-                    intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(intent,GALLERY);
-                }
-                else{
-                    finish();
-                }
-                break;
-        }
-    }*/
-
     public Bitmap generateRQCode(String contents) {
         Bitmap bitmap = null ;
 
@@ -253,10 +263,12 @@ public class H_Main_Register_child extends AppCompatActivity {
         }
         return "";
     }
-    private void uploadImage(Uri filePath){
+    private void uploadImage(Uri filePath, final Register_child register_child){
         if(filePath!=null){
-            final StorageReference ref= storageReference.child("Kindergarten/").child(kindergarten).
+            Log.v("fbs","filePathT");
+            final StorageReference ref= storageReference.child("images/").child(kindergarten).
                     child("child").child(filePath.getLastPathSegment());
+            Log.v("fbs","spathT"+filePath);
             UploadTask uploadTask=ref.putFile(filePath);
             ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -265,8 +277,12 @@ public class H_Main_Register_child extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             imgPath=uri.toString();
-                            Log.v("storage","upOK");
-
+                            Log.v("storage","upOK  "+imgPath);
+                            register_child.setQrUri(imgPath);
+                            final DatabaseReference databaseReference;
+                            databaseReference= FirebaseDatabase.getInstance().getReference("Kindergarten");
+                            databaseReference.child(kindergarten)
+                                    .child("child").child(PhoneNum).setValue(register_child);
                         }
                     });
                 }
