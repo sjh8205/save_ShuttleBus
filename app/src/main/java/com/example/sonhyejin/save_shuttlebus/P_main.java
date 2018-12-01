@@ -24,20 +24,24 @@ import com.google.firebase.database.ValueEventListener;
 public class P_main extends AppCompatActivity {
 
     DatabaseReference C_DR;
-    String T_num = "0000";
-    String T_name = "인혜";
+    String C_name;
+    int C_status;
+
+    String T_num;
+    String T_name;
     String T_img;
+
+    Intent intent = getIntent(); // getIntent()로 받을 준비
+    final String phone = intent.getStringExtra("phone"); // 전화번호 받기
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_p_main);
 
         ListView route = (ListView)findViewById(R.id.pBusList);
-        Intent intent = getIntent(); // getIntent()로 받을 준비
 
         final String telNum = intent.getStringExtra("telNum"); // 유치원 번호 받기
         Log.v("tel_num","왔어용");
-        final String phone = intent.getStringExtra("phone"); // 전화번호 받기
         Log.v("autonum",phone);
 
         Toast.makeText(getApplicationContext(), "intent 받아오기 " + telNum + " " + phone, Toast.LENGTH_SHORT).show();
@@ -47,19 +51,22 @@ public class P_main extends AppCompatActivity {
         C_DR = FD.getReference("Kindergarten").child(telNum).child("child").child(phone);
         Log.v("C_DR","왔어용");
 
-        final String C_name = "유지니";// C_DR.child("Name").getValue().toString();
         // child 상태 불러오기 - > 1 : 승차 중 / 2 : 하차 / 3 : 유치원 / 4 : 결석
         Log.v("name","왔어용");
 
         final DatabaseReference T_DR = FD.getReference("Kindergarten").child(telNum);
-        Log.v("T_DR","왔어용");
+//        Log.v("T_DR","왔어용");
         // kindergarten 밑에 있는 데이터로 접근
-/*        T_DR.addValueEventListener(new ValueEventListener() { // 오늘의 지도교사 탐색 --> 어떻게 하징,,ㅠ 분별방법 아직 xxxx
+
+        T_DR.addValueEventListener(new ValueEventListener() { // 오늘의 지도교사 탐색 --> 어떻게 하징,,ㅠ 분별방법 아직 xxxx
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot data:dataSnapshot.getChildren()) { // 다음 탐색
-                    if (T_DR.child("phone").child("Today").getValue() == 1) // 만약 오늘의 지도교사이면
+                    if (data.child("phone").child("Today").getValue() == 1) { // 만약 오늘의 지도교사이면
                         T_num = T_DR.child("phone").getKey().toString(); // 선생님 전화번호 받아오기
+                        T_name = data.child("phone").child("name").getValue(String.class); // 선생님 이름 받아오기
+                        T_img = data.child("phone").child("img").getValue(String.class);
+                    }
                 }
             }
 
@@ -69,9 +76,6 @@ public class P_main extends AppCompatActivity {
             }
         });
 
-        T_name = T_DR.child(T_num).child("name").getValue(); // 선생님 번호로 이름 받기
-        T_img = T_DR.child(T_num).child("img").getValue(); // 선생님 번호로 이미지 받기
-*/
         AdapterRoute Adapter = new AdapterRoute();
 
         Adapter.addItem(ContextCompat.getDrawable(this,R.drawable.busstop),"안양1단지");
@@ -101,7 +105,23 @@ public class P_main extends AppCompatActivity {
       public void onClick(View v) {
         switch (v.getId()) {
             case R.id.pViewChild:
-                int C_status = 1; // C_DR.child("status").getValue(); // 승차 정보 업데이트
+                C_DR.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot data: dataSnapshot.getChildren()) {
+                            if(C_DR.getKey() == phone) { // 기본키가 폰 번호랑 같으면
+                                C_name = data.child("Name").getValue(String.class); // 이름 가져오기
+                                C_status = data.child("status").getValue(int.class); // 현재 가져오기
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
                 String message = " ";
                 switch (C_status) {
                     case 1 :
@@ -113,7 +133,7 @@ public class P_main extends AppCompatActivity {
                     case 3 :
                         message = "유치원에 있어요.";
                         break;
-                    case 4 :
+                    case 0 :
                         message = "결석했어요.";
                         break;
                     default:
@@ -124,7 +144,7 @@ public class P_main extends AppCompatActivity {
                 AlertDialog.Builder C_alertDialogBuilder = new AlertDialog.Builder(this);
 
                 //제목 셋팅
-                C_alertDialogBuilder.setTitle("우리 아이는 지금");
+                C_alertDialogBuilder.setTitle("우리 아이는 지금\n");
 
                 //AlertDialog 셋팅
                 C_alertDialogBuilder.setMessage(message).setCancelable(false).setPositiveButton("결석",
@@ -187,7 +207,7 @@ public class P_main extends AppCompatActivity {
 
                 // 다이얼로그에 사진 넣기
                 ImageView iv = (ImageView)T_alertDialog.findViewById(R.id.image); // 다이얼로그 내 이미지뷰 선언
-//                iv.setImageResource(); // 지정 이미지 삽입
+//                iv.setImageResource(); // 파이어베이스에서 이미지 불러오기
 
                 // 다이얼로그 보여주기
                 T_alertDialog.show();

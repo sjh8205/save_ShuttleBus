@@ -32,6 +32,7 @@ public class T_main_QRScan extends AppCompatActivity {
     AdapterQR Adapter;
     ListView qr;
     String sStation="a";
+    boolean attendance = true; // 출석 확인 변수
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class T_main_QRScan extends AppCompatActivity {
 
         qr = (ListView) findViewById(R.id.tChildList);
         Button scanner = (Button) findViewById(R.id.tQrScan);
-        Button submit = (Button) findViewById(R.id.tCompletScan);
+        Button submit = (Button) findViewById(R.id.tCompleteScan);
 
         Adapter = new AdapterQR();
 
@@ -53,7 +54,8 @@ public class T_main_QRScan extends AppCompatActivity {
 
         DR.child("025556666").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) { // 스캔하고 돌아올 때마다 계속 검사할 것
+
                 for(DataSnapshot data: dataSnapshot.child("child").getChildren()){
                     String str = data.child("name").getValue(String.class);
                     String cla = data.child("class").getValue(String.class);
@@ -63,18 +65,21 @@ public class T_main_QRScan extends AppCompatActivity {
                     int status = data.child("status").getValue(Integer.class);
                     Log.v("class is", com);
                     if(com.equals(sStation)){
+
                         switch (status){
-                            case 0:
+                            case 0: // 결석
                                 Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.busstop));
                                 break;
 
-                            case 1:
+                            case 1: // 승차
                                 Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imhere));
+                                attendance = false; // 하차 안 한 아이가 한 명이라도 있다면 attendance가 완료되지 않은 것 -> 버튼 계속 비활성화
                                 break;
 
-                            case 2:
+                            case 2: // 하차
                                 Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imnothere));
                                 break;
+
                         }
 
                     }
@@ -116,6 +121,11 @@ public class T_main_QRScan extends AppCompatActivity {
             }
         });
 
+// 모든 아이들이 하차 상태일 때 submit 버튼 활성화
+        if(attendance)
+            submit.setActivated(true);
+
+// 활성화된 버튼을 누르면 T_main으로 돌아감
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,6 +153,7 @@ public class T_main_QRScan extends AppCompatActivity {
 
     }
 }
+
 
 /*
 * String row = (String) qr.getItemAtPosition(position);

@@ -58,7 +58,7 @@
             android:layout_margin="5dp"/>
 
         <Button
-            android:id="@+id/tCompletScan"
+            android:id="@+id/tCompleteScan"
             android:layout_width="100dp"
             android:layout_height="40dp"
             android:background="@color/SubmitButton"
@@ -66,7 +66,8 @@
             android:text="COMPLETE"
             android:textSize="17sp"
             android:textColor="@color/BackText"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:enabled="false"/>
 
     </LinearLayout>
 

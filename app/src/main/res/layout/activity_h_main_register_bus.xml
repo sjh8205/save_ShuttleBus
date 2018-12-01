@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <EditText
+<!--            <EditText
                 android:id="@+id/hRegBusName"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -51,7 +51,7 @@
                 android:textSize="17sp"
                 android:textColor="@color/BackText"
                 android:textAlignment="center"/>
-
+-->
             <EditText
                 android:id="@+id/hRegBusRoute"
                 android:layout_width="match_parent"
@@ -69,7 +69,7 @@
                 android:layout_height="45dp"
                 android:layout_margin="5dp"
                 android:background="@color/TextBackground"
-                android:text="TIME"
+                android:text="INDEX"
                 android:textSize="17sp"
                 android:textColor="@color/BackText"
                 android:textAlignment="center"/>
