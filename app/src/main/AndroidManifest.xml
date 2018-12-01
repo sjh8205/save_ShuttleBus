@@ -35,14 +35,15 @@
         <activity android:name=".H_Wait" />
         <activity android:name=".H_Main_Register_Teacher" />
         <activity android:name=".H_Main_View_bus">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
         <activity android:name=".H_Main_View_child" />
-        <activity android:name=".H_Main_View_Teacher" />
+        <activity android:name=".H_Main_View_Teacher">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".T_main_Totalchild"></activity>
     </application>
 

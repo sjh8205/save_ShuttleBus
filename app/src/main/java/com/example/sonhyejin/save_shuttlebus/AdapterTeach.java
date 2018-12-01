@@ -10,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class AdapterTeach extends BaseAdapter {
@@ -42,7 +44,7 @@ public class AdapterTeach extends BaseAdapter {
         nameView.setText(listViewItem.gettName());
         classView.setText(listViewItem.gettClass());
         numView.setText(listViewItem.gettNum());
-        imgView.setImageDrawable((listViewItem.getimg()));
+        Glide.with(context).load(listViewItem.getimg()).into(imgView);
 
         return convertView;
     }

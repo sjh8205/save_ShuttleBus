@@ -1,14 +1,14 @@
 package com.example.sonhyejin.save_shuttlebus;
 
-import android.graphics.drawable.Drawable;
+import android.net.Uri;
 
 public class ListViewTeach {
-    private Drawable img;
+    private Uri img;
     private String nameStr;
     private String classStr;
     private String numStr;
 
-    public void setimg(Drawable stimg){
+    public void setimg(Uri stimg){
         img = stimg;
     }
 
@@ -24,7 +24,7 @@ public class ListViewTeach {
         numStr = num;
     }
 
-    public Drawable getimg(){
+    public Uri getimg(){
         return this.img;
     }
 

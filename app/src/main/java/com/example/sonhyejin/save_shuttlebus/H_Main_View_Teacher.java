@@ -56,7 +56,7 @@ public class H_Main_View_Teacher extends AppCompatActivity {
                     public void onItemClick(AdapterView parent, View view, int position, long id) {
                         ListViewTeach item = (ListViewTeach) parent.getItemAtPosition(position);
 
-                        Drawable img = item.getimg();
+                        Uri img = item.getimg();
                         String nameStr = item.gettName();
                         String classStr = item.gettClass();
                         String numStr = item.gettNum();
