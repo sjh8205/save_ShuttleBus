@@ -35,27 +35,27 @@ public class P_main extends AppCompatActivity {
     final String phone = intent.getStringExtra("phone"); // 전화번호 받기
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("autonum",phone);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_p_main);
 
         ListView route = (ListView)findViewById(R.id.pBusList);
 
         final String telNum = intent.getStringExtra("telNum"); // 유치원 번호 받기
-        Log.v("tel_num","왔어용");
-        Log.v("autonum",phone);
+        Log.i("tel_num",telNum);
 
         Toast.makeText(getApplicationContext(), "intent 받아오기 " + telNum + " " + phone, Toast.LENGTH_SHORT).show();
 
         FirebaseDatabase FD = FirebaseDatabase.getInstance();
 
         C_DR = FD.getReference("Kindergarten").child(telNum).child("child").child(phone);
-        Log.v("C_DR","왔어용");
+        Log.i("C_DR","왔어용");
 
         // child 상태 불러오기 - > 1 : 승차 중 / 2 : 하차 / 3 : 유치원 / 4 : 결석
-        Log.v("name","왔어용");
 
         final DatabaseReference T_DR = FD.getReference("Kindergarten").child(telNum);
-//        Log.v("T_DR","왔어용");
+        Log.i("T_DR","왔어용");
         // kindergarten 밑에 있는 데이터로 접근
 
         T_DR.addValueEventListener(new ValueEventListener() { // 오늘의 지도교사 탐색 --> 어떻게 하징,,ㅠ 분별방법 아직 xxxx
@@ -92,12 +92,13 @@ public class P_main extends AppCompatActivity {
 
                 String stStr = item.getstname();
                 Drawable img = item.getimg();
+                Log.v("리스트뷰 클릭",String.valueOf(position));
             }
         });
 
-        Button pViewChild = (Button)findViewById(R.id.pViewChild);
-        Button pViewTeach = (Button)findViewById(R.id.pViewTeach);
-
+ //       Button pViewChild = (Button)findViewById(R.id.pViewChild);
+ //       Button pViewTeach = (Button)findViewById(R.id.pViewTeach);
+ // 밑에서 id로 받음
 //        pViewChild.setOnClickListener(this);
 
       }
@@ -105,6 +106,7 @@ public class P_main extends AppCompatActivity {
       public void onClick(View v) {
         switch (v.getId()) {
             case R.id.pViewChild:
+                Log.v("pViewChild",phone);
                 C_DR.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -183,6 +185,7 @@ public class P_main extends AppCompatActivity {
                 break;
 
             case R.id.pViewTeach:
+                Log.v("pViewTeach",phone);
                 AlertDialog.Builder T_alertDialogBuilder = new AlertDialog.Builder(this);
 
                 //제목 셋팅
