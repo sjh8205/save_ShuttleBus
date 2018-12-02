@@ -78,7 +78,7 @@
                     android:layout_weight="1"
                     android:background="@color/ChooseButton"
                     android:layout_marginHorizontal="5dp"
-                    android:text="원장"
+                    android:text="HEAD"
                     android:textSize="17sp"
                     android:textColor="@color/BackText"/>
 
@@ -89,7 +89,7 @@
                     android:layout_weight="1"
                     android:background="@color/ChooseButton"
                     android:layout_marginHorizontal="5dp"
-                    android:text="교사"
+                    android:text="TEACHER"
                     android:textSize="17sp"
                     android:textColor="@color/BackText"/>
 
@@ -100,7 +100,7 @@
                     android:layout_weight="1"
                     android:background="@color/ChooseButton"
                     android:layout_marginHorizontal="5dp"
-                    android:text="학부모"
+                    android:text="PARENT"
                     android:textSize="17sp"
                     android:textColor="@color/BackText"/>
 

@@ -18,14 +18,13 @@ public class SplashActivity extends Activity {
         }
 
         SharedPreferences data = getSharedPreferences("mydata", Context.MODE_PRIVATE);
-        String seedata = data.getString("telnum","0");
+        SharedPreferences.Editor move ;
+        move = data.edit();
+        move.putString("telnum","0");
+        move.commit();
 
         SharedPreferences check = getSharedPreferences("login", Context.MODE_PRIVATE);
         int checked = check.getInt("FirstorNot",0);
-        SharedPreferences.Editor move ;
-
-
-/*
 
         if(checked==1){ //사용자가 사전에 '원장' 자격으로 로그인 한 경우
             startActivity(new Intent(this,H_Main.class));
@@ -41,9 +40,8 @@ public class SplashActivity extends Activity {
             finish();
         }
 
-*/
-        startActivity(new Intent(this,Login.class));
-        finish();
+        //startActivity(new Intent(this,Login.class));
+        //finish();
 
     }
 }
