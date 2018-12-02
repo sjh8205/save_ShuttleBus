@@ -62,11 +62,11 @@ public class P_main extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot data:dataSnapshot.getChildren()) { // 다음 탐색
-                    if (data.child("phone").child("Today").getValue() == 1) { // 만약 오늘의 지도교사이면
+                   //if (data.child("phone").child("Today").getValue() == 1) { // 만약 오늘의 지도교사이면
                         T_num = T_DR.child("phone").getKey().toString(); // 선생님 전화번호 받아오기
                         T_name = data.child("phone").child("name").getValue(String.class); // 선생님 이름 받아오기
                         T_img = data.child("phone").child("img").getValue(String.class);
-                    }
+                    //}
                 }
             }
 
