@@ -1,6 +1,7 @@
 package com.example.sonhyejin.save_shuttlebus;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -11,12 +12,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 
 public class H_Main_View_Teacher extends AppCompatActivity {
 
@@ -40,16 +43,23 @@ public class H_Main_View_Teacher extends AppCompatActivity {
 
         DR.child("telNum").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                int i = 0;
                 for(DataSnapshot data: dataSnapshot.child("Teacher").getChildren()){
                     String nam = data.child("name").getValue(String.class);
                     String cla = data.child("tClass").getValue(String.class);
                     String num = data.child("phone").getValue(String.class);
                     String pic=data.child("imgPath").getValue().toString();
 
+                    Toast.makeText(getApplicationContext(), String.valueOf(i), Toast.LENGTH_SHORT).show();
+
+                    i++;
+
                     adapter.addItem(Uri.parse(pic),nam,cla,num);
                 }
                 people.setAdapter(adapter);
+
+                Toast.makeText(getApplicationContext(), "리스트뷰 구성완료", Toast.LENGTH_SHORT).show();
 
                 people.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -60,10 +70,35 @@ public class H_Main_View_Teacher extends AppCompatActivity {
                         String nameStr = item.gettName();
                         String classStr = item.gettClass();
                         String numStr = item.gettNum();
+                        Toast.makeText(getApplicationContext(), "리스트뷰 구성완료22", Toast.LENGTH_SHORT).show();
+
+/*                        int j = 0; // 포문 얼마나 돌았는지 세어주는 변수 (선택한 position 수만큼 돌릴 것임)
+                        Log.v("클릭", String.valueOf(position));
+
+                        for(DataSnapshot data: dataSnapshot.child("Teacher").getChildren()) {
+                            Log.v("포문입니다,,", String.valueOf(j) + " =?= "+ String.valueOf(position));
+                            if(j == position) { // j와 pos가 같으면
+                                boolean today;
+                                // 선생님 데이터베이스에서 today값 가져오기
+                                today = data.child("Teacher").child("phone").child("Today").getValue(boolean.class);
+                                Log.v("포문입니다,,", String.valueOf(today));
+
+                                DR.child("Tel_num").child("Teacher").child("phone").child("Today").setValue(!today);
+
+                                if(today)
+                                    Toast.makeText(getApplicationContext(), "지도교사가 해제되었습니다.", Toast.LENGTH_SHORT).show();
+                                else
+                                    Toast.makeText(getApplicationContext(), "지도교사가 등록되었습니다.", Toast.LENGTH_SHORT).show();
+                            } // 선택된 교사 오늘의 지도교사로 세팅 또는 세팅 풀기 -> 토스트 말고 따로 보여줄 방법은 아직 없음
+
+                            j++; // j ++ 해주구
+                        }
+*/
                     }
                 });
 
                 Log.v("print", "affor");
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

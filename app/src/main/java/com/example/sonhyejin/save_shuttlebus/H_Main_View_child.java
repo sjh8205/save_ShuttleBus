@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -60,6 +61,8 @@ public class H_Main_View_child extends AppCompatActivity {
                         String nameStr = item.getpName();
                         String classStr = item.getpClass();
                         String numStr = item.getpNum();
+
+//                        Toast.makeText(getApplicationContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
                     }
                 });
 

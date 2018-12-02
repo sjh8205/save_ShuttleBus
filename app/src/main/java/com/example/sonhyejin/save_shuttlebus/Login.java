@@ -197,6 +197,7 @@ public class Login extends AppCompatActivity {
                                     Intent intent1=new Intent(getApplicationContext(),H_Main.class);
                                     intent1.putExtra("phone",autonum);
                                     intent1.putExtra("telNum",telNum);
+                                    Toast.makeText(getApplicationContext(), "록ㄱㄱ", Toast.LENGTH_SHORT).show();
 
                                     move.putInt("FirstorNot",1);
                                     move.commit();
@@ -224,6 +225,7 @@ public class Login extends AppCompatActivity {
                                     Intent intent2=new Intent(getApplicationContext(),T_main.class);
                                     intent2.putExtra("phone",autonum);
                                     intent2.putExtra("telNum",telNum);
+                                    Toast.makeText(getApplicationContext(), "록ㄱㄱ", Toast.LENGTH_SHORT).show();
 
                                     move.putInt("FirstorNot",3);
                                     move.commit();
@@ -239,6 +241,7 @@ public class Login extends AppCompatActivity {
                                     if(autonum.equals(temp)){
                                         Log.v("check","same");
                                         check2++;
+                                        Toast.makeText(getApplicationContext(), "록ㄱㄱ", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                                 if(check2==0){
