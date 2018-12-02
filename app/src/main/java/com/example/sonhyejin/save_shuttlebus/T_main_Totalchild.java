@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import java.lang.*;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -39,30 +40,37 @@ public class T_main_Totalchild extends AppCompatActivity {
         SharedPreferences data = getSharedPreferences("mydata", Context.MODE_PRIVATE);
         //SharedPreferences.Editor editdata = data.edit();
         telNum = data.getString("telnum","0");
+        Log.v("telNum is", telNum);
 
         FirebaseDatabase FD = FirebaseDatabase.getInstance();
         DatabaseReference DR = FD.getReference("Kindergarten");
 
-        DR.child("025556666").addValueEventListener(new ValueEventListener() {
+        Log.v("C", "c");
+
+        DR.child(telNum).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Log.v("A", "a");
+
                 for(DataSnapshot data: dataSnapshot.child("child").getChildren()){
-                    String str = data.child("name").getValue(String.class);
-                    String cla = data.child("class").getValue(String.class);
-                    int status = data.child("status").getValue(Integer.class);
+                    Log.v("B", "b");
+                    String str = data.child("childName").getValue(String.class);
+                    String cla = data.child("childClass").getValue(String.class);
+                    int status = data.child("childOnBus").getValue(Integer.class);
                     Log.v("name is", str);
                     Log.v("class is", cla);
 
                     switch (status){
-                        case 0:
+                        case 1:
                             Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_Totalchild.this, R.drawable.busstop));
                             break;
 
-                        case 1:
+                        case 2:
                             Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_Totalchild.this, R.drawable.imhere));
                             break;
 
-                        case 2:
+                        case 3:
                             Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_Totalchild.this, R.drawable.imnothere));
                             break;
                     }

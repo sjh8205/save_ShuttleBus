@@ -225,7 +225,7 @@ public class Login extends AppCompatActivity {
                                     intent2.putExtra("phone",autonum);
                                     intent2.putExtra("telNum",telNum);
 
-                                    move.putInt("FirstorNot",2);
+                                    move.putInt("FirstorNot",3);
                                     move.commit();
 
                                     startActivity(intent2);
@@ -249,7 +249,7 @@ public class Login extends AppCompatActivity {
                                     intent2.putExtra("phone",autonum);
                                     intent2.putExtra("telNum",telNum);
 
-                                    move.putInt("FirstorNot",3);
+                                    move.putInt("FirstorNot",2);
                                     move.commit();
 
                                     startActivity(intent2);

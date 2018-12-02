@@ -38,7 +38,7 @@ public class H_Main_View_Teacher extends AppCompatActivity {
         FirebaseDatabase FD = FirebaseDatabase.getInstance();
         DatabaseReference DR = FD.getReference("Kindergarten");
 
-        DR.child("027778888").addValueEventListener(new ValueEventListener() {
+        DR.child("telNum").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot data: dataSnapshot.child("Teacher").getChildren()){
