@@ -72,7 +72,9 @@
                 android:text="INDEX"
                 android:textSize="17sp"
                 android:textColor="@color/BackText"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:inputType="number"
+                android:digits="0123456789"/>
 
         </LinearLayout>
 
