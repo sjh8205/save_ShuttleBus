@@ -41,15 +41,23 @@ public class H_Main_View_Teacher extends AppCompatActivity {
         FirebaseDatabase FD = FirebaseDatabase.getInstance();
         DatabaseReference DR = FD.getReference("Kindergarten");
 
-        DR.child("telNum").addValueEventListener(new ValueEventListener() {
+        Log.v("telNum from SP",telNum);
+
+        DR.child(telNum).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(final DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Log.v("before for","a");
                 int i = 0;
                 for(DataSnapshot data: dataSnapshot.child("Teacher").getChildren()){
                     String nam = data.child("name").getValue(String.class);
                     String cla = data.child("tClass").getValue(String.class);
                     String num = data.child("phone").getValue(String.class);
                     String pic=data.child("imgPath").getValue().toString();
+
+                    Log.v("i","name");
+                    Log.v("i","tClass");
+                    Log.v("i","phone");
 
                     Toast.makeText(getApplicationContext(), String.valueOf(i), Toast.LENGTH_SHORT).show();
 

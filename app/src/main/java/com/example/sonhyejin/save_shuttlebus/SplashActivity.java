@@ -18,10 +18,7 @@ public class SplashActivity extends Activity {
         }
 
         SharedPreferences data = getSharedPreferences("mydata", Context.MODE_PRIVATE);
-        SharedPreferences.Editor move ;
-        move = data.edit();
-        move.putString("telnum","0");
-        move.commit();
+
 
         SharedPreferences check = getSharedPreferences("login", Context.MODE_PRIVATE);
         int checked = check.getInt("FirstorNot",0);
