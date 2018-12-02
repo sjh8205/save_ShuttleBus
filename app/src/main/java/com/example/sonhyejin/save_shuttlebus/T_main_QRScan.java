@@ -123,9 +123,11 @@ public class T_main_QRScan extends AppCompatActivity {
         scanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                qrScan.setPrompt("Scanning...");
+                /*qrScan.setPrompt("Scanning...");
                 qrScan.setOrientationLocked(false);
-                qrScan.initiateScan();
+                qrScan.initiateScan();*/
+                new IntentIntegrator(T_main_QRScan.this).initiateScan();
+
             }
         });
 
