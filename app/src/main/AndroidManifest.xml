@@ -18,7 +18,11 @@
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".T_main" />
         <activity android:name=".P_main" />
@@ -37,13 +41,7 @@
         <activity android:name=".H_Main_View_bus">
         </activity>
         <activity android:name=".H_Main_View_child" />
-        <activity android:name=".H_Main_View_Teacher">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".H_Main_View_Teacher"/>
         <activity android:name=".T_main_Totalchild"></activity>
     </application>
 
