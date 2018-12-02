@@ -147,17 +147,6 @@ public class Login extends AppCompatActivity {
 
                 Log.v("qjxms","qjxms");
 
-                if(status==1){
-                    move.putInt("FirstorNot",1);
-                    move.commit();
-                }else if(status ==2){
-                    move.putInt("FirstorNot",3);
-                    move.commit();
-                }else if(status ==3){
-                    move.putInt("FirstorNot",2);
-                    move.commit();
-                }
-
                 Log.v("ddd","ddd");
                 FirebaseDatabase FD = FirebaseDatabase.getInstance();
                 DatabaseReference DR = FD.getReference("Kindergarten");
@@ -185,6 +174,10 @@ public class Login extends AppCompatActivity {
                                 Log.v("noK","s1");
                                 H_intent=new Intent(getApplicationContext(),H_Join.class);
                                 H_intent.putExtra("phone",autonum);
+
+                                move.putInt("FirstorNot",1);
+                                move.commit();
+
                                 startActivity(H_intent);
                             }
                             else{
@@ -199,6 +192,10 @@ public class Login extends AppCompatActivity {
                                     Intent intent1=new Intent(getApplicationContext(),H_Main.class);
                                     intent1.putExtra("phone",autonum);
                                     intent1.putExtra("telNum",telNum);
+
+                                    move.putInt("FirstorNot",1);
+                                    move.commit();
+
                                     startActivity(intent1);
                                 }else{
                                     Toast.makeText(getApplicationContext(),"Not accepted!",
@@ -222,6 +219,10 @@ public class Login extends AppCompatActivity {
                                     Intent intent2=new Intent(getApplicationContext(),T_main.class);
                                     intent2.putExtra("phone",autonum);
                                     intent2.putExtra("telNum",telNum);
+
+                                    move.putInt("FirstorNot",2);
+                                    move.commit();
+
                                     startActivity(intent2);
                                 }
                             }else if(status==3){
@@ -242,6 +243,10 @@ public class Login extends AppCompatActivity {
                                     Intent intent2=new Intent(getApplicationContext(),P_main.class);
                                     intent2.putExtra("phone",autonum);
                                     intent2.putExtra("telNum",telNum);
+
+                                    move.putInt("FirstorNot",3);
+                                    move.commit();
+
                                     startActivity(intent2);
                                 }
                             }
