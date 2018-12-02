@@ -56,11 +56,10 @@ public class H_Main_View_bus extends AppCompatActivity {
                 route.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView parent, View view, int position, long id) {
-                        ListViewChild item = (ListViewChild) parent.getItemAtPosition(position);
+                        ListViewRoute item = (ListViewRoute) parent.getItemAtPosition(position);
 
-                        String nameStr = item.getpName();
-                        String classStr = item.getpClass();
-                        String numStr = item.getpNum();
+                        String stStr = item.getstname();
+                        Drawable img = item.getimg();
                     }
                 });
 

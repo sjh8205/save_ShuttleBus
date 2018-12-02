@@ -31,8 +31,11 @@ public class T_main_QRScan extends AppCompatActivity {
     String telNum;
     AdapterQR Adapter;
     ListView qr;
-    String sStation="a";
     boolean attendance = true; // 출석 확인 변수
+    SharedPreferences data;
+    Button scanner;
+    Button submit;
+    String station;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,43 +43,48 @@ public class T_main_QRScan extends AppCompatActivity {
         setContentView(R.layout.activity_t_main_qrscan);
 
         qr = (ListView) findViewById(R.id.tChildList);
-        Button scanner = (Button) findViewById(R.id.tQrScan);
-        Button submit = (Button) findViewById(R.id.tCompleteScan);
+        scanner = (Button) findViewById(R.id.tQrScan);
+        submit = (Button) findViewById(R.id.tCompleteScan);
 
         Adapter = new AdapterQR();
 
-        SharedPreferences data = getSharedPreferences("mydata", Context.MODE_PRIVATE);
+        data = getSharedPreferences("mydata", Context.MODE_PRIVATE);
         //SharedPreferences.Editor editdata = data.edit();
         telNum = data.getString("telnum","0");
+
+        Intent intent = getIntent();
+        station = intent.getStringExtra("station");
 
         FirebaseDatabase FD = FirebaseDatabase.getInstance();
         DatabaseReference DR = FD.getReference("Kindergarten");
 
-        DR.child("025556666").addValueEventListener(new ValueEventListener() {
+        Log.v("telNUM is", telNum);
+
+        DR.child(telNum).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) { // 스캔하고 돌아올 때마다 계속 검사할 것
-
+                Log.v("before for", "A");
                 for(DataSnapshot data: dataSnapshot.child("child").getChildren()){
-                    String str = data.child("name").getValue(String.class);
-                    String cla = data.child("class").getValue(String.class);
+                    String str = data.child("childName").getValue(String.class);
+                    String cla = data.child("childClass").getValue(String.class);
                     Log.v("name is", str);
                     Log.v("class is", cla);
-                    String com = data.child("station").getValue(String.class);
-                    int status = data.child("status").getValue(Integer.class);
-                    Log.v("class is", com);
-                    if(com.equals(sStation)){
+                    String com = data.child("childBusStation").getValue(String.class);
+                    int status = data.child("childOnBus").getValue(Integer.class);
+                    Log.v("busstation is", com);
+                    if(com.equals(station)){
 
                         switch (status){
-                            case 0: // 결석
+                            case 1: // 결석
                                 Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.busstop));
                                 break;
 
-                            case 1: // 승차
+                            case 2: // 승차
                                 Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imhere));
                                 attendance = false; // 하차 안 한 아이가 한 명이라도 있다면 attendance가 완료되지 않은 것 -> 버튼 계속 비활성화
                                 break;
 
-                            case 2: // 하차
+                            case 3: // 하차
                                 Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imnothere));
                                 break;
 
@@ -116,7 +124,7 @@ public class T_main_QRScan extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 qrScan.setPrompt("Scanning...");
-                //qrScan.setOrientationLocked(false);
+                qrScan.setOrientationLocked(false);
                 qrScan.initiateScan();
             }
         });

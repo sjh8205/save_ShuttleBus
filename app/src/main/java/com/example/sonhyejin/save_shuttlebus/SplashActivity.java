@@ -25,6 +25,7 @@ public class SplashActivity extends Activity {
         SharedPreferences.Editor move ;
 
 
+/*
 
         if(checked==1){ //사용자가 사전에 '원장' 자격으로 로그인 한 경우
             startActivity(new Intent(this,H_Main.class));
@@ -40,9 +41,9 @@ public class SplashActivity extends Activity {
             finish();
         }
 
-
-        //startActivity(new Intent(this,Login.class));
-        //finish();
+*/
+        startActivity(new Intent(this,Login.class));
+        finish();
 
     }
 }
