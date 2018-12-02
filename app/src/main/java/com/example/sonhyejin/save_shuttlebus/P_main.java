@@ -31,41 +31,43 @@ public class P_main extends AppCompatActivity {
     String T_name;
     String T_img;
 
-    Intent intent = getIntent(); // getIntent()로 받을 준비
-    final String phone = intent.getStringExtra("phone"); // 전화번호 받기
+    Intent intent;
+    String kindNum;
+    String phone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i("autonum",phone);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_p_main);
 
+        intent = getIntent(); // getIntent()로 받을 준비
+
+        kindNum = intent.getStringExtra("telNum");
+        phone = intent.getStringExtra("phone"); // 전화번호 받기
+
+//        Toast.makeText(getApplicationContext(), phone, Toast.LENGTH_SHORT).show();
+
         ListView route = (ListView)findViewById(R.id.pBusList);
-
-        final String telNum = intent.getStringExtra("telNum"); // 유치원 번호 받기
-        Log.i("tel_num",telNum);
-
-        Toast.makeText(getApplicationContext(), "intent 받아오기 " + telNum + " " + phone, Toast.LENGTH_SHORT).show();
 
         FirebaseDatabase FD = FirebaseDatabase.getInstance();
 
-        C_DR = FD.getReference("Kindergarten").child(telNum).child("child").child(phone);
-        Log.i("C_DR","왔어용");
+        C_DR = FD.getReference("Kindergarten").child(kindNum).child("child").child(phone);
 
-        // child 상태 불러오기 - > 1 : 승차 중 / 2 : 하차 / 3 : 유치원 / 4 : 결석
-
-        final DatabaseReference T_DR = FD.getReference("Kindergarten").child(telNum);
-        Log.i("T_DR","왔어용");
+        final DatabaseReference T_DR = FD.getReference("Kindergarten");
         // kindergarten 밑에 있는 데이터로 접근
+        Toast.makeText(getApplicationContext(), "T_DR", Toast.LENGTH_SHORT).show();
 
-        T_DR.addValueEventListener(new ValueEventListener() { // 오늘의 지도교사 탐색 --> 어떻게 하징,,ㅠ 분별방법 아직 xxxx
+        T_DR.child(kindNum).addValueEventListener(new ValueEventListener() { // 오늘의 지도교사 탐색 --> 어떻게 하징,,ㅠ 분별방법 아직 xxxx
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot data:dataSnapshot.getChildren()) { // 다음 탐색
+                Toast.makeText(getApplicationContext(), "T_DR 데체", Toast.LENGTH_SHORT).show();
+                for(DataSnapshot data:dataSnapshot.child("Teacher").getChildren()) { // 다음 탐색
                    //if (data.child("phone").child("Today").getValue() == 1) { // 만약 오늘의 지도교사이면
-                        T_num = T_DR.child("phone").getKey().toString(); // 선생님 전화번호 받아오기
-                        T_name = data.child("phone").child("name").getValue(String.class); // 선생님 이름 받아오기
+                        T_num = data.getKey().toString(); // 선생님 전화번호 받아오기
+                        T_name = data.child("name").getValue(String.class); // 선생님 이름 받아오기
                         T_img = data.child("phone").child("img").getValue(String.class);
+                    Toast.makeText(P_main.this, T_num, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(P_main.this, T_name, Toast.LENGTH_SHORT).show();
                     //}
                 }
             }
@@ -96,14 +98,97 @@ public class P_main extends AppCompatActivity {
             }
         });
 
- //       Button pViewChild = (Button)findViewById(R.id.pViewChild);
- //       Button pViewTeach = (Button)findViewById(R.id.pViewTeach);
+        Button pViewChild = (Button)findViewById(R.id.pViewChild);
+        Button pViewTeach = (Button)findViewById(R.id.pViewTeach);
  // 밑에서 id로 받음
 //        pViewChild.setOnClickListener(this);
 
+        pViewChild.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Toast.makeText(getApplicationContext(), "C클릭", Toast.LENGTH_SHORT).show();
+
+                C_DR.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot data: dataSnapshot.getChildren()) {
+                            if(C_DR.getKey() == phone) { // 기본키가 폰 번호랑 같으면
+                                C_name = data.child("Name").getValue(String.class); // 이름 가져오기
+                                C_status = data.child("status").getValue(int.class); // 현재 가져오기
+                                Toast.makeText(getApplicationContext(), C_name, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), C_status, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+/*                String message = " ";
+                Toast.makeText(getApplicationContext(), "message 생성", Toast.LENGTH_SHORT).show();
+
+                switch (C_status) {
+                    case 1 :
+                        message = "승차 중이에요.";
+                        break;
+                    case 2 :
+                        message = "하차했어요.";
+                        break;
+                    case 3 :
+                        message = "유치원에 있어요.";
+                        break;
+                    case 0 :
+                        message = "결석했어요.";
+                        break;
+                    default:
+                        message = "에러;";
+                        break;
+                }
+
+/*                AlertDialog.Builder C_alertDialogBuilder = new AlertDialog.Builder(getApplicationContext());
+
+                //제목 셋팅
+                C_alertDialogBuilder.setTitle("우리 아이는 지금\n");
+
+                //AlertDialog 셋팅
+                C_alertDialogBuilder.setMessage(message).setCancelable(false).setPositiveButton("결석",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // 결석처리함 (아이 데이터베이스에 접근, 데이터베이스 저장)
+
+                                C_DR.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        C_DR.child("status").setValue(4); // 결석값으로 세팅
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+
+
+                            }
+                        }).setNegativeButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // 다이얼로그를 취소함
+                        dialogInterface.cancel();
+                    }
+                });*/
+
+            }
+        });
+
       }
 
-      public void onClick(View v) {
+/*      public void onClick(View v) {
         switch (v.getId()) {
             case R.id.pViewChild:
                 Log.v("pViewChild",phone);
@@ -219,5 +304,6 @@ public class P_main extends AppCompatActivity {
                 default:
                     break;
         }
-      }
+      }*/
+
 }
