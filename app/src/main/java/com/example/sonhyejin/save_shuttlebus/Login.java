@@ -35,14 +35,16 @@ public class Login extends AppCompatActivity {
     Intent intent; // main으로 갈 때 쓰는 인텐트
     Intent H_intent ; // join으로 갈 때 쓰는 인텐트(원장만 씀)
     SharedPreferences check;
+    SharedPreferences data;
     SharedPreferences.Editor move ;
+    SharedPreferences.Editor editdata;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        SharedPreferences data = getSharedPreferences("mydata", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editdata = data.edit();
+        data = getSharedPreferences("mydata", Context.MODE_PRIVATE);
+        editdata = data.edit();
 
         check = getSharedPreferences("login", Context.MODE_PRIVATE);
         move = check.edit();
@@ -132,9 +134,6 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        editdata.putString("telnum",telNum);
-        editdata.commit();
-
         // submit 클릭 시 정보 넘겨서 데이터베이스 조회하기
 
         Button submit = (Button)findViewById(R.id.loginSubmit);
@@ -148,6 +147,12 @@ public class Login extends AppCompatActivity {
                 Log.v("qjxms","qjxms");
 
                 Log.v("ddd","ddd");
+
+                editdata.putString("telnum",telNum);
+                editdata.commit();
+
+                Log.v("telNUm in SharedPreferende",telNum);
+
                 FirebaseDatabase FD = FirebaseDatabase.getInstance();
                 DatabaseReference DR = FD.getReference("Kindergarten");
                 //파이어베이스에서 Kindergarten 밑에 있는 값들을 접근하기 위한 변수 선언

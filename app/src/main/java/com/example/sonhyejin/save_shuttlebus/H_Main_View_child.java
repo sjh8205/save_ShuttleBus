@@ -22,6 +22,7 @@ public class H_Main_View_child extends AppCompatActivity {
     String telNum;
     AdapterChild adapter;
     ListView people;
+    SharedPreferences data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,19 +32,21 @@ public class H_Main_View_child extends AppCompatActivity {
         people = (ListView)findViewById(R.id.hChildList);
         adapter = new AdapterChild();
 
-        SharedPreferences data = getSharedPreferences("mydata", Context.MODE_PRIVATE);
+        data = getSharedPreferences("mydata", Context.MODE_PRIVATE);
         telNum = data.getString("telnum","0");
+
+        Log.v("telNum from SP",telNum);
 
         FirebaseDatabase FD = FirebaseDatabase.getInstance();
         DatabaseReference DR = FD.getReference("Kindergarten");
 
-        DR.child("025556666").addValueEventListener(new ValueEventListener() {
+        DR.child(telNum).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot data: dataSnapshot.child("child").getChildren()){
-                    String nam = data.child("name").getValue(String.class);
-                    String cla = data.child("class").getValue(String.class);
-                    String num = data.child("Phone").getValue(String.class);
+                    String nam = data.child("childName").getValue(String.class);
+                    String cla = data.child("childClass").getValue(String.class);
+                    String num = data.child("childPhoneNum").getValue(String.class);
 
                     adapter.addItem(nam,cla,num);
                 }
