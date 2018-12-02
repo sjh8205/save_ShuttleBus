@@ -5,13 +5,24 @@ public class registerTeacher {
     String tClass;
     String phone;
     String imgPath;
+    boolean todayTeacher;
 
     public registerTeacher(){}
-    public registerTeacher(String name,String tClass,String phone,String imgPath){
+    public registerTeacher(String name,String tClass,String phone,String imgPath,
+                           boolean todayTeacher){
         this.name=name;
         this.tClass=tClass;
         this.phone=phone;
         this.imgPath=imgPath;
+        this.todayTeacher=todayTeacher;
+    }
+
+    public boolean isTodayTeacher() {
+        return todayTeacher;
+    }
+
+    public void setTodayTeacher(boolean todayTeacher) {
+        this.todayTeacher = todayTeacher;
     }
 
     public String getName() {

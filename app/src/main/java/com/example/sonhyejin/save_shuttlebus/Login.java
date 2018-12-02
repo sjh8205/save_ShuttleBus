@@ -143,11 +143,6 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) { // 섭밋 누르면
                 telNum=(String)tel_num.getText().toString();
                 Log.v("tel_Num",tel_num.getText().toString());
-
-                Log.v("qjxms","qjxms");
-
-                Log.v("ddd","ddd");
-
                 editdata.putString("telnum",telNum);
                 editdata.commit();
 

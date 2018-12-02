@@ -116,7 +116,7 @@ public class H_Main_Register_Teacher extends AppCompatActivity {
                 teachName=hRegTeachName.getText().toString();
                 teachClass=hRegTeachClass.getText().toString();
                 teachNum=hRegTeachNum.getText().toString();
-                registerTeacher=new registerTeacher(teachName,teachClass,teachNum,imgPath);
+                registerTeacher=new registerTeacher(teachName,teachClass,teachNum,imgPath,false);
 
                 Intent intent1=new Intent(getApplicationContext(),H_Main.class);
                 table.child(telNum).child("Teacher").child(teachNum).setValue(registerTeacher);
