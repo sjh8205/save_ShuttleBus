@@ -59,7 +59,7 @@
                 android:layout_height="45dp"
                 android:layout_margin="5dp"
                 android:background="@color/TextBackground"
-                android:text="TEL NUM"
+                android:hint="TEL NUM"
                 android:textSize="17sp"
                 android:textColor="@color/BackText"
                 android:textAlignment="center"

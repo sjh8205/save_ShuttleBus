@@ -48,10 +48,12 @@
                     android:layout_height="45dp"
                     android:layout_margin="5dp"
                     android:background="@color/TextBackground"
-                    android:text="NAME"
+                    android:hint="NAME"
                     android:textSize="17sp"
                     android:textColor="@color/BackText"
-                    android:textAlignment="center"/>
+                    android:textAlignment="center"
+                    android:inputType="textPersonName"
+                    android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"/>
 
                 <EditText
                     android:id="@+id/hRegChildClass"
@@ -59,7 +61,7 @@
                     android:layout_height="45dp"
                     android:layout_margin="5dp"
                     android:background="@color/TextBackground"
-                    android:text="CLASS"
+                    android:hint="CLASS"
                     android:textSize="17sp"
                     android:textColor="@color/BackText"
                     android:textAlignment="center"/>
@@ -70,7 +72,7 @@
                     android:layout_height="45dp"
                     android:layout_margin="5dp"
                     android:background="@color/TextBackground"
-                    android:text="PHONE NUM"
+                    android:hint="PHONE NUM"
                     android:textSize="17sp"
                     android:textColor="@color/BackText"
                     android:textAlignment="center"
@@ -113,7 +115,7 @@
                      android:layout_height="45dp"
                      android:layout_margin="5dp"
                      android:background="@color/TextBackground"
-                     android:text="STATION"
+                     android:hint="STATION"
                      android:textSize="17sp"
                      android:textColor="@color/BackText"
                      android:textAlignment="center"/>
