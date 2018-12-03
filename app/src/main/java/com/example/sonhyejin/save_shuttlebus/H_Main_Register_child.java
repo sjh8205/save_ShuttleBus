@@ -138,19 +138,20 @@ public class H_Main_Register_child extends AppCompatActivity {
         checkAppPermission(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE});
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 ChildName =childName.getText().toString();
                 ChildClass=childClass.getText().toString();
                 PhoneNum=phoneNum.getText().toString();
                 BusStation=busStation.getText().toString();
                 DatabaseReference df=FirebaseDatabase.getInstance().getReference("Kindergarten")
-                        .child(kindergarten).child("bus");
+                        .child(kindergarten);
                 df.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         int check = 0;
+                        int ccheck=0;
                         Log.v("busS","*"+BusStation);
-                        for(DataSnapshot data:dataSnapshot.getChildren()){
+                        for(DataSnapshot data:dataSnapshot.child("bus").getChildren()){
                             String temp=data.getKey();
                             int idx=temp.indexOf(" ");
                             String nam = temp.substring(idx+1);
@@ -160,7 +161,16 @@ public class H_Main_Register_child extends AppCompatActivity {
                                 Log.v("busS","*"+check);
                             }
                         }
-                        if(check!=0){
+                        Log.v("classCheck","*"+ChildClass);
+                        for(DataSnapshot data1:dataSnapshot.child("Teacher").getChildren()){
+                             String temp= (String) data1.child("tClass").getValue();
+                             Log.v("classCheck","*"+temp);
+                             if(ChildClass.equals(temp)){
+                                 ccheck++;
+                                 Log.v("classCheck","*"+ccheck);
+                             }
+                        }
+                        if(check!=0&&ccheck!=0){
                             String qrString= ChildName+"/"+PhoneNum;
                             //qr코드에 들어갈 문구
                             Bitmap qr=generateRQCode(qrString);
@@ -181,7 +191,7 @@ public class H_Main_Register_child extends AppCompatActivity {
                                     TextUtils.isEmpty(PhoneNum)||TextUtils.isEmpty(BusStation)){
                                 //빈칸이 있음
                                 Toast.makeText(getApplicationContext(),"There is a blank space",Toast.LENGTH_SHORT).show();
-                            }else{
+                            }else {
                                 //빈칸 없음
                                 //파이어베이스 스토리지에 qr코드 이미지 저장하고
                                 //파이어베이스 리얼타임 디비에 정보 저장하기 위해 함수 호출하고
@@ -194,7 +204,8 @@ public class H_Main_Register_child extends AppCompatActivity {
                             }
                         }else{
                             //원생을 등록하는데 해당하는 정류장이 없을 때
-                            Toast.makeText(getApplicationContext(),"Bus station does not exist",Toast.LENGTH_SHORT).show();
+                            //반 정보가 없을 때
+                            Toast.makeText(getApplicationContext(),"Bus station or Class does not exist",Toast.LENGTH_SHORT).show();
                         }
                     }
 
