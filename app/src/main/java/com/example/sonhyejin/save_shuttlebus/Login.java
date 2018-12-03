@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -121,21 +122,10 @@ public class Login extends AppCompatActivity {
         // autonum = "0000000";
         num.setText(autonum);
         Toast.makeText(this,autonum,Toast.LENGTH_SHORT).show();
-        // tel_num 글자 비우기
+
         final EditText tel_num = (EditText)findViewById(R.id.kinHeadNum);
 
-
-        tel_num.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(view==tel_num){
-                    tel_num.setText("");
-                }
-            }
-        });
-
         // submit 클릭 시 정보 넘겨서 데이터베이스 조회하기
-
         Button submit = (Button)findViewById(R.id.loginSubmit);
 
         submit.setOnClickListener(new View.OnClickListener() {
@@ -151,117 +141,120 @@ public class Login extends AppCompatActivity {
                 FirebaseDatabase FD = FirebaseDatabase.getInstance();
                 DatabaseReference DR = FD.getReference("Kindergarten");
                 //파이어베이스에서 Kindergarten 밑에 있는 값들을 접근하기 위한 변수 선언
-
-                DR.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Log.v("log","on");
-                        int check=0;
-                        for(DataSnapshot data:dataSnapshot.getChildren()){
-                            Log.v("log","for");
-                            String temp=data.getKey();
-                            Log.v("telNum",telNum);
-                            Log.v("dbNum",temp);
-                            if(telNum.equals(temp)){
-                                Log.v("check","same");
-                                check++;
+                if(TextUtils.isEmpty(telNum)||status==0){
+                    Toast.makeText(getApplicationContext(),"Please enter kindergarten Number",Toast.LENGTH_SHORT).show();
+                }else {
+                    DR.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Log.v("log","on");
+                            int check=0;
+                            for(DataSnapshot data:dataSnapshot.getChildren()){
+                                Log.v("log","for");
+                                String temp=data.getKey();
+                                Log.v("telNum",telNum);
+                                Log.v("dbNum",temp);
+                                if(telNum.equals(temp)){
+                                    Log.v("check","same");
+                                    check++;
+                                }
                             }
-                        }
-                        String check1=Integer.toString(check);
-                        if(check==0){//디비에 유치원 없음
-                            Log.v("noK","noK");
-                            if(status==1){
-                                Log.v("noK","s1");
-                                H_intent=new Intent(getApplicationContext(),H_Join.class);
-                                H_intent.putExtra("phone",autonum);
-
-                                move.putInt("FirstorNot",1);
-                                move.commit();
-
-                                startActivity(H_intent);
-                            }
-                            else{
-                                Toast.makeText(getApplicationContext(),"Wrong kindergarten number",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-
-                        }else{
-                            if(status==1){
-                                String Num = dataSnapshot.child(telNum).child("headNum").getValue().toString();
-                                if(autonum.equals(Num)){
-                                    Intent intent1=new Intent(getApplicationContext(),H_Main.class);
-                                    intent1.putExtra("phone",autonum);
-                                    intent1.putExtra("telNum",telNum);
-                                    Toast.makeText(getApplicationContext(), "록ㄱㄱ", Toast.LENGTH_SHORT).show();
+                            String check1=Integer.toString(check);
+                            if(check==0){//디비에 유치원 없음
+                                Log.v("noK","noK");
+                                if(status==1){
+                                    Log.v("noK","s1");
+                                    H_intent=new Intent(getApplicationContext(),H_Join.class);
+                                    H_intent.putExtra("phone",autonum);
 
                                     move.putInt("FirstorNot",1);
                                     move.commit();
 
-                                    startActivity(intent1);
-                                }else{
-                                    Toast.makeText(getApplicationContext(),"Not accepted!",
+                                    startActivity(H_intent);
+                                }
+                                else{
+                                    Toast.makeText(getApplicationContext(),"Wrong kindergarten number",
                                             Toast.LENGTH_SHORT).show();
                                 }
-                            }else if(status==2){
-                                int check2=0;
-                                for(DataSnapshot data1: dataSnapshot.child(telNum).child("Teacher").getChildren()){
-                                    String temp=data1.getKey();
-                                    Log.v("telNum",autonum);
-                                    Log.v("dbNum",temp);
-                                    if(autonum.equals(temp)){
-                                        Log.v("check","same");
-                                        check2++;
-                                    }
-                                }
-                                if(check2==0){
-                                    Toast.makeText(getApplicationContext(),"Not accepted!",
-                                            Toast.LENGTH_SHORT).show();
-                                }else{
-                                    Intent intent2=new Intent(getApplicationContext(),T_main.class);
-                                    intent2.putExtra("phone",autonum);
-                                    intent2.putExtra("telNum",telNum);
-                                    Toast.makeText(getApplicationContext(), "록ㄱㄱ", Toast.LENGTH_SHORT).show();
 
-                                    move.putInt("FirstorNot",3);
-                                    move.commit();
-
-                                    startActivity(intent2);
-                                }
-                            }else if(status==3){
-                                int check2=0;
-                                for(DataSnapshot data1: dataSnapshot.child(telNum).child("child").getChildren()){
-                                    String temp=data1.getKey();
-                                    Log.v("telNum",autonum);
-                                    Log.v("dbNum",temp);
-                                    if(autonum.equals(temp)){
-                                        Log.v("check","same");
-                                        check2++;
+                            }else{
+                                if(status==1){
+                                    String Num = dataSnapshot.child(telNum).child("headNum").getValue().toString();
+                                    if(autonum.equals(Num)){
+                                        Intent intent1=new Intent(getApplicationContext(),H_Main.class);
+                                        intent1.putExtra("phone",autonum);
+                                        intent1.putExtra("telNum",telNum);
                                         Toast.makeText(getApplicationContext(), "록ㄱㄱ", Toast.LENGTH_SHORT).show();
+
+                                        move.putInt("FirstorNot",1);
+                                        move.commit();
+
+                                        startActivity(intent1);
+                                    }else{
+                                        Toast.makeText(getApplicationContext(),"Not accepted!",
+                                                Toast.LENGTH_SHORT).show();
                                     }
-                                }
-                                if(check2==0){
-                                    Toast.makeText(getApplicationContext(),"Not accepted!",
-                                            Toast.LENGTH_SHORT).show();
-                                }else{
-                                    Intent intent2=new Intent(getApplicationContext(),P_main.class);
-                                    intent2.putExtra("phone",autonum);
-                                    intent2.putExtra("telNum",telNum);
+                                }else if(status==2){
+                                    int check2=0;
+                                    for(DataSnapshot data1: dataSnapshot.child(telNum).child("Teacher").getChildren()){
+                                        String temp=data1.getKey();
+                                        Log.v("telNum",autonum);
+                                        Log.v("dbNum",temp);
+                                        if(autonum.equals(temp)){
+                                            Log.v("check","same");
+                                            check2++;
+                                        }
+                                    }
+                                    if(check2==0){
+                                        Toast.makeText(getApplicationContext(),"Not accepted!",
+                                                Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        Intent intent2=new Intent(getApplicationContext(),T_main.class);
+                                        intent2.putExtra("phone",autonum);
+                                        intent2.putExtra("telNum",telNum);
+                                        Toast.makeText(getApplicationContext(), "록ㄱㄱ", Toast.LENGTH_SHORT).show();
 
-                                    move.putInt("FirstorNot",2);
-                                    move.commit();
+                                        move.putInt("FirstorNot",3);
+                                        move.commit();
 
-                                    startActivity(intent2);
+                                        startActivity(intent2);
+                                    }
+                                }else if(status==3){
+                                    int check2=0;
+                                    for(DataSnapshot data1: dataSnapshot.child(telNum).child("child").getChildren()){
+                                        String temp=data1.getKey();
+                                        Log.v("telNum",autonum);
+                                        Log.v("dbNum",temp);
+                                        if(autonum.equals(temp)){
+                                            Log.v("check","same");
+                                            check2++;
+                                            Toast.makeText(getApplicationContext(), "록ㄱㄱ", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                    if(check2==0){
+                                        Toast.makeText(getApplicationContext(),"Not accepted!",
+                                                Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        Intent intent2=new Intent(getApplicationContext(),P_main.class);
+                                        intent2.putExtra("phone",autonum);
+                                        intent2.putExtra("telNum",telNum);
+
+                                        move.putInt("FirstorNot",2);
+                                        move.commit();
+
+                                        startActivity(intent2);
+                                    }
                                 }
                             }
+
                         }
 
-                    }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                        }
+                    });
+                }
             }
         });
     }
