@@ -76,22 +76,33 @@ public class T_main_QRScan extends AppCompatActivity {
 
                         switch (status){
                             case 1: // 결석
+    //                            Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "결석했잖아요");
                                 Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.busstop));
                                 break;
 
                             case 2: // 승차
                                 Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imhere));
+  //                              Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "승차중이에요");
                                 attendance = false; // 하차 안 한 아이가 한 명이라도 있다면 attendance가 완료되지 않은 것 -> 버튼 계속 비활성화
+ //                               Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", String.valueOf(attendance));
                                 break;
 
                             case 3: // 하차
+  //                              Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "하차함요");
                                 Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imnothere));
+  //                              Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", String.valueOf(attendance));
                                 break;
 
                         }
 
                     }
                 }
+// 모든 아이들이 하차 상태일 때 submit 버튼 활성화
+                if(attendance) {
+                    submit.setEnabled(true); // 됩니당 /(^ㅁ^)/~~~~
+//                    Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ","submit셋액티베이테드");
+                }
+
                 /*
                 for(int i=0;i<size;i++){
                     Adapter.addItem(names.get(i), classes.get(i), ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imhere));
@@ -130,10 +141,6 @@ public class T_main_QRScan extends AppCompatActivity {
 
             }
         });
-
-// 모든 아이들이 하차 상태일 때 submit 버튼 활성화
-        if(attendance)
-            submit.setActivated(true);
 
 // 활성화된 버튼을 누르면 T_main으로 돌아감
         submit.setOnClickListener(new View.OnClickListener() {
