@@ -1,6 +1,8 @@
 package com.example.sonhyejin.save_shuttlebus;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
@@ -10,6 +12,7 @@ import android.content.pm.PackageManager;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -18,12 +21,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.media.MediaScannerConnection;
+import android.widget.Toast;
 
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -67,10 +74,8 @@ public class H_Main_Register_child extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_h_main_register_child);
 
-        Intent intent;
-
-        intent=getIntent();
-        kindergarten=intent.getStringExtra("telNum");
+        SharedPreferences data = getSharedPreferences("mydata", Context.MODE_PRIVATE);
+        kindergarten=data.getString("telnum","0");
 
         firebaseStorage=FirebaseStorage.getInstance();
         storageReference=firebaseStorage.getReference();
@@ -108,38 +113,7 @@ public class H_Main_Register_child extends AppCompatActivity {
         //원생 등록시 원생 보호자 중 한명의 전화번호
         busStation=(EditText)findViewById(R.id.hRegChildStation);
         //원생 등록시 원생이 버스를 탈 경우 버스 정류장
-        childName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(view==childName){
-                    childName.setText("");
-                }
-            }
-        });
-        childClass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(view==childClass){
-                    childClass.setText("");
-                }
-            }
-        });
-        phoneNum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(view==phoneNum){
-                    phoneNum.setText("");
-                }
-            }
-        });
-        busStation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(view==busStation){
-                    busStation.setText("");
-                }
-            }
-        });
+
         Button btn=(Button)findViewById(R.id.hRegChildSubmit);
 
         Button.OnClickListener onClickListener=new Button.OnClickListener(){
@@ -169,22 +143,67 @@ public class H_Main_Register_child extends AppCompatActivity {
                 ChildClass=childClass.getText().toString();
                 PhoneNum=phoneNum.getText().toString();
                 BusStation=busStation.getText().toString();
-                String qrString= ChildName+"/"+PhoneNum;
+                DatabaseReference df=FirebaseDatabase.getInstance().getReference("Kindergarten")
+                        .child(kindergarten).child("bus");
+                df.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int check = 0;
+                        Log.v("busS","*"+BusStation);
+                        for(DataSnapshot data:dataSnapshot.getChildren()){
+                            String temp=data.getKey();
+                            int idx=temp.indexOf(" ");
+                            String nam = temp.substring(idx+1);
+                            Log.v("busS"," "+nam);
+                            if(BusStation.equals(nam)){
+                                check++;
+                                Log.v("busS","*"+check);
+                            }
+                        }
+                        if(check!=0){
+                            String qrString= ChildName+"/"+PhoneNum;
+                            //qr코드에 들어갈 문구
+                            Bitmap qr=generateRQCode(qrString);
+                            //qr코드 생성
+                            Log.v("qr","qrsuccess");
+                            ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+                            qr.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+                            //qr 코드 사이즈 형식 지정
+                            Log.v("qr","qrTobyte");
+                            String str=saveImage(qr);
+                            //qr코드 기기에 저장해서 상대경로 가져오기
+                            qr.recycle();
+                            File file =new File(str);
+                            Uri uri=Uri.fromFile(file);
+                            //기기에 저장된 qr코드에 절대경로 가져오기
+                            Log.v("ex",uri.toString());
+                            if(TextUtils.isEmpty(ChildName)||TextUtils.isEmpty(ChildClass)||
+                                    TextUtils.isEmpty(PhoneNum)||TextUtils.isEmpty(BusStation)){
+                                //빈칸이 있음
+                                Toast.makeText(getApplicationContext(),"There is a blank space",Toast.LENGTH_SHORT).show();
+                            }else{
+                                //빈칸 없음
+                                //파이어베이스 스토리지에 qr코드 이미지 저장하고
+                                //파이어베이스 리얼타임 디비에 정보 저장하기 위해 함수 호출하고
+                                //완료 되면 원장 메인으로 화면 전환
+                                registerChild=new Register_child(ChildName,ChildClass,PhoneNum,
+                                        BusStation,bus,3, null);
+                                uploadImage(uri,registerChild);
+                                Intent intent1=new Intent(getApplicationContext(),H_Main.class);
+                                startActivity(intent1);
+                            }
+                        }else{
+                            //원생을 등록하는데 해당하는 정류장이 없을 때
+                            Toast.makeText(getApplicationContext(),"Bus station does not exist",Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
-                Bitmap qr=generateRQCode(qrString);
-                Log.v("qr","qrsuccess");
-                ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
-                qr.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
-                Log.v("qr","qrTobyte");
-                String str=saveImage(qr);
-                qr.recycle();
-                File file =new File(str);
-                Uri uri=Uri.fromFile(file);
-                Log.v("ex",uri.toString());
-                Log.v("img",""+imgPath);
-                registerChild=new Register_child(ChildName,ChildClass,PhoneNum,
-                        BusStation,bus,3, null);
-                uploadImage(uri,registerChild);
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
 
             }
         });
@@ -283,6 +302,7 @@ public class H_Main_Register_child extends AppCompatActivity {
                             databaseReference= FirebaseDatabase.getInstance().getReference("Kindergarten");
                             databaseReference.child(kindergarten)
                                     .child("child").child(PhoneNum).setValue(register_child);
+                            Log.v("storage","imgPathOK");
                         }
                     });
                 }

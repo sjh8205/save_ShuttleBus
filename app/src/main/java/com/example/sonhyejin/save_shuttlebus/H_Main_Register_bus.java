@@ -1,6 +1,8 @@
 package com.example.sonhyejin.save_shuttlebus;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,43 +29,20 @@ public class H_Main_Register_bus extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent =getIntent();
-        telNum=intent.getStringExtra("telNum");
+        SharedPreferences data = getSharedPreferences("mydata", Context.MODE_PRIVATE);
+        telNum=data.getString("telnum","0");
 
         setContentView(R.layout.activity_h_main_register_bus);
-        //final EditText tRoutine=(EditText)findViewById(R.id.hRegBusName);
+
         final EditText tStation=(EditText)findViewById(R.id.hRegBusRoute);
         final EditText tTime=(EditText)findViewById(R.id.hRegBusTime);
-        /*tRoutine.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(view==tRoutine){
-                    tRoutine.setText("");
-                }
-            }
-        });*/
-        tStation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(view==tStation){
-                    tStation.setText("");
-                }
-            }
-        });
-        tTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(view==tTime){
-                    tTime.setText("");
-                }
-            }
-        });
+
         Button btn=(Button)findViewById(R.id.hRegBusSubmit);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 databaseReference=FirebaseDatabase.getInstance().getReference()
-                        .child("Kindergarten").child("027778888").child("bus");
+                        .child("Kindergarten").child(telNum).child("bus");
 
                 //Routine=tRoutine.getText().toString();
                 Station=tStation.getText().toString();
