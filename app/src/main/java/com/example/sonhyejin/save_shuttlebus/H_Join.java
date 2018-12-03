@@ -7,6 +7,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,22 +33,7 @@ public class H_Join extends AppCompatActivity {
         Button submit = (Button)findViewById(R.id.joinSubmit);
         final EditText joinResNum = (EditText)findViewById(R.id.joinResNum);
         final EditText joinName = (EditText)findViewById(R.id.joinName);
-        joinResNum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(view==joinResNum){
-                    joinResNum.setText("");
-                }
-            }
-        });
-        joinName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(view==joinName) {
-                    joinName.setText("");
-                }
-            }
-        });
+
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Kindergarten");
         submit.setOnClickListener(new View.OnClickListener() { // 제출
@@ -60,13 +46,18 @@ public class H_Join extends AppCompatActivity {
                 KindNum = joinResNum.getText().toString();
                 KindName = joinName.getText().toString();
                 headJoin newHead = new headJoin(autonum,KindNum, KindName);
-                databaseReference.child(KindNum).setValue(newHead);
+                if(TextUtils.isEmpty(KindNum)||TextUtils.isEmpty(KindName)){
+                    //빈칸이 있음
+                    Toast.makeText(getApplicationContext(),"There is a blank space",Toast.LENGTH_SHORT).show();
+                }else {
+                    //  메인으로 ㄱㅏ기
+                    databaseReference.child(KindNum).setValue(newHead);
+                    Intent intent1 = new Intent(getApplicationContext(),H_Main.class);
+                    intent1.putExtra("kindNum",KindNum);
+                    intent1.putExtra("autoNum",autonum);
+                    startActivity(intent1);
+                }
 
-                //  메인으로 ㄱㅏ기
-                Intent intent1 = new Intent(getApplicationContext(),H_Main.class);
-                intent1.putExtra("kindNum",KindNum);
-                intent1.putExtra("autoNum",autonum);
-                startActivity(intent1);
             }
         });
     }
