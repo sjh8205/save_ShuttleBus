@@ -296,6 +296,7 @@ public class H_Main_Register_child extends AppCompatActivity {
     private void uploadImage(Uri filePath, final Register_child register_child){
         if(filePath!=null){
             Log.v("fbs","filePathT");
+            Log.v("fbs","8"+kindergarten);
             final StorageReference ref= storageReference.child("images/").child(kindergarten).
                     child("child").child(filePath.getLastPathSegment());
             Log.v("fbs","spathT"+filePath);
