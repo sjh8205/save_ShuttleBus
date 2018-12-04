@@ -101,7 +101,12 @@ public class Login extends AppCompatActivity {
                         autonum = mgr.getSimSerialNumber();
                     }
                 }
-                autonum = autonum.replace("+82", "0");
+                if(autonum.contains("+82")){
+                    autonum = autonum.replace("+82", "0");
+                }else if(autonum.contains("+")){
+                    autonum = autonum.replace("+", "");
+                }
+
 
                 editdata.putString("mynum",autonum);
                 editdata.commit();
