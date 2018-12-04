@@ -39,6 +39,8 @@ public class T_main_QRScan extends AppCompatActivity {
     Button submit;
     String station;
     String Scanresult = "0";
+    DatabaseReference DR;
+    FirebaseDatabase FD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +60,8 @@ public class T_main_QRScan extends AppCompatActivity {
         Intent intent = getIntent();
         station = intent.getStringExtra("station");
 
-        FirebaseDatabase FD = FirebaseDatabase.getInstance();
-        DatabaseReference DR = FD.getReference("Kindergarten");
+        FD = FirebaseDatabase.getInstance();
+        DR = FD.getReference("Kindergarten");
 
         Log.v("telNUM is", telNum);
 
@@ -161,8 +163,8 @@ public class T_main_QRScan extends AppCompatActivity {
         String str;
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
-        FirebaseDatabase FD = FirebaseDatabase.getInstance();
-        DatabaseReference DR = FD.getReference("Kindergarten");
+        FD = FirebaseDatabase.getInstance();
+        DR = FD.getReference("Kindergarten");
         final Map<String,Object> taskMap = new HashMap<String,Object>();
 
         if(result != null && resultCode == RESULT_OK) {
@@ -185,8 +187,10 @@ public class T_main_QRScan extends AppCompatActivity {
 
                             if(busState == 2){
                                 taskMap.put("childOnBus",3);
+                                DR.child(telNum).child("child").child(num).updateChildren(taskMap);
                             }else if(busState ==3){
                                 taskMap.put("childOnBus",2);
+                                DR.child(telNum).child("child").child(num).updateChildren(taskMap);
                             }
 
                         }
