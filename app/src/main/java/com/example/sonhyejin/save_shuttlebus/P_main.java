@@ -6,11 +6,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -39,7 +42,6 @@ public class P_main extends AppCompatActivity {
 
     String kindNum;
     String phone;
-    String message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,33 +58,7 @@ public class P_main extends AppCompatActivity {
 
         ListView route = (ListView)findViewById(R.id.pBusList);
 
-        FirebaseDatabase FD = FirebaseDatabase.getInstance();
-
-        final DatabaseReference T_DR = FD.getReference("Kindergarten");
-        // kindergarten 밑에 있는 데이터로 접근
-
-        T_DR.child(kindNum).addValueEventListener(new ValueEventListener() { // 오늘의 지도교사 탐색 --> 어떻게 하징,,ㅠ 분별방법 아직 xxxx
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot data:dataSnapshot.child("Teacher").getChildren()) { // 다음 탐색 -> 인데 티쳐가 없어서 아무것도 못받음..
-                    Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "in dc");
-                   if (data.child("todayTeacher").getValue(Boolean.class) == true) { // 만약 오늘의 지도교사이면
-                        T_num = data.getKey(); // 선생님 전화번호 받아오기
-                    Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", T_num);
-                        T_name = data.child("name").getValue(String.class); // 선생님 이름 받아오기
-                    Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", T_name);
-                        T_img = data.child("imgPath").getValue(String.class);
-                    Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", T_img);
-
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        final FirebaseDatabase FD = FirebaseDatabase.getInstance();
 
         AdapterRoute Adapter = new AdapterRoute();
 
@@ -136,276 +112,52 @@ public class P_main extends AppCompatActivity {
                                 break; // 값 받고 나간다
                             }
                         }
-                        Toast.makeText(getApplicationContext(), "message 생성", Toast.LENGTH_SHORT).show();
 
-                        switch (C_status) {
+                        //                        Toast.makeText(getApplicationContext(), "message 생성", Toast.LENGTH_SHORT).show();
+
+                        String message;
+
+                        switch (C_status) { // 상태에 따라 메시지 내용 구성
                             case 2 :
-                                message = "승차 중이에요.";
+                                message = "On Riding";
                                 break;
                             case 3 :
-                                message = "하차했어요.";
+                                message = "Taking";
                                 break;
                             case 0 :
-                                message = "유치원에 있어요.";
+                                message = "in Kindergarten";
                                 break;
                             case 1 :
-                                message = "결석했어요.";
+                                message = "Absent";
                                 break;
                             default:
-                                message = "에러;";
+                                message = "Error;";
                                 break;
                         }
 
                         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", message);
 
-                        C_alert();
-
-/*                        final Dialog d = new Dialog(getApplicationContext());
-                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "다이얼로그 생성");
-                        d.setTitle("우리 아이는 지금\n");
-*/
-/*                        final AlertDialog.Builder C_alertDialogBuilder = new AlertDialog.Builder(getApplicationContext());
-                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "다이얼로그 빌더 생성");
-
-                        //제목 셋팅
-                        C_alertDialogBuilder.setTitle("우리 아이는 지금\n");
-                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "ㅈㅔ목 세팅");
-                        C_alertDialogBuilder.setMessage(message);
-                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "메시지 세팅");
-//////////////////////////여기까지 되어용
-                        C_alertDialogBuilder.setPositiveButton("결석", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "결석 버튼으로 들어옴");
-                                dialogInterface.dismiss(); // 닫기
-                            }
-                        });
-
-                        C_alertDialogBuilder.setNegativeButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "확인 버튼");
-                                dialogInterface.dismiss(); // 닫기
-                            }
-                        });
-
-                        // 다이얼로그 보여주기
-                        C_alertDialogBuilder.show();
-                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "다이얼로그 보여주기");
-
-                        /*                        //AlertDialog 셋팅
-                        C_alertDialogBuilder.setMessage(message).setCancelable(false).setPositiveButton("결석",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        // 결석처리함 (아이 데이터베이스에 접근, 데이터베이스 저장)
-                                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "결석처리합닏");
-
-                                        C_DR.addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                                C_DR.child(phone).child("childOnBus").setValue(1); // 결석값으로 세팅
-                                                Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "결석값 세팅");
-                                            }
-
-                                            @Override
-                                            public void onCancelled(DatabaseError databaseError) {
-
-                                            }
-                                        });
-
-
-                                    }
-                                }).setNegativeButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                // 다이얼로그를 취소함
-                                dialogInterface.cancel();
-                                Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "다이얼로그 닫기");
-                            }
-                        });
-
-                        // 다이얼로그 생성
-                        AlertDialog C_alertDialog = C_alertDialogBuilder.create();
-                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "다이얼로그 생성(밑");
-
-                        // 다이얼로그 보여주기
-                        C_alertDialog.show();
-                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "다이얼로그 보여주기");
-*/
+                        C_alert(message);
+                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "C_alert() 실행");
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
                 });
-
-
-/*                AlertDialog.Builder C_alertDialogBuilder = new AlertDialog.Builder(getApplicationContext());
-
-                //제목 셋팅
-                C_alertDialogBuilder.setTitle("우리 아이는 지금\n");
-
-                //AlertDialog 셋팅
-                C_alertDialogBuilder.setMessage(message).setCancelable(false).setPositiveButton("결석",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                // 결석처리함 (아이 데이터베이스에 접근, 데이터베이스 저장)
-
-                                C_DR.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        C_DR.child("status").setValue(4); // 결석값으로 세팅
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
-
-
-                            }
-                        }).setNegativeButton("확인", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // 다이얼로그를 취소함
-                        dialogInterface.cancel();
-                    }
-                });*/
-
             }
         });
 
         pViewTeach.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                P_alert();
+                P_alert(FD);
             }
         });
       }
 
-/*      public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.pViewChild:
-                Log.v("pViewChild",phone);
-                C_DR.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for(DataSnapshot data: dataSnapshot.getChildren()) {
-                            if(C_DR.getKey() == phone) { // 기본키가 폰 번호랑 같으면
-                                C_name = data.child("Name").getValue(String.class); // 이름 가져오기
-                                C_status = data.child("status").getValue(int.class); // 현재 가져오기
-                            }
-                        }
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-                String message = " ";
-                switch (C_status) {
-                    case 1 :
-                        message = "승차 중이에요.";
-                        break;
-                    case 2 :
-                        message = "하차했어요.";
-                        break;
-                    case 3 :
-                        message = "유치원에 있어요.";
-                        break;
-                    case 0 :
-                        message = "결석했어요.";
-                        break;
-                    default:
-                        message = "에러;";
-                        break;
-                }
-
-                AlertDialog.Builder C_alertDialogBuilder = new AlertDialog.Builder(this);
-
-                //제목 셋팅
-                C_alertDialogBuilder.setTitle("우리 아이는 지금\n");
-
-                //AlertDialog 셋팅
-                C_alertDialogBuilder.setMessage(message).setCancelable(false).setPositiveButton("결석",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                // 결석처리함 (아이 데이터베이스에 접근, 데이터베이스 저장)
-
-                                C_DR.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        C_DR.child("status").setValue(4); // 결석값으로 세팅
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
-
-
-                            }
-                        }).setNegativeButton("확인", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // 다이얼로그를 취소함
-                        dialogInterface.cancel();
-                    }
-                });
-
-                // 다이얼로그 생성
-                AlertDialog C_alertDialog = C_alertDialogBuilder.create();
-
-                // 다이얼로그 보여주기
-                C_alertDialog.show();
-                break;
-
-            case R.id.pViewTeach:
-                Log.v("pViewTeach",phone);
-                AlertDialog.Builder T_alertDialogBuilder = new AlertDialog.Builder(this);
-
-                //제목 셋팅
-                T_alertDialogBuilder.setTitle("오늘의 선생님");
-
-                //AlertDialog 셋팅
-                T_alertDialogBuilder.setMessage(T_name +" 선생님\n" + "전화번호 : " +T_num).setCancelable(false).setPositiveButton("결석",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                            }
-                        }).setNegativeButton("확인", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // 다이얼로그를 취소함
-                        dialogInterface.cancel();
-                    }
-                });
-
-                // 다이얼로그 생성
-                AlertDialog T_alertDialog = T_alertDialogBuilder.create();
-
-                // 다이얼로그에 사진 넣기
-                ImageView iv = (ImageView)T_alertDialog.findViewById(R.id.image); // 다이얼로그 내 이미지뷰 선언
-//                iv.setImageResource(); // 파이어베이스에서 이미지 불러오기
-
-                // 다이얼로그 보여주기
-                T_alertDialog.show();
-                break;
-
-                default:
-                    break;
-        }
-      }*/
-
-    private void C_alert()
+    private void C_alert(final String message)
     {
         new AlertDialog.Builder(this)
                 // 색상을 타이틀에 세팅한다.
@@ -415,39 +167,78 @@ public class P_main extends AppCompatActivity {
                 // 취소를 못하도록 막는다.
                 .setCancelable(true)
                 // 확인 버튼을 만든다.
-                .setPositiveButton("Absent", new DialogInterface.OnClickListener()
+                .setNegativeButton("Absent", new DialogInterface.OnClickListener()
                 {
                     /* (non-Javadoc)
                      * @see android.content.DialogInterface.OnClickListener#onClick(android.content.DialogInterface, int)
                      */
                     public void onClick(DialogInterface dialog, int which)
                     {
+                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "결석버튼");
 //                        boolean check=false;
                         DatabaseReference dr=FirebaseDatabase.getInstance().getReference("Kindergarten");
+                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "킨더같ㄴ");
                         Map<String,Object> taskMap=new HashMap<String, Object>();
                         taskMap.put("childOnBus",1);
                         dr.child(kindNum).child("child").child(phone).updateChildren(taskMap);
+                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "값셑.ㅇ");
                         //                        check=true;
                         dialog.dismiss();
+                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "닫습니다");
+                        Toast.makeText(P_main.this, "Notice Absent", Toast.LENGTH_SHORT).show();
                     }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                }).setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
+                Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "닫습니다");
             }
         })
                 .show();
 //        return check;
     }
 
-    private void P_alert()
+    private void P_alert(FirebaseDatabase FD)
     {
-        ImageView img;
+        final DatabaseReference T_DR = FD.getReference("Kindergarten");
+        // kindergarten 밑에 있는 데이터로 접근
+
+//        LayoutInflater factory = LayoutInflater.from(P_main.this);
+//        final View view = factory.inflate(R.layout.layout_dialogue_teach, null);
+//        final ImageView iv = (ImageView)findViewById(R.id.T_img);
+
+        T_DR.child(kindNum).addValueEventListener(new ValueEventListener() { // 오늘의 지도교사 탐색 --> 어떻게 하징,,ㅠ 분별방법 아직 xxxx
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot data:dataSnapshot.child("Teacher").getChildren()) { // 다음 탐색 -> 인데 티쳐가 없어서 아무것도 못받음..
+                    Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "in dc");
+                    if (data.child("todayTeacher").getValue(Boolean.class) == true) { // 만약 오늘의 지도교사이면
+                        T_num = data.getKey(); // 선생님 전화번호 받아오기
+                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", T_num);
+                        T_name = data.child("name").getValue(String.class); // 선생님 이름 받아오기
+                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", T_name);
+                        T_img = data.child("imgPath").getValue(String.class);
+                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", T_img);
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "데이터 모두 받아옴");
+//        iv.setImageURI(Uri.parse(T_img));
+        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "T_img세팅");
+
         new AlertDialog.Builder(this)
                 // 색상을 타이틀에 세팅한다.
-                .setTitle("Today's Teacher")
+                .setTitle("Today's Teacher").setView(R.layout.layout_dialogue_teach)
                 // 설명을 메시지 부분에 세팅한다.
-                .setMessage(T_name+"\n"+T_num)
+                .setMessage("이름 : " + T_name +"\n전화번호 : "+ T_num)
                 // 취소를 못하도록 막는다.
                 .setCancelable(true)
                 // 확인 버튼을 만든다.
@@ -458,12 +249,6 @@ public class P_main extends AppCompatActivity {
                      */
                     public void onClick(DialogInterface dialog, int which)
                     {
-//                        boolean check=false;
-                        DatabaseReference dr=FirebaseDatabase.getInstance().getReference("Kindergarten");
-                        Map<String,Object> taskMap=new HashMap<String, Object>();
-                        taskMap.put("childOnBus",1);
-                        dr.child(kindNum).child("child").child(phone).updateChildren(taskMap);
-                        //                        check=true;
                         dialog.dismiss();
                     }
                 })
