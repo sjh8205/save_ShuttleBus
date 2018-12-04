@@ -108,6 +108,10 @@ public class Login extends AppCompatActivity {
                     }
                 }
                 autonum = autonum.replace("+82", "0");
+
+                editdata.putString("mynum",autonum);
+                editdata.commit();
+
                 Toast.makeText(getApplicationContext(), autonum, Toast.LENGTH_SHORT).show();
             }
            // Toast.makeText(getApplicationContext(), "트라이임다ㅎㅇ", Toast.LENGTH_SHORT).show();
