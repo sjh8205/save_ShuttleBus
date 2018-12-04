@@ -16,6 +16,12 @@ public class registerTeacher {
         this.imgPath=imgPath;
         this.todayTeacher=todayTeacher;
     }
+    public registerTeacher(String name,String tClass,String phone,String imgPath){
+        this.name=name;
+        this.tClass=tClass;
+        this.phone=phone;
+        this.imgPath=imgPath;
+    }
 
     public boolean isTodayTeacher() {
         return todayTeacher;

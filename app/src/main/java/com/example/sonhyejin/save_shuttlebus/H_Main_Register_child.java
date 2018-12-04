@@ -171,7 +171,7 @@ public class H_Main_Register_child extends AppCompatActivity {
                              }
                         }
                         if(check!=0&&ccheck!=0){
-                            String qrString= ChildName+"/"+PhoneNum;
+                            String qrString= PhoneNum;
                             //qr코드에 들어갈 문구
                             Bitmap qr=generateRQCode(qrString);
                             //qr코드 생성
