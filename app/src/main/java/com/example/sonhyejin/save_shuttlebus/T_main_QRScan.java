@@ -23,6 +23,8 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class T_main_QRScan extends AppCompatActivity {
 
@@ -42,8 +44,6 @@ public class T_main_QRScan extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_t_main_qrscan);
-
-
 
         qr = (ListView) findViewById(R.id.tChildList);
         scanner = (Button) findViewById(R.id.tQrScan);
@@ -69,13 +69,13 @@ public class T_main_QRScan extends AppCompatActivity {
                 Log.v("before for", "A");
                 for(DataSnapshot data: dataSnapshot.child("child").getChildren()){
                     String str = data.child("childName").getValue(String.class);
-                    String cla = data.child("childClass").getValue(String.class);
-                    Log.v("name is", str);
-                    Log.v("class is", cla);
-                    String com = data.child("childBusStation").getValue(String.class);
-                    int status = data.child("childOnBus").getValue(Integer.class);
-                    Log.v("busstation is", com);
-                    if(com.equals(station)){
+                        String cla = data.child("childClass").getValue(String.class);
+                        Log.v("name is", str);
+                        Log.v("class is", cla);
+                        String com = data.child("childBusStation").getValue(String.class);
+                        int status = data.child("childOnBus").getValue(Integer.class);
+                        Log.v("busstation is", com);
+                        if(com.equals(station)){
 
                         switch (status){
                             case 1: // 결석
@@ -161,10 +161,48 @@ public class T_main_QRScan extends AppCompatActivity {
         String str;
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
+        FirebaseDatabase FD = FirebaseDatabase.getInstance();
+        DatabaseReference DR = FD.getReference("Kindergarten");
+        final Map<String,Object> taskMap = new HashMap<String,Object>();
+
         if(result != null && resultCode == RESULT_OK) {
             // if user scanned and the result is valid, do your stuff here
             Scanresult = result.getContents().toString();
             Toast.makeText(this, "Scanned: " + Scanresult, Toast.LENGTH_LONG).show();
+
+            DR.child(telNum).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) { // 스캔하고 돌아올 때마다 계속 검사할 것
+                    Log.v("before for", "A");
+                    for(DataSnapshot data: dataSnapshot.child("child").getChildren()){
+
+                        String num = data.child("childPhoneNum").getValue(String.class);
+                        int busState = data.child("childOnBus").getValue(Integer.class);
+
+                        Log.v("QR scan success", num);
+
+                        if(num.equals(Scanresult)){
+
+                            if(busState == 2){
+                                taskMap.put("childOnBus",3);
+                            }else if(busState ==3){
+                                taskMap.put("childOnBus",2);
+                            }
+
+                        }
+
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+
+            });
+
+           // Intent intent = new Intent(getApplicationContext(), T_main_QRScan.class);
+
+            //startActivity(intent);
         } else {
             // if user pressed back or there's error, do your stuff here
             super.onActivityResult(requestCode, resultCode, data);
