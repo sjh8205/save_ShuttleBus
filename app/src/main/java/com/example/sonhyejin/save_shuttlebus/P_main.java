@@ -279,6 +279,12 @@ public class P_main extends AppCompatActivity {
             }
         });
 
+        pViewTeach.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                P_alert();
+            }
+        });
       }
 
 /*      public void onClick(View v) {
@@ -401,8 +407,6 @@ public class P_main extends AppCompatActivity {
 
     private void C_alert()
     {
-        boolean check=false;
-        // 체인형으로 메소드를 사용한다.
         new AlertDialog.Builder(this)
                 // 색상을 타이틀에 세팅한다.
                 .setTitle("Now your child is")
@@ -418,16 +422,54 @@ public class P_main extends AppCompatActivity {
                      */
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        boolean check=false;
+//                        boolean check=false;
                         DatabaseReference dr=FirebaseDatabase.getInstance().getReference("Kindergarten");
                         Map<String,Object> taskMap=new HashMap<String, Object>();
                         taskMap.put("childOnBus",1);
                         dr.child(kindNum).child("child").child(phone).updateChildren(taskMap);
-                        check=true;
+                        //                        check=true;
+                        dialog.dismiss();
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        })
+                .show();
+//        return check;
+    }
+
+    private void P_alert()
+    {
+        ImageView img;
+        new AlertDialog.Builder(this)
+                // 색상을 타이틀에 세팅한다.
+                .setTitle("Today's Teacher")
+                // 설명을 메시지 부분에 세팅한다.
+                .setMessage(T_name+"\n"+T_num)
+                // 취소를 못하도록 막는다.
+                .setCancelable(true)
+                // 확인 버튼을 만든다.
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    /* (non-Javadoc)
+                     * @see android.content.DialogInterface.OnClickListener#onClick(android.content.DialogInterface, int)
+                     */
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+//                        boolean check=false;
+                        DatabaseReference dr=FirebaseDatabase.getInstance().getReference("Kindergarten");
+                        Map<String,Object> taskMap=new HashMap<String, Object>();
+                        taskMap.put("childOnBus",1);
+                        dr.child(kindNum).child("child").child(phone).updateChildren(taskMap);
+                        //                        check=true;
                         dialog.dismiss();
                     }
                 })
                 .show();
 //        return check;
     }
+
+
 }
