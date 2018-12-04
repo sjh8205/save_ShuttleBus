@@ -1,10 +1,13 @@
 package com.example.sonhyejin.save_shuttlebus;
 
+import android.Manifest;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -85,20 +88,11 @@ public class Login extends AppCompatActivity {
         });
         TelephonyManager mgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         try {
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_SMS)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-                    (this, android.Manifest.permission.READ_PHONE_NUMBERS)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-                    (this, android.Manifest.permission.READ_PHONE_STATE)
-                    != PackageManager.PERMISSION_GRANTED) {
-                Log.v("버튼","세가지 모두 중 하나 클릭됨");
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
+            int permissionPhone = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_PHONE_STATE);
+            if(permissionPhone == PackageManager.PERMISSION_DENIED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
+            } else {
+                Toast.makeText(getApplicationContext(),"camera permission authorized",Toast.LENGTH_SHORT).show();
                 if(mgr.getLine1Number() !=null){
                     autonum = mgr.getLine1Number();
                 }
@@ -110,8 +104,6 @@ public class Login extends AppCompatActivity {
                 autonum = autonum.replace("+82", "0");
                 Toast.makeText(getApplicationContext(), autonum, Toast.LENGTH_SHORT).show();
             }
-           // Toast.makeText(getApplicationContext(), "트라이임다ㅎㅇ", Toast.LENGTH_SHORT).show();
-
         } catch(Exception e) {
             //Toast.makeText(getApplicationContext(), "오류ㅠ000000으로 저장합니다", Toast.LENGTH_SHORT).show();
             autonum = "0000000";
@@ -257,6 +249,27 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 1:
+                for (int i = 0; i < permissions.length; i++) {
+                    String permission = permissions[i];
+                    int grantResult = grantResults[i];
+                    if (permission.equals(Manifest.permission.READ_PHONE_STATE)) {
+                        if(grantResult == PackageManager.PERMISSION_GRANTED) {
+                            Log.v("permissionPN","camera permission authorized");
+                        } else {
+                            Log.v("permissionPN","camera permission denied");
+                        }
+                    }
+                }
+                break;
+
+
+        }
     }
 
 
