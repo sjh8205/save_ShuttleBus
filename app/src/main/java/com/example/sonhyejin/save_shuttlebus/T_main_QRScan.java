@@ -36,11 +36,14 @@ public class T_main_QRScan extends AppCompatActivity {
     Button scanner;
     Button submit;
     String station;
+    String Scanresult = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_t_main_qrscan);
+
+
 
         qr = (ListView) findViewById(R.id.tChildList);
         scanner = (Button) findViewById(R.id.tQrScan);
@@ -153,8 +156,8 @@ public class T_main_QRScan extends AppCompatActivity {
 
         if(result != null && resultCode == RESULT_OK) {
             // if user scanned and the result is valid, do your stuff here
-            str = result.getContents().toString();
-            Toast.makeText(this, "Scanned: " + str, Toast.LENGTH_LONG).show();
+            Scanresult = result.getContents().toString();
+            Toast.makeText(this, "Scanned: " + Scanresult, Toast.LENGTH_LONG).show();
         } else {
             // if user pressed back or there's error, do your stuff here
             super.onActivityResult(requestCode, resultCode, data);
