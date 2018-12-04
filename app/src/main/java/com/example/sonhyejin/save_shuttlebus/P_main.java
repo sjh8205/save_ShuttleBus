@@ -24,6 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class P_main extends AppCompatActivity {
 
     DatabaseReference C_DR;
@@ -36,6 +39,7 @@ public class P_main extends AppCompatActivity {
 
     String kindNum;
     String phone;
+    String message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,10 +136,9 @@ public class P_main extends AppCompatActivity {
                                 break; // 값 받고 나간다
                             }
                         }
-                        String message = " 헤헷 ";
                         Toast.makeText(getApplicationContext(), "message 생성", Toast.LENGTH_SHORT).show();
 
-                        switch (C_status) { // 스위치는 왜 못 들어가징
+                        switch (C_status) {
                             case 2 :
                                 message = "승차 중이에요.";
                                 break;
@@ -155,11 +158,13 @@ public class P_main extends AppCompatActivity {
 
                         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", message);
 
+                        C_alert();
+
 /*                        final Dialog d = new Dialog(getApplicationContext());
                         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "다이얼로그 생성");
                         d.setTitle("우리 아이는 지금\n");
 */
-                        final AlertDialog.Builder C_alertDialogBuilder = new AlertDialog.Builder(getApplicationContext());
+/*                        final AlertDialog.Builder C_alertDialogBuilder = new AlertDialog.Builder(getApplicationContext());
                         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "다이얼로그 빌더 생성");
 
                         //제목 셋팅
@@ -394,4 +399,35 @@ public class P_main extends AppCompatActivity {
         }
       }*/
 
+    private void C_alert()
+    {
+        boolean check=false;
+        // 체인형으로 메소드를 사용한다.
+        new AlertDialog.Builder(this)
+                // 색상을 타이틀에 세팅한다.
+                .setTitle("Now your child is")
+                // 설명을 메시지 부분에 세팅한다.
+                .setMessage(message)
+                // 취소를 못하도록 막는다.
+                .setCancelable(true)
+                // 확인 버튼을 만든다.
+                .setPositiveButton("Absent", new DialogInterface.OnClickListener()
+                {
+                    /* (non-Javadoc)
+                     * @see android.content.DialogInterface.OnClickListener#onClick(android.content.DialogInterface, int)
+                     */
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        boolean check=false;
+                        DatabaseReference dr=FirebaseDatabase.getInstance().getReference("Kindergarten");
+                        Map<String,Object> taskMap=new HashMap<String, Object>();
+                        taskMap.put("childOnBus",1);
+                        dr.child(kindNum).child("child").child(phone).updateChildren(taskMap);
+                        check=true;
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+//        return check;
+    }
 }
