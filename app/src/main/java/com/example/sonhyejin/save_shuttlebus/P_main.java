@@ -1,8 +1,10 @@
 package com.example.sonhyejin.save_shuttlebus;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -22,6 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class P_main extends AppCompatActivity {
 
     DatabaseReference C_DR;
@@ -34,6 +39,7 @@ public class P_main extends AppCompatActivity {
 
     String kindNum;
     String phone;
+    String message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +48,11 @@ public class P_main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_p_main);
 
-        final Intent intent = getIntent(); // getIntent()로 받을 준비
-        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "intent");
-
-        kindNum = intent.getStringExtra("telNum");
+        SharedPreferences P_data = getSharedPreferences("mydata", Context.MODE_PRIVATE);
+        kindNum = P_data.getString("telnum","0");
         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", kindNum);
-        phone = intent.getStringExtra("phone"); // 전화번호 받기
+        phone = P_data.getString("mynum", "0");
         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", phone);
-
-//        Toast.makeText(getApplicationContext(), phone, Toast.LENGTH_SHORT).show();
 
         ListView route = (ListView)findViewById(R.id.pBusList);
 
@@ -64,7 +66,7 @@ public class P_main extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot data:dataSnapshot.child("Teacher").getChildren()) { // 다음 탐색 -> 인데 티쳐가 없어서 아무것도 못받음..
                     Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "in dc");
-                   //if (data.child("phone").child("Today").getValue() == 1) { // 만약 오늘의 지도교사이면
+                   if (data.child("todayTeacher").getValue(Boolean.class) == true) { // 만약 오늘의 지도교사이면
                         T_num = data.getKey(); // 선생님 전화번호 받아오기
                     Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", T_num);
                         T_name = data.child("name").getValue(String.class); // 선생님 이름 받아오기
@@ -72,7 +74,7 @@ public class P_main extends AppCompatActivity {
                         T_img = data.child("imgPath").getValue(String.class);
                     Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", T_img);
 
-                    //}
+                    }
                 }
             }
 
@@ -134,10 +136,9 @@ public class P_main extends AppCompatActivity {
                                 break; // 값 받고 나간다
                             }
                         }
-                        String message = " 헤헷 ";
                         Toast.makeText(getApplicationContext(), "message 생성", Toast.LENGTH_SHORT).show();
 
-                        switch (C_status) { // 스위치는 왜 못 들어가징
+                        switch (C_status) {
                             case 2 :
                                 message = "승차 중이에요.";
                                 break;
@@ -157,11 +158,13 @@ public class P_main extends AppCompatActivity {
 
                         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", message);
 
+                        C_alert();
+
 /*                        final Dialog d = new Dialog(getApplicationContext());
                         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "다이얼로그 생성");
                         d.setTitle("우리 아이는 지금\n");
 */
-                        final AlertDialog.Builder C_alertDialogBuilder = new AlertDialog.Builder(getApplicationContext());
+/*                        final AlertDialog.Builder C_alertDialogBuilder = new AlertDialog.Builder(getApplicationContext());
                         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "다이얼로그 빌더 생성");
 
                         //제목 셋팅
@@ -396,4 +399,35 @@ public class P_main extends AppCompatActivity {
         }
       }*/
 
+    private void C_alert()
+    {
+        boolean check=false;
+        // 체인형으로 메소드를 사용한다.
+        new AlertDialog.Builder(this)
+                // 색상을 타이틀에 세팅한다.
+                .setTitle("Now your child is")
+                // 설명을 메시지 부분에 세팅한다.
+                .setMessage(message)
+                // 취소를 못하도록 막는다.
+                .setCancelable(true)
+                // 확인 버튼을 만든다.
+                .setPositiveButton("Absent", new DialogInterface.OnClickListener()
+                {
+                    /* (non-Javadoc)
+                     * @see android.content.DialogInterface.OnClickListener#onClick(android.content.DialogInterface, int)
+                     */
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        boolean check=false;
+                        DatabaseReference dr=FirebaseDatabase.getInstance().getReference("Kindergarten");
+                        Map<String,Object> taskMap=new HashMap<String, Object>();
+                        taskMap.put("childOnBus",1);
+                        dr.child(kindNum).child("child").child(phone).updateChildren(taskMap);
+                        check=true;
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+//        return check;
+    }
 }
