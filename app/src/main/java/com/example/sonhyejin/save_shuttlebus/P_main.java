@@ -1,5 +1,6 @@
 package com.example.sonhyejin.save_shuttlebus;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -31,19 +32,23 @@ public class P_main extends AppCompatActivity {
     String T_name;
     String T_img;
 
-    Intent intent;
     String kindNum;
     String phone;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "in p");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_p_main);
 
-        intent = getIntent(); // getIntent()로 받을 준비
+        final Intent intent = getIntent(); // getIntent()로 받을 준비
+        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "intent");
 
         kindNum = intent.getStringExtra("telNum");
+        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", kindNum);
         phone = intent.getStringExtra("phone"); // 전화번호 받기
+        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", phone);
 
 //        Toast.makeText(getApplicationContext(), phone, Toast.LENGTH_SHORT).show();
 
@@ -51,23 +56,22 @@ public class P_main extends AppCompatActivity {
 
         FirebaseDatabase FD = FirebaseDatabase.getInstance();
 
-        C_DR = FD.getReference("Kindergarten").child(kindNum).child("child").child(phone);
-
         final DatabaseReference T_DR = FD.getReference("Kindergarten");
         // kindergarten 밑에 있는 데이터로 접근
-        Toast.makeText(getApplicationContext(), "T_DR", Toast.LENGTH_SHORT).show();
 
         T_DR.child(kindNum).addValueEventListener(new ValueEventListener() { // 오늘의 지도교사 탐색 --> 어떻게 하징,,ㅠ 분별방법 아직 xxxx
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Toast.makeText(getApplicationContext(), "T_DR 데체", Toast.LENGTH_SHORT).show();
-                for(DataSnapshot data:dataSnapshot.child("Teacher").getChildren()) { // 다음 탐색
+                for(DataSnapshot data:dataSnapshot.child("Teacher").getChildren()) { // 다음 탐색 -> 인데 티쳐가 없어서 아무것도 못받음..
+                    Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "in dc");
                    //if (data.child("phone").child("Today").getValue() == 1) { // 만약 오늘의 지도교사이면
-                        T_num = data.getKey().toString(); // 선생님 전화번호 받아오기
+                        T_num = data.getKey(); // 선생님 전화번호 받아오기
+                    Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", T_num);
                         T_name = data.child("name").getValue(String.class); // 선생님 이름 받아오기
-                        T_img = data.child("phone").child("img").getValue(String.class);
-                    Toast.makeText(P_main.this, T_num, Toast.LENGTH_SHORT).show();
-                    Toast.makeText(P_main.this, T_name, Toast.LENGTH_SHORT).show();
+                    Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", T_name);
+                        T_img = data.child("imgPath").getValue(String.class);
+                    Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", T_img);
+
                     //}
                 }
             }
@@ -94,7 +98,7 @@ public class P_main extends AppCompatActivity {
 
                 String stStr = item.getstname();
                 Drawable img = item.getimg();
-                Log.v("리스트뷰 클릭",String.valueOf(position));
+                Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "리스트뷰 추가 완료");
             }
         });
 
@@ -102,6 +106,8 @@ public class P_main extends AppCompatActivity {
         Button pViewTeach = (Button)findViewById(R.id.pViewTeach);
  // 밑에서 id로 받음
 //        pViewChild.setOnClickListener(this);
+
+        C_DR = FD.getReference("Kindergarten").child(kindNum).child("child"); // child 데이터베이스 리퍼런스
 
         pViewChild.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,14 +118,118 @@ public class P_main extends AppCompatActivity {
                 C_DR.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "in c_dc");
                         for(DataSnapshot data: dataSnapshot.getChildren()) {
-                            if(C_DR.getKey() == phone) { // 기본키가 폰 번호랑 같으면
-                                C_name = data.child("Name").getValue(String.class); // 이름 가져오기
-                                C_status = data.child("status").getValue(int.class); // 현재 가져오기
-                                Toast.makeText(getApplicationContext(), C_name, Toast.LENGTH_SHORT).show();
-                                Toast.makeText(getApplicationContext(), C_status, Toast.LENGTH_SHORT).show();
+                            Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "in c_for");
+                            String data_phone = data.getKey();
+                            Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", data_phone);
+                            Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", phone);
+
+                            if(data_phone.equals(phone)) { // 기본키가 폰 번호랑 같으면
+                                Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "if문!");
+                                C_name = data.child("childName").getValue(String.class); // 이름 가져오기
+                                Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", C_name);
+                                C_status = data.child("childOnBus").getValue(int.class); // 현재 가져오기
+                                Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", String.valueOf(C_status));
+                                break; // 값 받고 나간다
                             }
                         }
+                        String message = " 헤헷 ";
+                        Toast.makeText(getApplicationContext(), "message 생성", Toast.LENGTH_SHORT).show();
+
+                        switch (C_status) { // 스위치는 왜 못 들어가징
+                            case 2 :
+                                message = "승차 중이에요.";
+                                break;
+                            case 3 :
+                                message = "하차했어요.";
+                                break;
+                            case 0 :
+                                message = "유치원에 있어요.";
+                                break;
+                            case 1 :
+                                message = "결석했어요.";
+                                break;
+                            default:
+                                message = "에러;";
+                                break;
+                        }
+
+                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", message);
+
+/*                        final Dialog d = new Dialog(getApplicationContext());
+                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "다이얼로그 생성");
+                        d.setTitle("우리 아이는 지금\n");
+*/
+                        final AlertDialog.Builder C_alertDialogBuilder = new AlertDialog.Builder(getApplicationContext());
+                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "다이얼로그 빌더 생성");
+
+                        //제목 셋팅
+                        C_alertDialogBuilder.setTitle("우리 아이는 지금\n");
+                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "ㅈㅔ목 세팅");
+                        C_alertDialogBuilder.setMessage(message);
+                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "메시지 세팅");
+//////////////////////////여기까지 되어용
+                        C_alertDialogBuilder.setPositiveButton("결석", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "결석 버튼으로 들어옴");
+                                dialogInterface.dismiss(); // 닫기
+                            }
+                        });
+
+                        C_alertDialogBuilder.setNegativeButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "확인 버튼");
+                                dialogInterface.dismiss(); // 닫기
+                            }
+                        });
+
+                        // 다이얼로그 보여주기
+                        C_alertDialogBuilder.show();
+                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "다이얼로그 보여주기");
+
+                        /*                        //AlertDialog 셋팅
+                        C_alertDialogBuilder.setMessage(message).setCancelable(false).setPositiveButton("결석",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        // 결석처리함 (아이 데이터베이스에 접근, 데이터베이스 저장)
+                                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "결석처리합닏");
+
+                                        C_DR.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                C_DR.child(phone).child("childOnBus").setValue(1); // 결석값으로 세팅
+                                                Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "결석값 세팅");
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
+
+
+                                    }
+                                }).setNegativeButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // 다이얼로그를 취소함
+                                dialogInterface.cancel();
+                                Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "다이얼로그 닫기");
+                            }
+                        });
+
+                        // 다이얼로그 생성
+                        AlertDialog C_alertDialog = C_alertDialogBuilder.create();
+                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "다이얼로그 생성(밑");
+
+                        // 다이얼로그 보여주기
+                        C_alertDialog.show();
+                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "다이얼로그 보여주기");
+*/
                     }
 
                     @Override
@@ -128,26 +238,6 @@ public class P_main extends AppCompatActivity {
                     }
                 });
 
-/*                String message = " ";
-                Toast.makeText(getApplicationContext(), "message 생성", Toast.LENGTH_SHORT).show();
-
-                switch (C_status) {
-                    case 1 :
-                        message = "승차 중이에요.";
-                        break;
-                    case 2 :
-                        message = "하차했어요.";
-                        break;
-                    case 3 :
-                        message = "유치원에 있어요.";
-                        break;
-                    case 0 :
-                        message = "결석했어요.";
-                        break;
-                    default:
-                        message = "에러;";
-                        break;
-                }
 
 /*                AlertDialog.Builder C_alertDialogBuilder = new AlertDialog.Builder(getApplicationContext());
 

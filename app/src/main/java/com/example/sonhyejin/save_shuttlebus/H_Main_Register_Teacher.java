@@ -2,8 +2,10 @@ package com.example.sonhyejin.save_shuttlebus;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
@@ -16,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -60,8 +63,8 @@ public class H_Main_Register_Teacher extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_h_main_register_teacher);
-        Intent intent=getIntent();
-        telNum=intent.getStringExtra("telNum");
+        SharedPreferences data = getSharedPreferences("mydata", Context.MODE_PRIVATE);
+        telNum=data.getString("telnum","0");
 
         hRegTeachName=(EditText)findViewById(R.id.hRegTeachName);
         hRegTeachClass=(EditText)findViewById(R.id.hRegTeachClass);
@@ -84,32 +87,6 @@ public class H_Main_Register_Teacher extends AppCompatActivity {
 
         Button hRegTeachSubmit=(Button)findViewById(R.id.hRegTeachSubmit);
 
-
-        table= FirebaseDatabase.getInstance().getReference("Kindergarten");
-        hRegTeachName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(view==hRegTeachName){
-                    hRegTeachName.setText("");
-                }
-            }
-        });
-        hRegTeachNum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(view==hRegTeachNum){
-                    hRegTeachNum.setText("");
-                }
-            }
-        });
-        hRegTeachClass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(view==hRegTeachClass){
-                    hRegTeachClass.setText("");
-                }
-            }
-        });
         hRegTeachSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,10 +94,16 @@ public class H_Main_Register_Teacher extends AppCompatActivity {
                 teachClass=hRegTeachClass.getText().toString();
                 teachNum=hRegTeachNum.getText().toString();
                 registerTeacher=new registerTeacher(teachName,teachClass,teachNum,imgPath,false);
-
-                Intent intent1=new Intent(getApplicationContext(),H_Main.class);
-                table.child(telNum).child("Teacher").child(teachNum).setValue(registerTeacher);
-                startActivity(intent1);
+                if(TextUtils.isEmpty(teachName)||TextUtils.isEmpty(teachClass)
+                        ||TextUtils.isEmpty(teachNum)||TextUtils.isEmpty(imgPath)){
+                    //빈칸이 있음
+                    Toast.makeText(getApplicationContext(),"There is a blank space",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Intent intent1=new Intent(getApplicationContext(),H_Main.class);
+                    table.child(telNum).child("Teacher").child(teachNum).setValue(registerTeacher);
+                    startActivity(intent1);
+                }
             }
         });
 

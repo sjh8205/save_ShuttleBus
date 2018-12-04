@@ -83,7 +83,9 @@
                 android:text="NAME"
                 android:textSize="17sp"
                 android:textColor="@color/BackText"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:inputType="textPersonName"
+                android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"/>
 
             <EditText
                 android:id="@+id/hRegTeachClass"

@@ -47,7 +47,7 @@
                 android:layout_height="45dp"
                 android:layout_margin="5dp"
                 android:background="@color/TextBackground"
-                android:text="REGISTER NUMBER"
+                android:hint="REGISTER NUMBER"
                 android:textSize="17sp"
                 android:textColor="@color/BackText"
                 android:textAlignment="center"/>
@@ -58,7 +58,7 @@
                 android:layout_height="45dp"
                 android:layout_margin="5dp"
                 android:background="@color/TextBackground"
-                android:text="NAME"
+                android:hint="NAME"
                 android:textSize="17sp"
                 android:textColor="@color/BackText"
                 android:textAlignment="center"/>
