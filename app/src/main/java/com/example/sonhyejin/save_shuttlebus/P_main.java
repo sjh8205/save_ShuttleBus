@@ -1,8 +1,10 @@
 package com.example.sonhyejin.save_shuttlebus;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -42,15 +44,11 @@ public class P_main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_p_main);
 
-        final Intent intent = getIntent(); // getIntent()로 받을 준비
-        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "intent");
-
-        kindNum = intent.getStringExtra("telNum");
+        SharedPreferences P_data = getSharedPreferences("mydata", Context.MODE_PRIVATE);
+        kindNum = P_data.getString("telnum","0");
         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", kindNum);
-        phone = intent.getStringExtra("phone"); // 전화번호 받기
+        phone = P_data.getString("mynum", "0");
         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", phone);
-
-//        Toast.makeText(getApplicationContext(), phone, Toast.LENGTH_SHORT).show();
 
         ListView route = (ListView)findViewById(R.id.pBusList);
 
@@ -64,7 +62,7 @@ public class P_main extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot data:dataSnapshot.child("Teacher").getChildren()) { // 다음 탐색 -> 인데 티쳐가 없어서 아무것도 못받음..
                     Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "in dc");
-                   //if (data.child("phone").child("Today").getValue() == 1) { // 만약 오늘의 지도교사이면
+                   if (data.child("todayTeacher").getValue(Boolean.class) == true) { // 만약 오늘의 지도교사이면
                         T_num = data.getKey(); // 선생님 전화번호 받아오기
                     Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", T_num);
                         T_name = data.child("name").getValue(String.class); // 선생님 이름 받아오기
@@ -72,7 +70,7 @@ public class P_main extends AppCompatActivity {
                         T_img = data.child("imgPath").getValue(String.class);
                     Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", T_img);
 
-                    //}
+                    }
                 }
             }
 

@@ -63,6 +63,7 @@ public class H_Main_Register_Teacher extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_h_main_register_teacher);
+
         SharedPreferences data = getSharedPreferences("mydata", Context.MODE_PRIVATE);
         telNum=data.getString("telnum","0");
 
@@ -100,6 +101,8 @@ public class H_Main_Register_Teacher extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"There is a blank space",Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    table=FirebaseDatabase.getInstance().getReference("Kindergarten");
+                    Log.v("datas","*"+imgPath);
                     Intent intent1=new Intent(getApplicationContext(),H_Main.class);
                     table.child(telNum).child("Teacher").child(teachNum).setValue(registerTeacher);
                     startActivity(intent1);
