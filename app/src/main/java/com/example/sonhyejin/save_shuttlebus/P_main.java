@@ -64,6 +64,8 @@ public class P_main extends AppCompatActivity {
         phone = P_data.getString("mynum", "0");
         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", phone);
 
+        Adapter = new AdapterRoute();
+
         route = (ListView)findViewById(R.id.pBusList);
 
         final FirebaseDatabase FD = FirebaseDatabase.getInstance();
@@ -74,6 +76,27 @@ public class P_main extends AppCompatActivity {
         T_DR.child(kindNum).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot data: dataSnapshot.child("bus").getChildren()){
+                    String temp=data.getKey();
+                    Boolean station = data.child("busishere").getValue(Boolean.class);
+
+                    Log.v("telNumb",temp);
+                    int idx=temp.indexOf(" ");
+                    String num = temp.substring(0,idx);
+                    Log.v("bus"," "+num);
+                    String nam = temp.substring(idx+1);
+                    Log.v("bus"," "+nam);
+
+                    if(station == true){
+                        Adapter.addItem(ContextCompat.getDrawable(P_main.this,R.drawable.bus),ContextCompat.getDrawable(P_main.this,R.drawable.busstop),nam);
+                    }else{
+                        Adapter.addItem(ContextCompat.getDrawable(P_main.this,R.drawable.blank),ContextCompat.getDrawable(P_main.this,R.drawable.busstop),nam);
+                    }
+
+
+                }
+                route.setAdapter(Adapter);
+
                 for(DataSnapshot data:dataSnapshot.child("Teacher").getChildren()) {
                     Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "in for");
                     if (data.child("todayTeacher").getValue(Boolean.class)) { // 만약 오늘의 지도교사이면
@@ -95,16 +118,6 @@ public class P_main extends AppCompatActivity {
 
             }
         });
-
-
-        AdapterRoute Adapter = new AdapterRoute();
-
-        Adapter.addItem(ContextCompat.getDrawable(this,R.drawable.bus),ContextCompat.getDrawable(this,R.drawable.busstop),"안양1단지");
-        Adapter.addItem(ContextCompat.getDrawable(this,R.drawable.bus),ContextCompat.getDrawable(this,R.drawable.busstop),"안양2단지");
-        Adapter.addItem(ContextCompat.getDrawable(this,R.drawable.bus),ContextCompat.getDrawable(this,R.drawable.busstop),"안양3단지");
-        Adapter.addItem(ContextCompat.getDrawable(this,R.drawable.bus),ContextCompat.getDrawable(this,R.drawable.busstop),"안양4단지");
-
-        route.setAdapter(Adapter);
 
         route.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -43,6 +43,7 @@ public class T_main_QRScan extends AppCompatActivity {
     String Scanresult = "0";
     DatabaseReference DR;
     FirebaseDatabase FD;
+    boolean atleast = false;
 
     int rt;
 
@@ -191,8 +192,7 @@ public class T_main_QRScan extends AppCompatActivity {
 
                         if(num.equals(Scanresult)){
 
-                            taskMap.put("busishere",true);
-                            DR.child(telNum).child("bus").child(station).updateChildren(taskMap);
+                            atleast = true; //적어도 한명이라도 찍었다!
 
                             if(busState == 2){
                                 taskMap.put("childOnBus",3);
@@ -205,6 +205,21 @@ public class T_main_QRScan extends AppCompatActivity {
                         }
 
                     }
+
+                    if(atleast==true){ //적어도 한명이라도 찍었다면
+                        for(DataSnapshot data: dataSnapshot.child("bus").getChildren()){ //일단 다른 버스 정류장 busishere 값 다 false로
+
+                            String nowstation = data.child("station").getValue(String.class);
+
+                            taskMap.put("busishere",false);
+                            DR.child(telNum).child("bus").child(nowstation).updateChildren(taskMap);
+
+                        }
+
+                        taskMap.put("busishere",true); //얘만 true로
+                        DR.child(telNum).child("bus").child(station).updateChildren(taskMap);
+                    }
+
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {

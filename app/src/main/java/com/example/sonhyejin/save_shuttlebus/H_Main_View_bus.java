@@ -42,6 +42,7 @@ public class H_Main_View_bus extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot data: dataSnapshot.child("bus").getChildren()){
                     String temp=data.getKey();
+                    Boolean station = data.child("busishere").getValue(Boolean.class);
                     Log.v("telNumb",temp);
                     int idx=temp.indexOf(" ");
                     String num = temp.substring(0,idx);
@@ -49,7 +50,11 @@ public class H_Main_View_bus extends AppCompatActivity {
                     String nam = temp.substring(idx+1);
                     Log.v("bus"," "+nam);
 
-                    Adapter.addItem(ContextCompat.getDrawable(H_Main_View_bus.this,R.drawable.bus),ContextCompat.getDrawable(H_Main_View_bus.this,R.drawable.busstop),nam);
+                    if(station == true){
+                        Adapter.addItem(ContextCompat.getDrawable(H_Main_View_bus.this,R.drawable.bus),ContextCompat.getDrawable(H_Main_View_bus.this,R.drawable.busstop),nam);
+                    }else{
+                        Adapter.addItem(ContextCompat.getDrawable(H_Main_View_bus.this,R.drawable.blank),ContextCompat.getDrawable(H_Main_View_bus.this,R.drawable.busstop),nam);
+                    }
                 }
                 route.setAdapter(Adapter);
 
