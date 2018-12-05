@@ -31,12 +31,14 @@ public class AdapterRoute extends BaseAdapter{
             convertView = inflater.inflate(R.layout.layout_route, parent, false);
         }
 
-        ImageView imgView = (ImageView) convertView.findViewById(R.id.busStationImg);
+        ImageView busView = (ImageView) convertView.findViewById(R.id.busiconimg);
+        ImageView stationView = (ImageView) convertView.findViewById(R.id.busStationImg);
         TextView nameView = (TextView) convertView.findViewById((R.id.busStationName));
 
         ListViewRoute listViewItem = listViewItemList.get(position);
 
-        imgView.setImageDrawable((listViewItem.getimg()));
+        busView.setImageDrawable((listViewItem.getbusimg()));
+        stationView.setImageDrawable((listViewItem.getstimg()));
         nameView.setText(listViewItem.getstname());
 
         return convertView;
@@ -50,10 +52,11 @@ public class AdapterRoute extends BaseAdapter{
         return listViewItemList.get(position);
     }
 
-    public void addItem(Drawable image, String name){
+    public void addItem(Drawable busimg, Drawable stimg, String name){
         ListViewRoute item = new ListViewRoute();
 
-        item.setimg(image);
+        item.setbusimg(busimg);
+        item.setstimg(stimg);
         item.setstname(name);
 
         listViewItemList.add(item);

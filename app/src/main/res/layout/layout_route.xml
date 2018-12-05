@@ -10,15 +10,14 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/busStationImg"
+            android:id="@+id/busiconimg"
             android:layout_width="50dp"
             android:layout_height="50dp"/>
 
         <ImageView
-            android:id="@+id/busiconimg"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:visibility="invisible"/>
+            android:id="@+id/busStationImg"
+            android:layout_width="50dp"
+            android:layout_height="50dp"/>
 
         <TextView
             android:id="@+id/busStationName"

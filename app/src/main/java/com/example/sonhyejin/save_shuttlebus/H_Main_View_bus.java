@@ -49,7 +49,7 @@ public class H_Main_View_bus extends AppCompatActivity {
                     String nam = temp.substring(idx+1);
                     Log.v("bus"," "+nam);
 
-                    Adapter.addItem(ContextCompat.getDrawable(H_Main_View_bus.this,R.drawable.busstop),nam);
+                    Adapter.addItem(ContextCompat.getDrawable(H_Main_View_bus.this,R.drawable.bus),ContextCompat.getDrawable(H_Main_View_bus.this,R.drawable.busstop),nam);
                 }
                 route.setAdapter(Adapter);
 
@@ -59,7 +59,8 @@ public class H_Main_View_bus extends AppCompatActivity {
                         ListViewRoute item = (ListViewRoute) parent.getItemAtPosition(position);
 
                         String stStr = item.getstname();
-                        Drawable img = item.getimg();
+                        Drawable stimg = item.getstimg();
+                        Drawable busimg = item.getbusimg();
                     }
                 });
 
