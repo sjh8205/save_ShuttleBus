@@ -19,8 +19,10 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,14 +41,12 @@ public class P_main extends AppCompatActivity {
     String T_num;
     String T_name;
     String T_img;
+    String T_class;
 
     String kindNum;
     String phone;
 
     Intent intent;
-
-    DialTeach DialogueTeach = new DialTeach();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "in p");
@@ -63,29 +63,23 @@ public class P_main extends AppCompatActivity {
         ListView route = (ListView)findViewById(R.id.pBusList);
 
         final FirebaseDatabase FD = FirebaseDatabase.getInstance();
-        intent = new Intent(getApplicationContext(), DialTeach.class);
 
         final DatabaseReference T_DR = FD.getReference("Kindergarten");
         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "DR");
 
-        T_DR.child(kindNum).addValueEventListener(new ValueEventListener() {
+        T_DR.child(kindNum).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot data:dataSnapshot.child("Teacher").getChildren()) {
                     Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "in for");
-                    if (data.child("todayTeacher").getValue(Boolean.class) == true) { // 만약 오늘의 지도교사이면
+                    if (data.child("todayTeacher").getValue(Boolean.class)) { // 만약 오늘의 지도교사이면
                         T_num = data.getKey(); // 선생님 전화번호 받아오기
                         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", T_num);
                         T_name = data.child("name").getValue(String.class); // 선생님 이름 받아오기
                         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", T_name);
                         T_img = data.child("imgPath").getValue().toString();
                         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", T_img);
-
-                        intent.putExtra("T_name", T_name);
-                        intent.putExtra("T_num", T_num);
-                        intent.putExtra("T_img", T_img);
-
-//                        DialogueTeach.infoSetting(T_img, T_name, T_num);
+                        T_class=data.child("tClass").getValue(String.class);
 
                     }
 
@@ -133,7 +127,7 @@ public class P_main extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), "C클릭", Toast.LENGTH_SHORT).show();
 
-                C_DR.addValueEventListener(new ValueEventListener() {
+                C_DR.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "in c_dc");
@@ -191,7 +185,8 @@ public class P_main extends AppCompatActivity {
         pViewTeach.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                P_alert(FD);
+                Log.v("Teacherinfo","click"+T_name+T_num+T_img);
+                P_alert();
             }
         });
       }
@@ -238,72 +233,31 @@ public class P_main extends AppCompatActivity {
 //        return check;
     }
 
-    private void P_alert(FirebaseDatabase FD)
+    private void P_alert()
     {
-        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "intent");
-        startActivityForResult(intent, 1);
-/*        final DatabaseReference T_DR = FD.getReference("Kindergarten");
-        // kindergarten 밑에 있는 데이터로 접근
+        final Dialog dialog=new Dialog(this);
+        dialog.setContentView(R.layout.layout_dial_teach);
+        dialog.setTitle("Today Teacher");
 
-//        View view = (View) getLayoutInflater().inflate(R.layout.layout_dialogue_teach, null);
+        Log.v("Teacherinfo","indialog"+T_name+T_num+T_img);
 
-//        LayoutInflater factory = LayoutInflater.from(P_main.this);
-//        final View view = factory.inflate(R.layout.layout_dialogue_teach, null);
-//        final ImageView iv = (ImageView)findViewById(R.id.T_img);
+        TextView textView=(TextView)dialog.findViewById(R.id.T_name);
+        textView.setText(T_name);
 
-        T_DR.child(kindNum).addValueEventListener(new ValueEventListener() { // 오늘의 지도교사 탐색 --> 어떻게 하징,,ㅠ 분별방법 아직 xxxx
+        TextView  textView1=(TextView)dialog.findViewById(R.id.T_num);
+        textView1.setText(T_num);
+
+        ImageView imageView=(ImageView)dialog.findViewById(R.id.T_img);
+        Glide.with(getApplicationContext()).load(T_img).into(imageView);
+
+        Button btn=(Button)dialog.findViewById(R.id.close_btn);
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot data:dataSnapshot.child("Teacher").getChildren()) { // 다음 탐색 -> 인데 티쳐가 없어서 아무것도 못받음..
-                    Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "in dc");
-                    if (data.child("todayTeacher").getValue(Boolean.class) == true) { // 만약 오늘의 지도교사이면
-                        T_num = data.getKey(); // 선생님 전화번호 받아오기
-                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", T_num);
-                        T_name = data.child("name").getValue(String.class); // 선생님 이름 받아오기
-                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", T_name);
-                        T_img = data.child("imgPath").getValue(String.class);
-                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", T_img);
-                        DialogueTeach.infoSetting(T_img, T_name, T_num);
-                        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "after info_setting");
-
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+            public void onClick(View view) {
+                dialog.dismiss();
             }
         });
-
-        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "데이터 모두 받아옴");
-//        iv.setImageURI(Uri.parse(T_img));
-//        DialogueTeach.T_info(kindNum);
-        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "T_info");
-//        DialogueTeach.infoSetting();
-
-        new AlertDialog.Builder(this)
-                // 색상을 타이틀에 세팅한다.
-                .setTitle("Today's Teacher")
-                // 레이아웃을 세팅한다.
-                .setView(R.layout.layout_dialogue_teach)
-                // 설명을 메시지 부분에 세팅한다.
-//                .setMessage("이름 : " + T_name +"\n전화번호 : "+ T_num)
-                // 취소를 못하도록 막는다.
-                .setCancelable(true)
-                // 확인 버튼을 만든다.
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
-                {
-//                    /* (non-Javadoc)
-  //                   * @see android.content.DialogInterface.OnClickListener#onClick(android.content.DialogInterface, int)
-    //
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        dialog.dismiss();
-                    }
-                })
-                .show(); */
-//        return check;
+        dialog.show();
     }
 
 
