@@ -30,6 +30,8 @@ public class T_main_QRScan extends AppCompatActivity {
 
     private IntentIntegrator qrScan;
 
+    Intent intent;
+
     String telNum;
     AdapterQR Adapter;
     ListView qr;
@@ -41,6 +43,8 @@ public class T_main_QRScan extends AppCompatActivity {
     String Scanresult = "0";
     DatabaseReference DR;
     FirebaseDatabase FD;
+
+    int rt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,8 @@ public class T_main_QRScan extends AppCompatActivity {
         telNum = data.getString("telnum","0");
 
         Intent intent = getIntent();
+        rt = intent.getIntExtra("rt", 0); // defaultValue는 0으로 세팅 (유치원에 있음)
+        Log.v("ㄴㄴㄴㄴㄴㄴ", "rt값 : " + rt);
         station = intent.getStringExtra("station");
 
         FD = FirebaseDatabase.getInstance();

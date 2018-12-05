@@ -35,7 +35,7 @@ public class SplashActivity extends Activity {
             finish();
             Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "p");
         }else if(checked==3){//사용자가 사전에 '교사' 자격으로 로그인 한 경우
-            startActivity(new Intent(this,T_main.class));
+            startActivity(new Intent(this,AskingTaking.class));
             finish();
             Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "t");
         }else {//그 외의 경우
