@@ -34,23 +34,6 @@
                 android:textSize="20sp"/>
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingLeft="50dp">
-
-            <Button
-                android:id="@+id/hTodayTeach"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_gravity="center"
-                android:text="TT"
-                android:background="@color/TextBackground"/>
-
-        </LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout
