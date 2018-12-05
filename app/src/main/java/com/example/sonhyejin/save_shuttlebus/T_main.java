@@ -56,7 +56,7 @@ public class T_main extends AppCompatActivity {
                     String nam = temp.substring(idx+1);
                     Log.v("bus"," "+nam);
 
-                    Adapter.addItem(ContextCompat.getDrawable(T_main.this,R.drawable.busstop),nam);
+                    Adapter.addItem(ContextCompat.getDrawable(T_main.this,R.drawable.bus),ContextCompat.getDrawable(T_main.this,R.drawable.busstop),nam);
                 }
                 route.setAdapter(Adapter);
 
@@ -65,8 +65,10 @@ public class T_main extends AppCompatActivity {
                     public void onItemClick(AdapterView parent, View view, int position, long id) {
                         ListViewRoute item = (ListViewRoute) parent.getItemAtPosition(position);
                         stationName = item.getstname();
+
                         String stStr = item.getstname();
-                        Drawable img = item.getimg();
+                        Drawable stimg = item.getstimg();
+                        Drawable busimg = item.getbusimg();
 
                         Intent intent = new Intent(getApplicationContext(), T_main_QRScan.class);
 

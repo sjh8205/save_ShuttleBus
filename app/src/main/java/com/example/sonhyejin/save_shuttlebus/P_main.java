@@ -62,10 +62,10 @@ public class P_main extends AppCompatActivity {
 
         AdapterRoute Adapter = new AdapterRoute();
 
-        Adapter.addItem(ContextCompat.getDrawable(this,R.drawable.busstop),"안양1단지");
-        Adapter.addItem(ContextCompat.getDrawable(this,R.drawable.busstop),"안양2단지");
-        Adapter.addItem(ContextCompat.getDrawable(this,R.drawable.busstop),"안양3단지");
-        Adapter.addItem(ContextCompat.getDrawable(this,R.drawable.busstop),"안양4단지");
+        Adapter.addItem(ContextCompat.getDrawable(this,R.drawable.bus),ContextCompat.getDrawable(this,R.drawable.busstop),"안양1단지");
+        Adapter.addItem(ContextCompat.getDrawable(this,R.drawable.bus),ContextCompat.getDrawable(this,R.drawable.busstop),"안양2단지");
+        Adapter.addItem(ContextCompat.getDrawable(this,R.drawable.bus),ContextCompat.getDrawable(this,R.drawable.busstop),"안양3단지");
+        Adapter.addItem(ContextCompat.getDrawable(this,R.drawable.bus),ContextCompat.getDrawable(this,R.drawable.busstop),"안양4단지");
 
         route.setAdapter(Adapter);
 
@@ -75,7 +75,8 @@ public class P_main extends AppCompatActivity {
                 ListViewRoute item = (ListViewRoute) parent.getItemAtPosition(position);
 
                 String stStr = item.getstname();
-                Drawable img = item.getimg();
+                Drawable stimg = item.getstimg();
+                Drawable busimg = item.getbusimg();
                 Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "리스트뷰 추가 완료");
             }
         });
