@@ -9,12 +9,12 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:hardwareAccelerated="true">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
@@ -29,20 +29,19 @@
         <activity android:name=".H_Main" />
         <activity android:name=".H_Main_View" />
         <activity android:name=".H_Main_Register" />
-        <activity android:name=".Login">
-
-    </activity>
+        <activity android:name=".Login" />
         <activity android:name=".T_main_QRScan" />
         <activity android:name=".H_Main_Register_bus" />
         <activity android:name=".H_Join" />
         <activity android:name=".H_Main_Register_child" />
         <activity android:name=".H_Wait" />
         <activity android:name=".H_Main_Register_Teacher" />
-        <activity android:name=".H_Main_View_bus">
-        </activity>
+        <activity android:name=".H_Main_View_bus" />
         <activity android:name=".H_Main_View_child" />
-        <activity android:name=".H_Main_View_Teacher"/>
-        <activity android:name=".T_main_Totalchild"></activity>
+        <activity android:name=".H_Main_View_Teacher" />
+        <activity android:name=".T_main_Totalchild" />
+        <activity android:name=".DialogueTeach" />
+        <activity android:name=".DialTeach"></activity>
     </application>
 
 </manifest>
