@@ -52,11 +52,11 @@ public class H_Main_Register_bus extends AppCompatActivity {
                     //빈칸이 있음
                     Toast.makeText(getApplicationContext(),"There is a blank space",Toast.LENGTH_SHORT).show();
                 }else{
-                    databaseReference.addValueEventListener(new ValueEventListener() {
+                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for(DataSnapshot data:dataSnapshot.getChildren()){
-                                String temp=data.getKey();
+                                String temp= data.getKey();
                                 Log.v("regBus",temp);
                                 int idx=temp.indexOf(" ");
                                 String num = temp.substring(0,idx);
