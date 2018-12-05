@@ -1,5 +1,6 @@
 package com.example.sonhyejin.save_shuttlebus;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -134,8 +135,13 @@ public class H_Main_Register_child extends AppCompatActivity {
             }
         };
 
-        checkAppPermission(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE});
+        int permission =ContextCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.WRITE_EXTERNAL_STORAGE);
         checkAppPermission(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE});
+        if(permission==PackageManager.PERMISSION_DENIED){
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+        }else{
+            Log.v("busS","StorageP");
+        }
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -145,7 +151,7 @@ public class H_Main_Register_child extends AppCompatActivity {
                 BusStation=busStation.getText().toString();
                 DatabaseReference df=FirebaseDatabase.getInstance().getReference("Kindergarten")
                         .child(kindergarten);
-                df.addValueEventListener(new ValueEventListener() {
+                df.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         int check = 0;
@@ -163,12 +169,12 @@ public class H_Main_Register_child extends AppCompatActivity {
                         }
                         Log.v("classCheck","*"+ChildClass);
                         for(DataSnapshot data1:dataSnapshot.child("Teacher").getChildren()){
-                             String temp= (String) data1.child("tClass").getValue();
-                             Log.v("classCheck","*"+temp);
-                             if(ChildClass.equals(temp)){
-                                 ccheck++;
-                                 Log.v("classCheck","*"+ccheck);
-                             }
+                            String temp= (String) data1.child("tClass").getValue();
+                            Log.v("classCheck","*"+temp);
+                            if(ChildClass.equals(temp)){
+                                ccheck++;
+                                Log.v("classCheck","*"+ccheck);
+                            }
                         }
                         if(check!=0&&ccheck!=0){
                             String qrString= PhoneNum;
@@ -180,7 +186,7 @@ public class H_Main_Register_child extends AppCompatActivity {
                             qr.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
                             //qr 코드 사이즈 형식 지정
                             Log.v("qr","qrTobyte");
-                            String str=saveImage(qr);
+                            String str=saveImage(qr,qrString);
                             //qr코드 기기에 저장해서 상대경로 가져오기
                             qr.recycle();
                             File file =new File(str);
@@ -219,8 +225,28 @@ public class H_Main_Register_child extends AppCompatActivity {
             }
         });
 
-    }
 
+    }
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 1:
+                for (int i = 0; i < permissions.length; i++) {
+                    String permission = permissions[i];
+                    int grantResult = grantResults[i];
+                    if (permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                        if(grantResult == PackageManager.PERMISSION_GRANTED) {
+                            Log.v("permissionPN","external permission authorized");
+                        } else {
+                            Log.v("permissionPN","camera permission denied");
+                        }
+                    }
+                }
+                break;
+
+
+        }
+    }
     boolean checkAppPermission(String[] requestPermission){
         boolean[] requestResult= new boolean[requestPermission.length];
         for(int i=0; i< requestResult.length; i++){
@@ -264,7 +290,7 @@ public class H_Main_Register_child extends AppCompatActivity {
         }
         return bmp;
     }
-    public String saveImage(Bitmap myBitmap) {
+    public String saveImage(Bitmap myBitmap,String phoneNum) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
         File wallpaperDirectory = new File(
@@ -275,8 +301,7 @@ public class H_Main_Register_child extends AppCompatActivity {
         }
 
         try {
-            File f = new File(wallpaperDirectory, Calendar.getInstance()
-                    .getTimeInMillis() + ".jpg");
+            File f = new File(wallpaperDirectory, phoneNum + ".jpg");
             f.createNewFile();
             FileOutputStream fo = new FileOutputStream(f);
             fo.write(bytes.toByteArray());
