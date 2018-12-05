@@ -47,6 +47,10 @@ public class P_main extends AppCompatActivity {
     String phone;
 
     Intent intent;
+
+    ListView route;
+    AdapterRoute Adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "in p");
@@ -60,7 +64,7 @@ public class P_main extends AppCompatActivity {
         phone = P_data.getString("mynum", "0");
         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", phone);
 
-        ListView route = (ListView)findViewById(R.id.pBusList);
+        route = (ListView)findViewById(R.id.pBusList);
 
         final FirebaseDatabase FD = FirebaseDatabase.getInstance();
 
