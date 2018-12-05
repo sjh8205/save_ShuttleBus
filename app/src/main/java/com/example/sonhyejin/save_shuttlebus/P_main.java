@@ -43,6 +43,8 @@ public class P_main extends AppCompatActivity {
     String kindNum;
     String phone;
 
+    Intent intent;
+
     DialTeach DialogueTeach = new DialTeach();
 
     @Override
@@ -61,11 +63,12 @@ public class P_main extends AppCompatActivity {
         ListView route = (ListView)findViewById(R.id.pBusList);
 
         final FirebaseDatabase FD = FirebaseDatabase.getInstance();
+        intent = new Intent(getApplicationContext(), DialTeach.class);
 
         final DatabaseReference T_DR = FD.getReference("Kindergarten");
         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "DR");
 
-/*        T_DR.child(kindNum).addValueEventListener(new ValueEventListener() {
+        T_DR.child(kindNum).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot data:dataSnapshot.child("Teacher").getChildren()) {
@@ -75,9 +78,14 @@ public class P_main extends AppCompatActivity {
                         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", T_num);
                         T_name = data.child("name").getValue(String.class); // 선생님 이름 받아오기
                         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", T_name);
-                        T_img = data.child("imgPath").getValue(String.class);
+                        T_img = data.child("imgPath").getValue().toString();
                         Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", T_img);
-                        DialogueTeach.infoSetting(T_img, T_name, T_num);
+
+                        intent.putExtra("T_name", T_name);
+                        intent.putExtra("T_num", T_num);
+                        intent.putExtra("T_img", T_img);
+
+//                        DialogueTeach.infoSetting(T_img, T_name, T_num);
 
                     }
 
@@ -90,7 +98,7 @@ public class P_main extends AppCompatActivity {
             }
         });
 
-*/
+
         AdapterRoute Adapter = new AdapterRoute();
 
         Adapter.addItem(ContextCompat.getDrawable(this,R.drawable.bus),ContextCompat.getDrawable(this,R.drawable.busstop),"안양1단지");
@@ -232,7 +240,9 @@ public class P_main extends AppCompatActivity {
 
     private void P_alert(FirebaseDatabase FD)
     {
-        final DatabaseReference T_DR = FD.getReference("Kindergarten");
+        Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "intent");
+        startActivityForResult(intent, 1);
+/*        final DatabaseReference T_DR = FD.getReference("Kindergarten");
         // kindergarten 밑에 있는 데이터로 접근
 
 //        View view = (View) getLayoutInflater().inflate(R.layout.layout_dialogue_teach, null);
@@ -284,15 +294,15 @@ public class P_main extends AppCompatActivity {
                 // 확인 버튼을 만든다.
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener()
                 {
-                    /* (non-Javadoc)
-                     * @see android.content.DialogInterface.OnClickListener#onClick(android.content.DialogInterface, int)
-                     */
+//                    /* (non-Javadoc)
+  //                   * @see android.content.DialogInterface.OnClickListener#onClick(android.content.DialogInterface, int)
+    //
                     public void onClick(DialogInterface dialog, int which)
                     {
                         dialog.dismiss();
                     }
                 })
-                .show();
+                .show(); */
 //        return check;
     }
 
