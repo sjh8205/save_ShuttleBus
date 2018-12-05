@@ -33,6 +33,8 @@ public class T_main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_t_main);
 
+        Log.v("ㄴㄴㄴㄴㄴㄴ", "T_main임다-.-");
+
         route = (ListView)findViewById(R.id.tBusList);
         Button seeTotal = (Button)findViewById(R.id.tViewTotal) ;
 
@@ -71,7 +73,12 @@ public class T_main extends AppCompatActivity {
                         Drawable busimg = item.getbusimg();
 
                         Intent intent = new Intent(getApplicationContext(), T_main_QRScan.class);
+                        Intent intent2 = getIntent();
 
+                        int rt = intent2.getIntExtra("rt",0); // 전 액티비티(다이얼로그)에서 값 받아옴
+                        Log.v("ㄴㄴㄴㄴㄴㄴ", "rt값 : " + rt);
+
+                        intent.putExtra("rt", rt);
                         intent.putExtra("station", stationName);
 
                         startActivity(intent);

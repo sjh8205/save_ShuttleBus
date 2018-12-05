@@ -40,8 +40,10 @@
         <activity android:name=".H_Main_View_child" />
         <activity android:name=".H_Main_View_Teacher" />
         <activity android:name=".T_main_Totalchild" />
-        <activity android:name=".DialogueTeach" />
-        <activity android:name=".DialTeach"
+        <activity
+            android:name=".DialTeach"
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity android:name=".AskingTaking"
             android:theme="@style/Theme.AppCompat.Dialog"></activity>
     </application>
 

@@ -210,7 +210,7 @@ public class Login extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(),"Not accepted!",
                                                 Toast.LENGTH_SHORT).show();
                                     }else{
-                                        Intent intent2=new Intent(getApplicationContext(),T_main.class);
+                                        Intent intent2=new Intent(getApplicationContext(),AskingTaking.class);
                                         intent2.putExtra("phone",autonum);
                                         intent2.putExtra("telNum",telNum);
                                         Toast.makeText(getApplicationContext(), "록ㄱㄱ", Toast.LENGTH_SHORT).show();
