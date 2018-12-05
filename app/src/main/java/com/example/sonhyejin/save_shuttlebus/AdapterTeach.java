@@ -43,7 +43,7 @@ public class AdapterTeach extends BaseAdapter {
 
         nameView.setText(listViewItem.gettName());
         classView.setText(listViewItem.gettClass());
-        numView.setText(listViewItem.gettNum());
+        numView.setText(String.valueOf(listViewItem.gettNum()));
         Glide.with(context).load(listViewItem.getimg()).into(imgView);
 
         return convertView;

@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +32,7 @@ public class H_Main_View_Teacher extends AppCompatActivity {
     String telNum;
     ListView people;
     AdapterTeach adapter;
+    boolean check=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,20 +46,21 @@ public class H_Main_View_Teacher extends AppCompatActivity {
         telNum = data.getString("telnum","0");
 
         FirebaseDatabase FD = FirebaseDatabase.getInstance();
-        DatabaseReference DR = FD.getReference("Kindergarten");
+        final DatabaseReference DR = FD.getReference("Kindergarten");
 
         Log.v("telNum from SP",telNum);
 
-        DR.child(telNum).addValueEventListener(new ValueEventListener() {
+
+        DR.child(telNum).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(final DataSnapshot dataSnapshot) {
 
                 Log.v("before for","a");
                 int i = 0;
                 for(DataSnapshot data: dataSnapshot.child("Teacher").getChildren()){
                     String nam = data.child("name").getValue(String.class);
                     String cla = data.child("tClass").getValue(String.class);
-                    String num = data.child("phone").getValue(String.class);
+                    String num = data.child("phone").getValue().toString();
                     String pic=data.child("imgPath").getValue().toString();
 
                     Log.v("i","name");
@@ -78,69 +81,31 @@ public class H_Main_View_Teacher extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView parent, View view, int position, long id) {
                         ListViewTeach teacher=(ListViewTeach) adapter.getItem(position);
-                        final String tempP=teacher.gettNum();
-                        Log.v("listClick","*"+teacher.gettNum());
-                        boolean al=alert(tempP,telNum);
-                        final DatabaseReference dr=FirebaseDatabase.getInstance()
-                                .getReference("Kindergarten").child(telNum).child("teacher");
-                        if(al){
-                            dr.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    for(DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
-                                        String phone=dataSnapshot1.getKey();
-                                        Log.v("phoneC",phone);
-                                        if(!tempP.equals(phone)){
-                                            Map<String,Object> taskMap=new HashMap<String, Object>();
-                                            taskMap.put("todayTeacher",false);
-                                            dr.child(phone).updateChildren(taskMap);
-                                        }
-                                    }
-                                    Toast.makeText(getApplicationContext(),"changeTT",Toast.LENGTH_SHORT).show();
-                                }
+                        final String tempP=String.valueOf(teacher.gettNum());
+                        //Log.v("listClick","*"+teacher.gettNum());
+                        alert(tempP,telNum);
+                        Log.v("listClick","1.(f)"+check);
 
 
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
-                        }
-
+                        Log.v("listClick","finish(itemClick)");
                     }
+
                 });
 
-                Log.v("print", "affor");
 
+               // Log.v("print", "affor");
+
+                Log.v("listClick","onDataChange(itemClick)");
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
 
-/*
-
-        adapter.addItem(ContextCompat.getDrawable(this,R.drawable.busstop),"꽃","0101","00");
-        adapter.addItem(ContextCompat.getDrawable(this,R.drawable.busstop),"매","0101","00");
-        adapter.addItem(ContextCompat.getDrawable(this,R.drawable.busstop),"장","0101","00");
-
-        people.setAdapter(adapter);
-
-        people.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ListViewTeach item = (ListViewTeach) parent.getItemAtPosition(position);
-
-                Drawable img = item.getimg();
-                String nameStr = item.gettName();
-                String classStr = item.gettClass();
-                String numStr = item.gettNum();
-            }
-        });*/
     }
-    private boolean alert(final String phone, final String telNum)
+    private void alert(final String phone, final String telNum)
     {
-        boolean check=false;
+
         // 체인형으로 메소드를 사용한다.
         new AlertDialog.Builder(this)
                 // 색상을 타이틀에 세팅한다.
@@ -157,16 +122,40 @@ public class H_Main_View_Teacher extends AppCompatActivity {
                      */
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        boolean check=false;
-                        DatabaseReference dr=FirebaseDatabase.getInstance().getReference("Kindergarten");
-                        Map<String,Object> taskMap=new HashMap<String, Object>();
-                        taskMap.put("todayTeacher",true);
-                        dr.child(telNum).child("Teacher").child(phone).updateChildren(taskMap);
                         check=true;
+                        final DatabaseReference df=FirebaseDatabase.getInstance().getReference("Kindergarten").child(telNum).child("Teacher");
+                        df.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for(DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
+                                String phonet=dataSnapshot1.getKey().toString();
+                                //String sphone
+                                    Log.v("todayteacher",phonet);
+                                    Log.v("phoneC",phonet);
+                                    if(!phone.equals(phonet)){
+                                        Map<String,Object> taskMap=new HashMap<String, Object>();
+                                        taskMap.put("todayTeacher",false);
+                                        df.child(phonet).updateChildren(taskMap);
+                                        Log.v("todayteacher",phonet+"false");
+                                        }else{
+                                    Map<String,Object> taskMap=new HashMap<String, Object>();
+                                    taskMap.put("todayTeacher",true);
+                                    df.child(phonet).updateChildren(taskMap);
+                                    Log.v("todayteacher",phonet+"true");
+                                }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        check=true;
+                        Log.v("listClick","2.(true)"+check);
                         dialog.dismiss();
                     }
                 })
                 .show();
-        return check;
     }
 }
