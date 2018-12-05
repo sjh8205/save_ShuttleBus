@@ -47,7 +47,7 @@ public class T_main_Totalchild extends AppCompatActivity {
 
         Log.v("C", "c");
 
-        DR.child(telNum).addValueEventListener(new ValueEventListener() {
+        DR.child(telNum).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 

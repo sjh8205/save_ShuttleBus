@@ -37,7 +37,7 @@ public class H_Main_View_bus extends AppCompatActivity {
         FirebaseDatabase FD = FirebaseDatabase.getInstance();
         DatabaseReference DR = FD.getReference("Kindergarten");
 
-        DR.child(telNum).addValueEventListener(new ValueEventListener() {
+        DR.child(telNum).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot data: dataSnapshot.child("bus").getChildren()){
