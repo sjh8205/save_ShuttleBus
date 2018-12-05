@@ -21,12 +21,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class T_main extends AppCompatActivity {
 
     String telNum;
     ListView route;
     AdapterRoute Adapter;
     String stationName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +47,19 @@ public class T_main extends AppCompatActivity {
         SharedPreferences data = getSharedPreferences("mydata", Context.MODE_PRIVATE);
         telNum = data.getString("telnum","0");
 
+        Log.v("telnum",telNum);
+
         FirebaseDatabase FD = FirebaseDatabase.getInstance();
         DatabaseReference DR = FD.getReference("Kindergarten");
 
-        DR.child(telNum).addValueEventListener(new ValueEventListener() {
+
+        DR.child(telNum).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot data: dataSnapshot.child("bus").getChildren()){
                     String temp=data.getKey();
+                    Boolean station = data.child("busishere").getValue(Boolean.class);
+
                     Log.v("telNumb",temp);
                     int idx=temp.indexOf(" ");
                     String num = temp.substring(0,idx);
@@ -58,7 +67,13 @@ public class T_main extends AppCompatActivity {
                     String nam = temp.substring(idx+1);
                     Log.v("bus"," "+nam);
 
-                    Adapter.addItem(ContextCompat.getDrawable(T_main.this,R.drawable.bus),ContextCompat.getDrawable(T_main.this,R.drawable.busstop),nam);
+                    if(station == true){
+                        Adapter.addItem(ContextCompat.getDrawable(T_main.this,R.drawable.bus),ContextCompat.getDrawable(T_main.this,R.drawable.busstop),nam);
+                    }else{
+                        Adapter.addItem(ContextCompat.getDrawable(T_main.this,R.drawable.blank),ContextCompat.getDrawable(T_main.this,R.drawable.busstop),nam);
+                    }
+
+
                 }
                 route.setAdapter(Adapter);
 

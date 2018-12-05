@@ -71,7 +71,7 @@ public class T_main_QRScan extends AppCompatActivity {
 
         Log.v("telNUM is", telNum);
 
-        DR.child(telNum).addValueEventListener(new ValueEventListener() {
+        DR.child(telNum).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) { // 스캔하고 돌아올 때마다 계속 검사할 것
                 Log.v("before for", "A");
@@ -178,7 +178,7 @@ public class T_main_QRScan extends AppCompatActivity {
             Scanresult = result.getContents().toString();
             Toast.makeText(this, "Scanned: " + Scanresult, Toast.LENGTH_LONG).show();
 
-            DR.child(telNum).addValueEventListener(new ValueEventListener() {
+            DR.child(telNum).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) { // 스캔하고 돌아올 때마다 계속 검사할 것
                     Log.v("before for", "A");
@@ -190,6 +190,9 @@ public class T_main_QRScan extends AppCompatActivity {
                         Log.v("QR scan success", num);
 
                         if(num.equals(Scanresult)){
+
+                            taskMap.put("busishere",true);
+                            DR.child(telNum).child("bus").child(station).updateChildren(taskMap);
 
                             if(busState == 2){
                                 taskMap.put("childOnBus",3);

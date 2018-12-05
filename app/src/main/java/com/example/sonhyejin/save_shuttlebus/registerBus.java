@@ -5,14 +5,16 @@ public class registerBus {
     private String Station;
     private String time;
     private boolean allCheck;
+    private boolean busishere;
 
     public registerBus(){}
 
-    public registerBus(String Station, String time,boolean allCheck){
+    public registerBus(String Station, String time,boolean allCheck,boolean busishere){
         //this.Routine=Routine;
         this.Station=Station;
         this.time=time;
         this.allCheck=allCheck;
+        this.busishere=busishere;
     }
 
     public boolean isAllCheck() {
@@ -22,6 +24,10 @@ public class registerBus {
     public void setAllCheck(boolean allCheck) {
         this.allCheck = allCheck;
     }
+
+    public boolean isBusishere(){return busishere;}
+
+    public void SetBusishere(boolean busishere){ this.busishere = busishere;}
 
     public String getTime() {
         return time;

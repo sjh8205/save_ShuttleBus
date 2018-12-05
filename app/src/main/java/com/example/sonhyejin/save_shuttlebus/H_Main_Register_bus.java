@@ -65,7 +65,7 @@ public class H_Main_Register_bus extends AppCompatActivity {
                                 }
                             }
                             if(indexCheck==0){
-                                registerBus regB=new registerBus(Station,Time,false);
+                                registerBus regB=new registerBus(Station,Time,false,false);
                                 String str=Time+" "+Station;
                                 databaseReference.child(str).setValue(regB);
                                 Intent intent1=new Intent(getApplicationContext(),H_Main_Register.class);
