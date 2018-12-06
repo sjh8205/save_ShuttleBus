@@ -93,20 +93,25 @@ public class T_main_QRScan extends AppCompatActivity {
                                 break;
 
                             case 2: // 승차
-                                Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imhere));
-  //                              Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "승차중이에요");
-                                attendance = false; // 하차 안 한 아이가 한 명이라도 있다면 attendance가 완료되지 않은 것 -> 버튼 계속 비활성화
+                                if(rt == 2)
+                                    Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imhere));
+                                else {
+                                    Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imnothere));
+                                    attendance = false; // 하차 안 한 아이가 한 명이라도 있다면 attendance가 완료되지 않은 것 -> 버튼 계속 비활성화
+                                }
  //                               Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", String.valueOf(attendance));
                                 break;
 
                             case 3: // 하차
-  //                              Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "하차함요");
-                                Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imnothere));
-  //                              Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", String.valueOf(attendance));
+                                if(rt == 3)
+                                    Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imhere));
+                                else {
+                                    Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imnothere));
+                                    attendance = false; // 하차 안 한 아이가 한 명이라도 있다면 attendance가 완료되지 않은 것 -> 버튼 계속 비활성화
+                                }
                                 break;
 
                         }
-
                     }
                 }
 // 모든 아이들이 하차 상태일 때 submit 버튼 활성화
@@ -185,7 +190,7 @@ public class T_main_QRScan extends AppCompatActivity {
                     Log.v("before for", "A");
                     for(DataSnapshot data: dataSnapshot.child("child").getChildren()){
 
-                        String num = data.child("childPhoneNum").getValue(String.class);
+                        String num = data.child("childPhoneNum").getValue().toString();
                         int busState = data.child("childOnBus").getValue(Integer.class);
 
                         Log.v("QR scan success", num);
@@ -194,6 +199,11 @@ public class T_main_QRScan extends AppCompatActivity {
 
                             atleast = true; //적어도 한명이라도 찍었다!
 
+/*                            taskMap.put("childOnBus", rt); // 승차, 하차에 따라 저장 값 바뀜
+                            DR.child(telNum).child("child").child(num).updateChildren(taskMap);
+
+                            Log.v("ㄴㄴㄴㄴㄴㄴ", "rt값 : " + rt);
+*/
                             if(busState == 2){
                                 taskMap.put("childOnBus",3);
                                 DR.child(telNum).child("child").child(num).updateChildren(taskMap);

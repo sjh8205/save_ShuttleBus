@@ -76,6 +76,7 @@ public class T_main extends AppCompatActivity {
 
                 }
                 route.setAdapter(Adapter);
+                Log.v("ㄴㄴㄴㄴㄴㄴ", "어뎁터");
 
                 route.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
