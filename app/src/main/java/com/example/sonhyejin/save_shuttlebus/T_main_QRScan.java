@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,7 +30,7 @@ import java.util.Map;
 public class T_main_QRScan extends AppCompatActivity {
 
     private IntentIntegrator qrScan;
-
+    private SwipeRefreshLayout swipeRefreshLayout;
     Intent intent;
 
     String telNum;
@@ -57,7 +58,7 @@ public class T_main_QRScan extends AppCompatActivity {
         scanner = (Button) findViewById(R.id.tQrScan);
         submit = (Button) findViewById(R.id.tCompleteScan);
 
-        Adapter = new AdapterQR();
+
 
         data = getSharedPreferences("mydata", Context.MODE_PRIVATE);
         //SharedPreferences.Editor editdata = data.edit();
@@ -74,53 +75,58 @@ public class T_main_QRScan extends AppCompatActivity {
 
         Log.v("telNUM is", telNum);
 
-        DR.child(telNum).addListenerForSingleValueEvent(new ValueEventListener() {
+        swipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.swipe_layout);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) { // 스캔하고 돌아올 때마다 계속 검사할 것
-                Log.v("before for", "A");
-                for(DataSnapshot data: dataSnapshot.child("child").getChildren()){
-                    String str = data.child("childName").getValue(String.class);
-                        String cla = data.child("childClass").getValue(String.class);
-                        Log.v("name is", str);
-                        Log.v("class is", cla);
-                        String com = data.child("childBusStation").getValue(String.class);
-                        int status = data.child("childOnBus").getValue(Integer.class);
-                        Log.v("busstation is", com);
-                        if(com.equals(station)){
+            public void onRefresh() {
+                Adapter = new AdapterQR();
+                DR.child(telNum).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) { // 스캔하고 돌아올 때마다 계속 검사할 것
+                        Log.v("before for", "A");
+                        for(DataSnapshot data: dataSnapshot.child("child").getChildren()){
+                            String str = data.child("childName").getValue(String.class);
+                            String cla = data.child("childClass").getValue(String.class);
+                            Log.v("name is", str);
+                            Log.v("class is", cla);
+                            String com = data.child("childBusStation").getValue(String.class);
+                            int status = data.child("childOnBus").getValue(Integer.class);
+                            Log.v("busstation is", com);
+                            if(com.equals(station)){
+                                switch (status){
+                                    case 1: // 결석
 
-                        switch (status){
-                            case 1: // 결석
-    //                            Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "결석했잖아요");
-                                Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.absence));
-                                break;
+                                        Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.absence));
+                                        break;
 
-                            case 2: // 승차
-                                if(rt == 2)
-                                    Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imhere));
-                                else {
-                                    Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imnothere));
-                                    attendance = false; // 하차 안 한 아이가 한 명이라도 있다면 attendance가 완료되지 않은 것 -> 버튼 계속 비활성화
+                                    case 2: // 승차
+                                        if(rt == 2)
+                                            Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imhere));
+                                        else {
+                                            Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imnothere));
+                                            attendance = false; // 하차 안 한 아이가 한 명이라도 있다면 attendance가 완료되지 않은 것 -> 버튼 계속 비활성화
+                                        }
+                                        //                               Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", String.valueOf(attendance));
+                                        break;
+
+                                    case 3: // 하차
+                                        if(rt == 3)
+                                            Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imhere));
+                                        else {
+                                            Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imnothere));
+                                            attendance = false; // 하차 안 한 아이가 한 명이라도 있다면 attendance가 완료되지 않은 것 -> 버튼 계속 비활성화
+                                        }
+                                        break;
+
                                 }
- //                               Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", String.valueOf(attendance));
-                                break;
-
-                            case 3: // 하차
-                                if(rt == 3)
-                                    Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imhere));
-                                else {
-                                    Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.imnothere));
-                                    attendance = false; // 하차 안 한 아이가 한 명이라도 있다면 attendance가 완료되지 않은 것 -> 버튼 계속 비활성화
-                                }
-                                break;
-
+                            }
                         }
-                    }
-                }
 // 모든 아이들이 하차 상태일 때 submit 버튼 활성화
-                if(attendance) {
-                    submit.setEnabled(true); // 됩니당 /(^ㅁ^)/~~~~
-                    Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ","submit셋액티베이테드");
-                }
+                        if(attendance) {
+                            submit.setEnabled(true); // 됩니당 /(^ㅁ^)/~~~~
+                            Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ","submit셋액티베이테드");
+                        }
 
                 /*
                 for(int i=0;i<size;i++){
@@ -128,25 +134,28 @@ public class T_main_QRScan extends AppCompatActivity {
                     Log.v("print", names.get(i));
                 }*/
 
-                qr.setAdapter(Adapter);
+                        qr.setAdapter(Adapter);
 
-                qr.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        qr.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView parent, View view, int position, long id) {
+                                ListViewQR item = (ListViewQR) parent.getItemAtPosition(position);
+
+                                //Adapter.addItem("d", "매화", ContextCompat.getDrawable(T_main_Totalchild.this, R.drawable.imhere));
+
+                                String sName = item.getsName();
+                                String sClass = item.getsClass();
+                                Drawable img = item.getimg();
+                            }
+                        });
+
+                        Log.v("print", "affor");
+                    }
                     @Override
-                    public void onItemClick(AdapterView parent, View view, int position, long id) {
-                        ListViewQR item = (ListViewQR) parent.getItemAtPosition(position);
-
-                        //Adapter.addItem("d", "매화", ContextCompat.getDrawable(T_main_Totalchild.this, R.drawable.imhere));
-
-                        String sName = item.getsName();
-                        String sClass = item.getsClass();
-                        Drawable img = item.getimg();
+                    public void onCancelled(DatabaseError databaseError) {
                     }
                 });
-
-                Log.v("print", "affor");
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 
