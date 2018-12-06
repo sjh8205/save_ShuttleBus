@@ -27,6 +27,8 @@ public class T_main_Totalchild extends AppCompatActivity {
     String telNum;
     AdapterQR Adapter;
     ListView total;
+    Intent intent;
+    int rt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,8 @@ public class T_main_Totalchild extends AppCompatActivity {
         setContentView(R.layout.activity_t_main_totalchild);
 
         total = (ListView) findViewById(R.id.tTotalList);
+        intent = getIntent();
+        rt = intent.getIntExtra("rt", 0);
 
         Adapter = new AdapterQR();
 
@@ -67,11 +71,17 @@ public class T_main_Totalchild extends AppCompatActivity {
                             break;
 
                         case 2:
-                            Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_Totalchild.this, R.drawable.imhere));
+                            if(rt == 2)
+                                Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_Totalchild.this, R.drawable.imhere));
+                            else
+                                Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_Totalchild.this, R.drawable.imnothere));
                             break;
 
                         case 3:
-                            Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_Totalchild.this, R.drawable.imnothere));
+                            if(rt == 3)
+                                Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_Totalchild.this, R.drawable.imhere));
+                            else
+                                Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_Totalchild.this, R.drawable.imnothere));
                             break;
                     }
 
