@@ -17,6 +17,7 @@ public class AskingTaking extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.layer_asking_taking);
 
+        Log.v("ㄴㄴㄴㄴㄴㄴ", "다이얼로그");
 /*        ActionBar ab = getActionBar();
         if(ab.isShowing())
             ab.hide();

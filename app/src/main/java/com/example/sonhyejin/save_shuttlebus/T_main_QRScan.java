@@ -186,6 +186,7 @@ public class T_main_QRScan extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         String str;
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        Log.v("ㄴㄴㄴㄴㄴㄴ", "대체 무슨 일이 일어나고 있나요?");
 
         FD = FirebaseDatabase.getInstance();
         DR = FD.getReference("Kindergarten");
@@ -201,6 +202,7 @@ public class T_main_QRScan extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) { // 스캔하고 돌아올 때마다 계속 검사할 것
                     Log.v("before for", "A");
                     for(DataSnapshot data: dataSnapshot.child("child").getChildren()){
+                        Log.v("ㄴㄴㄴㄴㄴㄴ", "대체 무슨 일이 일어나고 있나요?000");
 
                         String num = data.child("childPhoneNum").getValue().toString();
                         int busState = data.child("childOnBus").getValue(Integer.class);
@@ -208,6 +210,7 @@ public class T_main_QRScan extends AppCompatActivity {
                         Log.v("QR scan success", num);
 
                         if(num.equals(Scanresult)){
+                            Log.v("ㄴㄴㄴㄴㄴㄴ", "대체 무슨 일이 일어나고 있나요?111");
 
                             atleast = true; //적어도 한명이라도 찍었다!
 
@@ -230,6 +233,7 @@ public class T_main_QRScan extends AppCompatActivity {
 
                     if(atleast){ //적어도 한명이라도 찍었다면
                         for(DataSnapshot data2: dataSnapshot.child("bus").getChildren()){ //일단 다른 버스 정류장 busishere 값 다 false로
+                            Log.v("ㄴㄴㄴㄴㄴㄴ", "대체 무슨 일이 일어나고 있나요?222");
 
 //                            String nowstation = data2.child("station").getValue(String.class);
 //                            String nowtime = data2.child("time").getValue(String.class);
@@ -241,6 +245,7 @@ public class T_main_QRScan extends AppCompatActivity {
 
                         }
 
+                        Log.v("ㄴㄴㄴㄴㄴㄴ", "대체 무슨 일이 일어나고 있나요?333");
 
                         taskMap.put("busishere",true); //얘만 true로
                         String temp=stationNum+" "+station;
