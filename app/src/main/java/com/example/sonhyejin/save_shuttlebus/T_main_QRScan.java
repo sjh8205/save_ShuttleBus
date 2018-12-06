@@ -117,7 +117,7 @@ public class T_main_QRScan extends AppCompatActivity {
 // 모든 아이들이 하차 상태일 때 submit 버튼 활성화
                 if(attendance) {
                     submit.setEnabled(true); // 됩니당 /(^ㅁ^)/~~~~
-//                    Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ","submit셋액티베이테드");
+                    Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ","submit셋액티베이테드");
                 }
 
                 /*
@@ -199,19 +199,19 @@ public class T_main_QRScan extends AppCompatActivity {
 
                             atleast = true; //적어도 한명이라도 찍었다!
 
-/*                            taskMap.put("childOnBus", rt); // 승차, 하차에 따라 저장 값 바뀜
+                            taskMap.put("childOnBus", rt); // 승차, 하차에 따라 저장 값 바뀜
                             DR.child(telNum).child("child").child(num).updateChildren(taskMap);
 
                             Log.v("ㄴㄴㄴㄴㄴㄴ", "rt값 : " + rt);
-*/
-                            if(busState == 2){
+
+/*                            if(busState == 2){
                                 taskMap.put("childOnBus",3);
                                 DR.child(telNum).child("child").child(num).updateChildren(taskMap);
                             }else if(busState ==3){
                                 taskMap.put("childOnBus",2);
                                 DR.child(telNum).child("child").child(num).updateChildren(taskMap);
                             }
-
+*/
                         }
 
                     }
