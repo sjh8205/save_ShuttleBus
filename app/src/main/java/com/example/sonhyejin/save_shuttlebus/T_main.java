@@ -102,7 +102,7 @@ public class T_main extends AppCompatActivity {
 
                         intent.putExtra("rt", rt);
                         intent.putExtra("station", stationName);
-                        intent.putExtra("stationNum",Integer.toString(num));
+                        intent.putExtra("stationNum",Integer.toString(num+1));
                         startActivity(intent);
                     }
                 });
