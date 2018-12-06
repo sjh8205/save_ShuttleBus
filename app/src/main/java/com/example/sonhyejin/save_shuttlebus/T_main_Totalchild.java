@@ -63,7 +63,7 @@ public class T_main_Totalchild extends AppCompatActivity {
 
                     switch (status){
                         case 1:
-                            Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_Totalchild.this, R.drawable.busstop));
+                            Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_Totalchild.this, R.drawable.absence));
                             break;
 
                         case 2:

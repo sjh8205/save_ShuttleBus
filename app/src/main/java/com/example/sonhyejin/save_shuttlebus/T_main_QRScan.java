@@ -91,7 +91,7 @@ public class T_main_QRScan extends AppCompatActivity {
                         switch (status){
                             case 1: // 결석
     //                            Log.v("ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ", "결석했잖아요");
-                                Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.busstop));
+                                Adapter.addItem(str, cla, ContextCompat.getDrawable(T_main_QRScan.this, R.drawable.absence));
                                 break;
 
                             case 2: // 승차
@@ -219,14 +219,15 @@ public class T_main_QRScan extends AppCompatActivity {
 
                     }
 
-                    if(atleast==true){ //적어도 한명이라도 찍었다면
-                        for(DataSnapshot data: dataSnapshot.child("bus").getChildren()){ //일단 다른 버스 정류장 busishere 값 다 false로
+                    if(atleast){ //적어도 한명이라도 찍었다면
+                        for(DataSnapshot data2: dataSnapshot.child("bus").getChildren()){ //일단 다른 버스 정류장 busishere 값 다 false로
 
-                            String nowstation = data.child("station").getValue(String.class);
-                            String nowtime = data.child("time").getValue(String.class);
+//                            String nowstation = data2.child("station").getValue(String.class);
+//                            String nowtime = data2.child("time").getValue(String.class);
+                            String temp=data2.getKey();
 
                             taskMap.put("busishere",false);
-                            String temp=nowtime+" "+nowstation;
+//                            String temp=nowtime+" "+nowstation;
                             DR.child(telNum).child("bus").child(temp).updateChildren(taskMap);
 
                         }
