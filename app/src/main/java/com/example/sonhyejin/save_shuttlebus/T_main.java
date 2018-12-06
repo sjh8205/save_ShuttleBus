@@ -74,7 +74,7 @@ public class T_main extends AppCompatActivity {
                     Log.v("bus"," "+nam);
                     busStation.add(nam);
 
-                    if(station == true){
+                    if(station){
                         Adapter.addItem(ContextCompat.getDrawable(T_main.this,R.drawable.bus),ContextCompat.getDrawable(T_main.this,R.drawable.busstop),nam);
                     }else{
                         Adapter.addItem(ContextCompat.getDrawable(T_main.this,R.drawable.blank),ContextCompat.getDrawable(T_main.this,R.drawable.busstop),nam);

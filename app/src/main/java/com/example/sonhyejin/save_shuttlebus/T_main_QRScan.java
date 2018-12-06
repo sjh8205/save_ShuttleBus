@@ -225,7 +225,8 @@ public class T_main_QRScan extends AppCompatActivity {
                             String nowstation = data.child("station").getValue(String.class);
 
                             taskMap.put("busishere",false);
-                            DR.child("bus").child(nowstation).updateChildren(taskMap);
+                            String temp=stationNum+" "+station;
+                            DR.child(telNum).child("bus").child(temp).updateChildren(taskMap);
 
                         }
 
