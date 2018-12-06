@@ -63,6 +63,9 @@ public class T_main extends AppCompatActivity {
                     String temp=data.getKey();
                     Boolean station = data.child("busishere").getValue(Boolean.class);
 
+                    if(station == null)
+                        Log.v("station","null");
+
                     Log.v("telNumb",temp);
                     int idx=temp.indexOf(" ");
                     String num = temp.substring(0,idx);

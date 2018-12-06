@@ -1,10 +1,12 @@
 package com.example.sonhyejin.save_shuttlebus;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 
 public class AskingTaking extends AppCompatActivity {
@@ -12,8 +14,13 @@ public class AskingTaking extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.layer_asking_taking);
 
+/*        ActionBar ab = getActionBar();
+        if(ab.isShowing())
+            ab.hide();
+*/
         final Intent intent = new Intent(getApplicationContext(), T_main.class);
 
         Button rideBtn = (Button) findViewById(R.id.ride_btn); // 승차 버튼
