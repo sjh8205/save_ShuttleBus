@@ -223,9 +223,10 @@ public class T_main_QRScan extends AppCompatActivity {
                         for(DataSnapshot data: dataSnapshot.child("bus").getChildren()){ //일단 다른 버스 정류장 busishere 값 다 false로
 
                             String nowstation = data.child("station").getValue(String.class);
+                            String nowtime = data.child("time").getValue(String.class);
 
                             taskMap.put("busishere",false);
-                            String temp=stationNum+" "+station;
+                            String temp=nowtime+" "+nowstation;
                             DR.child(telNum).child("bus").child(temp).updateChildren(taskMap);
 
                         }
