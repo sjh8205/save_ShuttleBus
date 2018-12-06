@@ -166,6 +166,7 @@ public class T_main_QRScan extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),T_main.class);
+                intent.putExtra("rt", rt);
                 startActivity(intent);
             }
         });
