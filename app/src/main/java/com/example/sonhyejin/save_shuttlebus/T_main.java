@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +31,7 @@ public class T_main extends AppCompatActivity {
     ListView route;
     AdapterRoute Adapter;
     String stationName;
+    ArrayList busStation;
 
 
     @Override
@@ -56,6 +58,7 @@ public class T_main extends AppCompatActivity {
         DR.child(telNum).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                busStation=new ArrayList();
                 for(DataSnapshot data: dataSnapshot.child("bus").getChildren()){
                     String temp=data.getKey();
                     Boolean station = data.child("busishere").getValue(Boolean.class);
@@ -66,6 +69,7 @@ public class T_main extends AppCompatActivity {
                     Log.v("bus"," "+num);
                     String nam = temp.substring(idx+1);
                     Log.v("bus"," "+nam);
+                    busStation.add(nam);
 
                     if(station == true){
                         Adapter.addItem(ContextCompat.getDrawable(T_main.this,R.drawable.bus),ContextCompat.getDrawable(T_main.this,R.drawable.busstop),nam);
@@ -83,6 +87,8 @@ public class T_main extends AppCompatActivity {
                     public void onItemClick(AdapterView parent, View view, int position, long id) {
                         ListViewRoute item = (ListViewRoute) parent.getItemAtPosition(position);
                         stationName = item.getstname();
+                        int num=busStation.indexOf(stationName);
+                        Log.v("busStation",stationName+num);
 
                         String stStr = item.getstname();
                         Drawable stimg = item.getstimg();
@@ -96,7 +102,7 @@ public class T_main extends AppCompatActivity {
 
                         intent.putExtra("rt", rt);
                         intent.putExtra("station", stationName);
-
+                        intent.putExtra("stationNum",Integer.toString(num));
                         startActivity(intent);
                     }
                 });

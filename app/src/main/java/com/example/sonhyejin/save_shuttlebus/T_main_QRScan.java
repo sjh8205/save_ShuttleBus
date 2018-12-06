@@ -43,6 +43,7 @@ public class T_main_QRScan extends AppCompatActivity {
     String Scanresult = "0";
     DatabaseReference DR;
     FirebaseDatabase FD;
+    String stationNum;
     boolean atleast = false;
 
     int rt;
@@ -66,6 +67,7 @@ public class T_main_QRScan extends AppCompatActivity {
         rt = intent.getIntExtra("rt", 0); // defaultValue는 0으로 세팅 (유치원에 있음)
         Log.v("ㄴㄴㄴㄴㄴㄴ", "rt값 : " + rt);
         station = intent.getStringExtra("station");
+        stationNum=intent.getStringExtra("stationNum");
 
         FD = FirebaseDatabase.getInstance();
         DR = FD.getReference("Kindergarten");
@@ -227,7 +229,7 @@ public class T_main_QRScan extends AppCompatActivity {
                         }
 
                         taskMap.put("busishere",true); //얘만 true로
-                        DR.child(telNum).child("bus").child(station).updateChildren(taskMap);
+                        DR.child(telNum).child("bus").child(stationNum+" "+station).updateChildren(taskMap);
                     }
 
                 }
